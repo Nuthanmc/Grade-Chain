@@ -9,10 +9,14 @@ export default function Home() {
       <div className="flex flex-col items-center justify-between">
         <div className="relative w-full">
           <div className="absolute -z-10 w-full">
-            <Image src={backgroundImage} alt="bg" width={"100%"} height={"100%"} />
+            <Image
+              src={backgroundImage}
+              alt="bg"
+              className="logoContainer"
+            />
           </div>
         </div>
-            <Navbar />
+        <Navbar />
       </div>
     </>
   );
