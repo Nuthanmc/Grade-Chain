@@ -4,7 +4,7 @@ import React from "react";
 const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-transparent">
+      <div className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -45,15 +45,15 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <button className="font-bold text-md text-white">
+              <button className="font-bold text-md text-gray-900 dark:text-white">
                 How It Works
               </button>
             </li>
             <li tabIndex={0}>
-              <button className="font-bold text-md text-white">About Us</button>
+              <button className="font-bold text-md text-gray-900 dark:text-white">About Us</button>
             </li>
             <li>
-              <button className="font-bold text-md text-white">
+              <button className="font-bold text-md text-gray-900 dark:text-white">
                 Contact Us
               </button>
             </li>
@@ -63,7 +63,9 @@ const Navbar = () => {
           className="navbar-end"
           onClick={() => (window.location.href = "/login")}
         >
-          <button className="btn btn-primary">Login/Register as Issuer</button>
+          <button className="btn btn-xs sm:btn-sm md:btn-md btn-primary">
+            Login/Register as Issuer
+          </button>
         </div>
       </div>
     </>

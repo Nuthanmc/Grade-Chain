@@ -7,13 +7,13 @@
     position: relative;
     overflow: hidden;
     width: 100vw;
-    height: 100vh;
+    height: 92.5vh;
   }
   
   @media (max-width: 500px) and (orientation: portrait) {
     .logoContainer {
-      width: 79.285px;
-      height: 15.465px;
+      width: 100vw;
+      height: 99vh;
     }
   }
 
