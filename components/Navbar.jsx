@@ -1,7 +1,46 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { MagicTabSelect } from "react-magic-motion";
 
+const pillTabs = ["How It Works", "About Us", "Contact Us"];
 const Navbar = () => {
+  const [selectedIndex, setSelectedIndex] = useState(1);
+  const tabsComponents = pillTabs.map((text, i) => {
+    return (
+      <button
+        key={text}
+        onClick={() => setSelectedIndex(i)}
+        style={{
+          position: "relative",
+          padding: "0.65rem 0.75rem",
+          width: "100%",
+          color: "white",
+        }}
+      >
+        {selectedIndex === i && (
+          <MagicTabSelect
+            id="pillTabs"
+            transition={{ type: "spring", bounce: 0.35 }}
+          >
+            <span
+              style={{
+                borderRadius: "999px",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 10,
+                backgroundColor: "white",
+                mixBlendMode: "difference",
+              }}
+            />
+          </MagicTabSelect>
+        )}
+        {text}
+      </button>
+    );
+  });
   return (
     <>
       <div className="navbar">
@@ -38,12 +77,27 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <button className="btn btn-ghost normal-case text-xl">
-            Certi-Block
-          </button>
+          <MagicTabSelect transition={{ type: "spring", bounce: 0.35 }}>
+            <button
+              style={{
+                borderRadius: "999px",
+                position: "relative",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 10,
+                backgroundColor: "white",
+                mixBlendMode: "difference",
+              }}
+              className="btn text-black  normal-case rounded-full text-xl"
+            >
+              Certi-Block
+            </button>
+          </MagicTabSelect>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+        {/* <div className="navbar-center hidden lg:flex"> */}
+        {/* <ul className="menu menu-horizontal px-1">
             <li>
               <button className="font-bold text-md text-gray-900 dark:text-white">
                 How It Works
@@ -57,7 +111,10 @@ const Navbar = () => {
                 Contact Us
               </button>
             </li>
-          </ul>
+          </ul> */}
+        <div style={{ display: "flex", gap: "0.75rem", margin: "0.75rem 0" }}>
+          {tabsComponents}
+          {/* </div> */}
         </div>
         <div
           className="navbar-end"
