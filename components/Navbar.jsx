@@ -186,7 +186,8 @@ const Navbar = () => {
         whileInView="show"
         className={`${styles.xPaddings} py-8 relative text-black dark:text-white`}
       >
-        <div className="absolute inset-0 gradient-01 overflow-hidden" />
+        <div class="inset-0 absolute blur-[70px] bg-gradient-to-r from-blue-500 via-blue-400 to-pink-500 bg-opacity-50 w-1/2 -z-10" />
+
         <div
           className={`${styles.innerWidth} mx-auto flex items-center justify-between gap-8`}
         >
@@ -248,9 +249,9 @@ const Navbar = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed z-20 left-0 top-0 w-full h-screen origin-top bg-slate-500 text-black p-10"
+            className="fixed z-20 left-0 top-0 w-full h-screen origin-top bg-gradient-to-r from-purple-700 via-teal-400 to-purple-700 text-black p-10"
           >
-            <div className="flex justify-between ">
+            <div className="flex justify-between z-30">
               <h1 className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px] dark:text-white">
                 Certi-Block
               </h1>
