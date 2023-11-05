@@ -1,4 +1,4 @@
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 import styles from "@/styles";
 import { staggerContainer, textVariant } from "@/utils/motion";
 
@@ -14,10 +14,10 @@ const Hero = () => {
             whileInView="show"
             viewport={{ once: false, amount: 0.25 }}
           >
+            <div className="absolute h-[20%] hero-gradient" />
             <div className="flex justify-center items-center flex-col relative z-10">
               <motion.h1
                 variants={textVariant(1.1)}
-                // className={``}
                 className="mb-5 text-5xl dark:text-white text-black font-bold"
               >
                 CERTI-BLOCK
@@ -30,7 +30,6 @@ const Hero = () => {
                 that provides a secure and reliable way to verify the
                 authenticity of certificates.
               </motion.p>
-              {/* Features of Certi-Block */}
               <motion.div
                 variants={textVariant(1.7)}
                 className="flex flex-col lg:flex-row items-center justify-center mt-5"

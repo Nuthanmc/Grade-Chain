@@ -186,7 +186,7 @@ const Navbar = () => {
         whileInView="show"
         className={`${styles.xPaddings} py-8 relative text-black dark:text-white`}
       >
-        <div className="absolute w-[50%] inset-0 gradient-01" />
+        <div className="absolute inset-0 gradient-01 overflow-hidden" />
         <div
           className={`${styles.innerWidth} mx-auto flex items-center justify-between gap-8`}
         >
