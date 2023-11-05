@@ -11,6 +11,7 @@
   "dependencies": {
     "daisyui": "^3.9.3",
     "ethers": "^5.0.17",
+    "framer-motion": "^7.6.7",
     "next": "13.5.6",
     "react": "^18",
     "react-dom": "^18",
