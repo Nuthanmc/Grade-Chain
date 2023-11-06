@@ -15,7 +15,10 @@ const Hero = () => {
             viewport={{ once: false, amount: 0.25 }}
           >
             {/* <div className="absolute h-[20%] hero-gradient" /> */}
-            <div class="absolute h-[20%] blur-[40px] bg-gradient-to-r from-purple-700 via-teal-400 to-purple-700 bg-opacity-50 w-1/2 rounded-xl" />
+            <motion.div
+              variants={textVariant(1.1)}
+              class="absolute h-[20%] blur-[40px] bg-gradient-to-r from-purple-700 via-teal-400 to-purple-700 bg-opacity-50 w-1/2 rounded-xl"
+            />
 
             <div className="flex justify-center items-center flex-col relative z-10">
               <motion.h1
@@ -36,13 +39,19 @@ const Hero = () => {
                 variants={textVariant(1.7)}
                 className="flex flex-col lg:flex-row items-center justify-center mt-5"
               >
-                <button className="btn btn-primary">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => (window.location.href = "/validate")}
+                >
                   Validate Certificates
                 </button>
                 <br />
                 <p className="text-white">&nbsp;&nbsp;OR&nbsp;&nbsp;</p>
                 <br />
-                <button className="btn btn-secondary">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => (window.location.href = "/login")}
+                >
                   Issue Certificates
                 </button>
               </motion.div>

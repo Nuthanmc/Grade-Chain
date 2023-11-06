@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 // import { MagicTabSelect } from "react-magic-motion";
 
@@ -176,7 +177,7 @@ const Navbar = () => {
     },
   };
 
-  const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
+  const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark");
 
   return (
     <>
