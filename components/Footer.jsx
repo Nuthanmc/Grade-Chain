@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import styles from "@/styles";
 import { footerVariants } from "@/utils/motion";
+import Link from "next/link";
 
 const Footer = () => (
   <motion.footer
@@ -18,6 +19,7 @@ const Footer = () => (
 
         <div className="flex items-center justify-between flex-wrap gap-4">
           <h4 className="font-extrabold text-[24px] text-white">CERTI-BLOCK</h4>
+          <Link href={"/admin-login"}>Admin Login</Link>
           <p className="font-normal text-[14px] text-white opacity-50">
             Copyright © {new Date().getFullYear() - 1} -{" "}
             {new Date().getFullYear()} Metaversus. All rights reserved.

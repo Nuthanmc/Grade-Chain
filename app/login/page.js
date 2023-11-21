@@ -17,7 +17,7 @@ const Login = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(
-      "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "0x2d6a1440550ea48f0665e23b9d19084b0c8c1bd2",
       Institutes.abi,
       signer
     );
@@ -118,7 +118,7 @@ const Login = () => {
                   <hr />
                   <p class="mt-5 text-center text-lg text-gray-600 dark:text-black">
                     Don’t have an account? Please email us at
-                    mrudulpatel04@gmail.com to create Institute Account Email us
+                    info.certiblock@gmail.com to create Institute Account Email us
                     with the following details Institute Name, Institute Wallet
                     Address, Description and Email.
                   </p>

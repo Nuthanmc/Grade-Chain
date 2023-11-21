@@ -5,7 +5,7 @@ async function main() {
 
   await institutes.waitForDeployment();
 
-  const address = await institutes.getAddress();
+  const address = institutes.address;
 
   console.log("Institutes deployed to:", address);
 }

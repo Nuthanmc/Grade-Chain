@@ -1,25 +1,26 @@
 import React from "react";
 
-const NavbarInstitutions = () => {
+const NavbarInstitutions = ({institute}) => {
   return (
     <>
       <div className="navbar bg-base-100">
         <div className="flex-1">
           <a className="btn btn-ghost normal-case text-xl">Certi-Block</a>
+          <h3 className="ml-3 text-lg">Welcome {institute.name}</h3>
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end space-x-4">
             <button
               className="btn btn-primary"
               onClick={() => {
-                window.location.href = "/institution/profile";
+                window.location.href = "/institutes/profile";
               }}
             >
               Profile
             </button>
             <button
               onClick={() => {
-                window.location.href = "/institution/settings";
+                window.location.href = "/institutes/settings";
               }}
               className="btn btn-accent"
             >

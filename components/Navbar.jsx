@@ -151,14 +151,14 @@ const Navbar = () => {
     animate: {
       scaleY: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.1,
         ease: [0.12, 0, 0.39, 0],
       },
     },
     exit: {
       scaleY: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.1,
         ease: [0.22, 0, 0.36, 0],
       },
     },
@@ -195,10 +195,10 @@ const Navbar = () => {
           <h2 className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px] dark:text-white">
             <Image
               src="/favicon.ico"
-              width={24}
-              height={24}
+              width={48}
+              height={48}
               alt="Search"
-              className="w-[24px] h-[24px] object-contain hidden lg:flex"
+              className="w-[48px] h-[48px] object-contain hidden lg:flex"
             />
             &nbsp;CERTI-BLOCK
           </h2>
