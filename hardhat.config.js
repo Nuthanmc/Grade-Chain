@@ -9,7 +9,7 @@ module.exports = {
     // },
     sepolia: {
       url: "https://rpc.ankr.com/eth_sepolia",
-      accounts: [process.env.SEPOLIA_PRIVATE_KEY],
+      accounts: ["03b5d010cf2b3497720807f99ae858448812e83e61099845b52217648380fcef"],
     }
   },
   paths: {

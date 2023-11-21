@@ -14,10 +14,9 @@ const Hero = () => {
             whileInView="show"
             viewport={{ once: false, amount: 0.25 }}
           >
-            {/* <div className="absolute h-[20%] hero-gradient" /> */}
             <motion.div
               variants={textVariant(0.5)}
-              class="absolute h-[20%] blur-[40px] bg-gradient-to-r from-purple-700 via-teal-400 to-purple-700 bg-opacity-50 w-1/2 rounded-xl"
+              className="absolute h-[20%] blur-[40px] bg-gradient-to-r dark:from-purple-700 dark:via-teal-400 dark:to-purple-700 from-purple-400 via-teal-300 to-indigo-300 bg-opacity-50 w-1/2 rounded-xl"
             />
 
             <div className="flex justify-center items-center flex-col relative z-10">

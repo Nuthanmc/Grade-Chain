@@ -187,17 +187,17 @@ const Navbar = () => {
         whileInView="show"
         className={`${styles.xPaddings} py-8 relative text-black dark:text-white`}
       >
-        <div class="inset-0 absolute blur-[70px] bg-gradient-to-r from-blue-500 via-blue-400 to-pink-500 bg-opacity-50 w-1/2 -z-10" />
+        <div className="inset-0 absolute blur-[70px] bg-gradient-to-r from-blue-500 via-blue-400 to-pink-500 bg-opacity-50 w-1/2 -z-10" />
 
         <div
           className={`${styles.innerWidth} mx-auto flex items-center justify-between gap-8`}
         >
           <h2 className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px] dark:text-white">
             <Image
-              src="/favicon.ico"
+              src={window.matchMedia("(prefers-color-scheme: dark)").matches ? "/certi-block-white.png" : "/certi-block-black.png"}
               width={48}
               height={48}
-              alt="Search"
+              alt="Certi-Block Logo"
               className="w-[48px] h-[48px] object-contain hidden lg:flex"
             />
             &nbsp;CERTI-BLOCK
