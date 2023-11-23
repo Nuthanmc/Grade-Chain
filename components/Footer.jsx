@@ -22,7 +22,7 @@ const Footer = () => (
           <Link href={"/admin-login"}>Admin Login</Link>
           <p className="font-normal text-[14px] text-white opacity-50">
             Copyright © {new Date().getFullYear() - 1} -{" "}
-            {new Date().getFullYear()} Metaversus. All rights reserved.
+            {new Date().getFullYear()} Certi-Block. All rights reserved.
           </p>
 
           <div className="flex gap-4">
