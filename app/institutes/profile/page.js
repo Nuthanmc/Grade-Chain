@@ -1,10 +1,10 @@
-import NavbarInstitutions from '@/components/NavbarInstitutions'
+// import NavbarInstitutions from '@/components/NavbarInstitutions'
 import React from 'react'
 
 const InstituteProfile = () => {
   return (
     <div>
-      <NavbarInstitutions />
+      {/* <NavbarInstitutions /> */}
     </div>
   )
 }
