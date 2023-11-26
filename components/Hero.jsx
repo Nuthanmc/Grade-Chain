@@ -40,7 +40,7 @@ const Hero = () => {
   };
   return (
     <>
-      <div className="hero min-h-[92vh]">
+      <div className="hero sm:mb-28 mb-0 md:min-h-[92vh]">
         <div className="hero-content text-center text-neutral-content">
           <motion.div
             className={`${styles.innerWidth} flex items-center justify-center flex-col`}
@@ -51,7 +51,7 @@ const Hero = () => {
           >
             <motion.div
               variants={textVariant(0.5)}
-              className="absolute h-[20%] blur-[40px] bg-gradient-to-r dark:from-purple-700 dark:via-teal-400 dark:to-purple-700 from-purple-400 via-teal-300 to-indigo-300 bg-opacity-50 w-1/2 rounded-xl"
+              className="absolute overflow-x-hidden  h-[20%] blur-[40px] bg-gradient-to-r dark:from-purple-700 dark:via-teal-400 dark:to-purple-700 from-purple-400 via-teal-300 to-indigo-300 bg-opacity-50 w-1/2   rounded-xl"
             />
 
             <div className="flex justify-center items-center flex-col relative z-10">
@@ -96,7 +96,7 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
-      <dialog id="login_modal" className="modal backdrop-blur">
+      {/* <dialog id="login_modal" className="modal backdrop-blur">
         <div className="modal-box">
           <h3 className="font-bold text-lg">
             Login to your Metamask Wallet Account
@@ -112,18 +112,10 @@ const Hero = () => {
             <form method="dialog">
               <button className="btn btn-accent">Cancel</button>
             </form>
-            {/* <button
-              className="ml-5 btn-error btn"
-              onClick={() => {
-                sessionStorage.removeItem("address");
-                window.location.href = "/";
-              }}
-            >
-              Yes
-            </button> */}
+            
           </div>
         </div>
-      </dialog>
+      </dialog> */}
     </>
   );
 };

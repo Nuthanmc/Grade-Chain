@@ -1,8 +1,11 @@
+import NavbarInstitutions from '@/components/NavbarInstitutions'
 import React from 'react'
 
 const InstituteProfile = () => {
   return (
-    <div>InstituteProfile</div>
+    <div>
+      <NavbarInstitutions />
+    </div>
   )
 }
 

@@ -199,7 +199,7 @@ const Navbar = () => {
         whileInView="show"
         className={`${styles.xPaddings} py-8 relative text-black dark:text-white`}
       >
-        <div className="inset-0 absolute blur-[70px] bg-gradient-to-r from-blue-500 via-blue-400 to-pink-500 bg-opacity-50 w-1/2 -z-10" />
+        <div className="inset-0 absolute blur-[70px] bg-gradient-to-r from-blue-500 via-blue-400 to-pink-500 bg-opacity-50 w-1/4 md:w-1/2 -z-10" />
 
         <div
           className={`${styles.innerWidth} mx-auto flex items-center justify-between gap-8`}
@@ -262,14 +262,14 @@ const Navbar = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed z-20 left-0 top-0 w-full h-screen origin-top bg-gradient-to-r from-purple-700 via-teal-400 to-purple-700 text-black p-10"
+            className="fixed z-20 left-0 top-0 h-screen origin-top bg-gradient-to-r from-purple-700 via-teal-400 w-full to-purple-700 text-black"
           >
-            <div className="flex justify-between z-30">
+            <div className="flex justify-between p-10 z-30">
               <h1 className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px] dark:text-white">
                 Certi-Block
               </h1>
               <p
-                className="cursor-pointer text-md text-black"
+                className="cursor-pointer text-lg md:text-md text-black"
                 onClick={toggleMenu}
               >
                 Close

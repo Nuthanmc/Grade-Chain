@@ -64,7 +64,7 @@
     hsl(220deg 76% 51%) 100%
   );
   filter: blur(50px);
-  width: 50%;
+  width: 25%;
   opacity: 0.5;
 }
 
@@ -151,4 +151,18 @@
 
   background: #65c4fa;
   filter: blur(150px);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden !important;
+}
+
+@media screen and (max-width: 320px) {
+  body {
+    display: flex;
+  }
 }
