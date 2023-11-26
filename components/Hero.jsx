@@ -1,8 +1,43 @@
+"use client";
 import { motion } from "framer-motion";
 import styles from "@/styles";
 import { staggerContainer, textVariant } from "@/utils/motion";
+import { ethers } from "ethers";
+import { contractAddress, InstitutesABI } from "@/constants";
+import toast from "react-hot-toast";
 
 const Hero = () => {
+  const handleLogin = async () => {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    console.log(accounts);
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      contractAddress,
+      InstitutesABI,
+      signer
+    );
+
+    contract
+      .login(accounts[0])
+      .then((approved) => {
+        if (approved) {
+          sessionStorage.setItem("address", accounts[0]);
+          window.location.href = "/institutes";
+        } else {
+          toast.error("Login Failed. Please use the correct account.");
+          document.getElementById("login_modal").close();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Login Failed");
+        document.getElementById("login_modal").close();
+      });
+  };
   return (
     <>
       <div className="hero min-h-[92vh]">
@@ -49,7 +84,10 @@ const Hero = () => {
                 <br />
                 <button
                   className="btn btn-secondary"
-                  onClick={() => (window.location.href = "/login")}
+                  onClick={() => {
+                    document.getElementById("login_modal").showModal();
+                    handleLogin();
+                  }}
                 >
                   Issue Certificates
                 </button>
@@ -58,6 +96,34 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+      <dialog id="login_modal" className="modal backdrop-blur">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">
+            Login to your Metamask Wallet Account
+          </h3>
+          <p className="py-4">
+            Login to your Metamask Account on Sepolia Testnet
+          </p>
+          <div className="items-center flex justify-center flex-col">
+            <span className="loading loading-ring w-20"></span>
+            <p className="text-base">Waiting for your response...</p>
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn btn-accent">Cancel</button>
+            </form>
+            {/* <button
+              className="ml-5 btn-error btn"
+              onClick={() => {
+                sessionStorage.removeItem("address");
+                window.location.href = "/";
+              }}
+            >
+              Yes
+            </button> */}
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 import NavbarInstitutions from '@/components/NavbarInstitutions';
 import React, { useEffect, useState } from 'react'
-import Institutes from "@/artifacts/contracts/Institutes.sol/Institutes.json";
 import { ethers } from "ethers";
+import { contractAddress, InstitutesABI } from '@/constants';
 
 const InstitutesPage = () => {
   const [institution, setInstitution] = useState([]);
@@ -10,8 +10,8 @@ const InstitutesPage = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(
-      "0x2d6a1440550ea48f0665e23b9d19084b0c8c1bd2",
-      Institutes.abi,
+      contractAddress,
+      InstitutesABI,
       signer
     );
 
@@ -24,8 +24,12 @@ const InstitutesPage = () => {
           name: res.name,
           description: res.description, 
         });
+      }).catch((err) => {
+        console.log(err);
+        sessionStorage.removeItem("address");
+        window.location.href = "/";
       });
-    }
+    };
     getInstitute();
   }, []);
   return (

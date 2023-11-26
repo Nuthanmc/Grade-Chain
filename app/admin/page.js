@@ -1,16 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Institutes from "@/artifacts/contracts/Institutes.sol/Institutes.json";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
+import { contractAddress, InstitutesABI } from "@/constants";
 
 const CreateInstitutes = () => {
   const [formData, setFormData] = useState({
     address: "",
     name: "",
     description: "",
-    password: "",
   });
+  const [approved, setApproved] = useState(false);
   const [institutes, setInstitutes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
@@ -38,8 +38,8 @@ const CreateInstitutes = () => {
     const signer = provider.getSigner();
     console.log(signer);
     const contract = new ethers.Contract(
-      "0x2d6a1440550ea48f0665e23b9d19084b0c8c1bd2",
-      Institutes.abi,
+      contractAddress,
+      InstitutesABI,
       signer
     );
 
@@ -53,10 +53,11 @@ const CreateInstitutes = () => {
             walletAddress: institute.walletAddress,
             name: institute.name,
             description: institute.description,
-            password: institute.password,
+            approved: institute.approved,
           });
         });
         setInstitutes(arr);
+        console.log(arr);
       })
       .catch((err) => {
         toast.error("Please login to Metamask");
@@ -80,8 +81,8 @@ const CreateInstitutes = () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(
-        "0x2d6a1440550ea48f0665e23b9d19084b0c8c1bd2",
-        Institutes.abi,
+        contractAddress,
+        InstitutesABI,
         signer
       );
 
@@ -90,7 +91,7 @@ const CreateInstitutes = () => {
         formData.address,
         formData.name,
         formData.description,
-        formData.password
+        approved
       );
       await transaction.wait();
       console.log("Transaction successful:", transaction);
@@ -341,20 +342,23 @@ const CreateInstitutes = () => {
       <div className="w-full">
         <div className="flex mt-10 items-center justify-center">
           <div className="overflow-x-auto">
-            <h3 className="sm:text-xl text-white capitalize p-3">Institutes</h3>
+            <h3 className="text-md sm:text-xl text-white capitalize p-3">
+              Institutes
+            </h3>
             <table className="table">
               <thead>
-                <tr className="text-center">
+                <tr className="text-center text-md md:text-lg">
                   <th>ID</th>
                   <th>Wallet Address</th>
                   <th>Institute Name</th>
                   <th>Description</th>
-                  <th>Password</th>
+                  <th>Approved</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
+                    {/* Loading */}
                     <td
                       role="status"
                       className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
@@ -398,9 +402,9 @@ const CreateInstitutes = () => {
                       <span className="sr-only">Loading...</span>
                     </td>
                   </tr>
-                ) : (
+                ) : institutes.length > 0 ? (
                   institutes.map((institute, index) => (
-                    <tr key={institute.id?._hex}>
+                    <tr key={index+1}>
                       <td>{index + 1}</td>
                       <td>{institute.walletAddress}</td>
                       <td>{institute.name}</td>
@@ -408,10 +412,16 @@ const CreateInstitutes = () => {
                         {institute.description}
                       </td>
                       <td className="max-w-[300px] overflow-clip text-ellipsis">
-                        {institute.password}
+                        {institute.approved ? "Approved" : "Not Approved"}
                       </td>
                     </tr>
                   ))
+                ) : (
+                  <tr>
+                    <td className="text-center" colSpan={5}>
+                      No Institutes Created
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
@@ -483,17 +493,33 @@ const CreateInstitutes = () => {
             />
           </div>
           <div className="form-control">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
+            {/* <input
               type="password"
               name="password"
               onChange={(e) => handleChange(e)}
               required
               placeholder="Enter Password"
               className="input input-bordered input-primary w-full max-w-2xl"
-            />
+            /> */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center justify-around w-full mt-3">
+                <label className="cursor-pointer text-center">
+                  <span className="">Approve</span>
+                </label>
+                <input
+                  type="checkbox"
+                  className="toggle"
+                  value={approved}
+                  onChange={() => {
+                    if (approved) {
+                      setApproved(false);
+                    } else {
+                      setApproved(true);
+                    }
+                  }}
+                />
+              </div>
+            </div>
           </div>
           <div className="flex items-end justify-end gap-2">
             <div className="modal-action">
