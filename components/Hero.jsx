@@ -96,7 +96,7 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
-      {/* <dialog id="login_modal" className="modal backdrop-blur">
+      <dialog id="login_modal" className="modal backdrop-blur">
         <div className="modal-box">
           <h3 className="font-bold text-lg">
             Login to your Metamask Wallet Account
@@ -115,7 +115,7 @@ const Hero = () => {
             
           </div>
         </div>
-      </dialog> */}
+      </dialog>
     </>
   );
 };
