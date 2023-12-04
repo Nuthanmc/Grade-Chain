@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { motion } from "framer-motion";
 import styles from "@/styles";
 import { staggerContainer, textVariant } from "@/utils/motion";
@@ -7,12 +8,14 @@ import { contractAddress, InstitutesABI } from "@/constants";
 import toast from "react-hot-toast";
 
 const Hero = () => {
+  const [show, setShow] = React.useState(false);
+  const [account, setAccount] = React.useState("");
   const handleLogin = async () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
-    console.log(accounts);
-
+    console.log(accounts[0]);
+    setAccount(accounts[0]);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(
@@ -20,7 +23,8 @@ const Hero = () => {
       InstitutesABI,
       signer
     );
-
+    console.log(contract);
+    setShow(true);
     contract
       .login(accounts[0])
       .then((approved) => {
@@ -107,12 +111,23 @@ const Hero = () => {
           <div className="items-center flex justify-center flex-col">
             <span className="loading loading-ring w-20"></span>
             <p className="text-base">Waiting for your response...</p>
+            {show === true ? (
+              <>
+              <div className="text-left">
+                <p className="text-base">
+                  Recieved Account from Metamask: <b>{account}</b>
+                </p>
+                <p className="text-base">
+                  Please wait while we verify this account
+                </p>
+              </div>
+              </>
+            ) : null}
           </div>
           <div className="modal-action">
             <form method="dialog">
               <button className="btn btn-accent">Cancel</button>
             </form>
-            
           </div>
         </div>
       </dialog>
