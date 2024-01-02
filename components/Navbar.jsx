@@ -139,7 +139,7 @@ import Image from "next/image";
 const navLinks = [
   { title: "How It Works", link: "/" },
   { title: "About Us", link: "/AboutUs" },
-  { title: "Contact Us", link: "/" },
+  { title: "Contact Us", link: "/ContactUs" },
 ];
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -200,7 +200,7 @@ const Navbar = () => {
               type="button"
               className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:text-white dark:hover:text-gray-500 hover:text-gray-600"
             >
-              Contact Us
+              <Link href="/contactus">Contact Us</Link>
             </button>
             <div className="flex-none lg:hidden">
               <ul className="menu menu-horizontal px-4 min-w-max">
