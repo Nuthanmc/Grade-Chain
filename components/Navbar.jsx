@@ -1,6 +1,7 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+
 // import { MagicTabSelect } from "react-magic-motion";
 
 // const pillTabs = ["How It Works", "About Us", "Contact Us"];
@@ -133,12 +134,12 @@ import { motion } from "framer-motion";
 import { navVariants } from "@/utils/motion";
 import styles from "@/styles";
 import Image from "next/image";
-import Link from "next/link";
+//import Link from "next/link";
 
 const navLinks = [
   { title: "How It Works", link: "/" },
-  { title: "About Us", link: "/" },
-  { title: "Contact Us", link: "/" },
+  { title: "About Us", link: "/AboutUs" },
+  { title: "Contact Us", link: "/ContactUs" },
 ];
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -193,13 +194,13 @@ const Navbar = () => {
               type="button"
               className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:text-white dark:hover:text-gray-500 hover:text-gray-600"
             >
-              About Us
+              <Link href="/aboutus">About Us</Link>
             </button>
             <button
               type="button"
               className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:text-white dark:hover:text-gray-500 hover:text-gray-600"
             >
-              Contact Us
+              <Link href="/contactus">Contact Us</Link>
             </button>
             <div className="flex-none lg:hidden">
               <ul className="menu menu-horizontal px-4 min-w-max">
@@ -211,7 +212,7 @@ const Navbar = () => {
                         <Link href="#howitworks">How It Works</Link>
                       </li>
                       <li>
-                        <Link href="#aboutus">About Us</Link>
+                        <Link href="#AboutUs">About Us</Link>
                       </li>
                       <li>
                         <Link href="#contactus">Contact Us</Link>
