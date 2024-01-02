@@ -55,20 +55,13 @@ const AboutUs = () => {
             &nbsp;CERTI-BLOCK
           </h2>
           <div className="flex gap-3 items-center justify-center">
-          <button
+            <button
               type="button"
               className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:text-white hover:text-gray-600 dark:hover:text-gray-500"
             >
               <Link href="/">Home</Link>
             </button>
-            
-            <button
-              type="button"
-              className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:text-white hover:text-gray-600 dark:hover:text-gray-500"
-            >
-              How It Works
-            </button>
-            
+
             <button
               type="button"
               className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:text-white dark:hover:text-gray-500 hover:text-gray-600"
@@ -81,14 +74,11 @@ const AboutUs = () => {
                   <details>
                     <summary>Options</summary>
                     <ul className="p-1 z-10 text-sm bg-base-100 rounded-t-none">
-                    <li>
-                        <Link href="#home">Home</Link>
+                      <li>
+                        <Link href="/">Home</Link>
                       </li>
                       <li>
-                        <Link href="#howitworks">How It Works</Link>
-                      </li>
-                      <li>
-                        <Link href="#contactus">Contact Us</Link>
+                        <Link href="/contactus">Contact Us</Link>
                       </li>
                     </ul>
                   </details>
@@ -99,23 +89,19 @@ const AboutUs = () => {
         </div>
       </motion.nav>
 
-     
       <div
-        className={`${styles.innerWidth} ${styles.yPaddings}`}
+        className={`${styles.innerWidth}  ${styles.yPaddings}`}
         style={{
           position: "relative",
           margin: "0 auto",
           padding: "12px",
           paddingTop: "60px",
           textAlign: "center",
-          fontFamily: "Helvetica, sans-serif",
           color: "black",
         }}
       >
         <div
           style={{
-            background: "linear-gradient(270deg, #a509ff 0%, #34acc7 100%)",
-            filter: "blur(50px)",
             width: "100%",
             height: "100%",
             opacity: 0.5,
@@ -134,17 +120,18 @@ const AboutUs = () => {
             position: "relative",
             zIndex: 1,
           }}
+          className="text-black dark:text-white"
         >
           About Us
         </h1>
 
         <div
           style={{
-            backgroundColor: "#F3F4F6",
             padding: "16px",
             borderRadius: "8px",
             margin: "16px 0",
           }}
+          className="bg-[#F3F4F6] dark:bg-[#1F2937]"
         >
           <p
             style={{
@@ -153,8 +140,11 @@ const AboutUs = () => {
               fontWeight: "bold",
               marginBottom: "0",
             }}
+            className="text-black dark:text-white"
           >
-            Welcome to Certi-Block! We are a team of passionate individuals dedicated to providing innovative solutions in the world of certification and blockchain technology.
+            Welcome to Certi-Block! We are a team of passionate individuals
+            dedicated to providing innovative solutions in the world of
+            certification and blockchain technology.
           </p>
 
           <p
@@ -164,8 +154,12 @@ const AboutUs = () => {
               fontWeight: "bold",
               marginBottom: "0",
             }}
+            className="text-black dark:text-white"
           >
-            Our mission is to make certification processes secure, transparent, and efficient. Certi-Block strives to empower individuals and organizations by leveraging the power of blockchain to verify and authenticate certifications.
+            Our mission is to make certification processes secure, transparent,
+            and efficient. Certi-Block strives to empower individuals and
+            organizations by leveraging the power of blockchain to verify and
+            authenticate certifications.
           </p>
         </div>
         <h2
@@ -177,16 +171,17 @@ const AboutUs = () => {
             position: "relative",
             zIndex: 1,
           }}
+          className="text-black dark:text-white"
         >
           Our Vision
         </h2>
         <div
           style={{
-            backgroundColor: "#F3F4F6",
             padding: "16px",
             borderRadius: "8px",
             margin: "16px 0",
           }}
+          className="bg-[#F3F4F6] dark:bg-[#1F2937]"
         >
           <p
             style={{
@@ -195,8 +190,12 @@ const AboutUs = () => {
               fontWeight: "bold",
               marginBottom: "0",
             }}
+            className="text-black dark:text-white"
           >
-            At Certi-Block, we envision a future where the certification process is simplified, accessible, and tamper-proof. We believe in the potential of blockchain technology to revolutionize the way certifications are managed and verified.
+            At Certi-Block, we envision a future where the certification process
+            is simplified, accessible, and tamper-proof. We believe in the
+            potential of blockchain technology to revolutionize the way
+            certifications are managed and verified.
           </p>
         </div>
         <h2
@@ -208,16 +207,17 @@ const AboutUs = () => {
             position: "relative",
             zIndex: 1,
           }}
+          className="text-black dark:text-white"
         >
           Meet Our Team
         </h2>
         <div
           style={{
-            backgroundColor: "#F3F4F6",
             padding: "16px",
             borderRadius: "8px",
             margin: "16px 0",
           }}
+          className="bg-[#F3F4F6] dark:bg-[#1F2937] text-black dark:text-white"
         >
           <ul
             style={{
