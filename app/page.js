@@ -3,7 +3,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
-import ContactUs from "@/components/ContactUs";
+import ContactUs from "@/app/contactus/ContactUs";
 
 export default function Home() {
   return (
