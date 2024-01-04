@@ -89,150 +89,42 @@ const AboutUs = () => {
         </div>
       </motion.nav>
 
-      <div
-        className={`${styles.innerWidth}  ${styles.yPaddings}`}
-        style={{
-          position: "relative",
-          margin: "0 auto",
-          padding: "12px",
-          paddingTop: "60px",
-          textAlign: "center",
-          color: "black",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            opacity: 0.5,
-            position: "absolute",
-            top: 0,
-            left: 0,
-          }}
-        />
-
-        <h1
-          style={{
-            fontSize: "44px",
-            fontWeight: "bold",
-            lineHeight: "64.4px",
-            textTransform: "uppercase",
-            position: "relative",
-            zIndex: 1,
-          }}
-          className="text-black dark:text-white"
-        >
+      <div className={`container mx-auto px-4 md:px-8 lg:px-16 pt-16 md:pt-24 pb-8 text-center text-black dark:text-white relative`}>
+        
+        <h1 className="text-2xl lg:text-4xl xl:text-5xl font-bold leading-tight text-black dark:text-white">
           About Us
         </h1>
-
-        <div
-          style={{
-            padding: "16px",
-            borderRadius: "8px",
-            margin: "16px 0",
-          }}
-          className="bg-[#F3F4F6] dark:bg-[#1F2937]"
-        >
-          <p
-            style={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              fontWeight: "bold",
-              marginBottom: "0",
-            }}
-            className="text-black dark:text-white"
-          >
-            Welcome to Certi-Block! We are a team of passionate individuals
-            dedicated to providing innovative solutions in the world of
-            certification and blockchain technology.
+        <div className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md">
+          <p className="text-base md:text-lg lg:text-xl font-bold leading-6 mb-4 text-black dark:text-white">
+            Welcome to Certi-Block! We are a team of passionate individuals dedicated to providing innovative solutions in the world of certification and blockchain technology.
           </p>
 
-          <p
-            style={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              fontWeight: "bold",
-              marginBottom: "0",
-            }}
-            className="text-black dark:text-white"
-          >
-            Our mission is to make certification processes secure, transparent,
-            and efficient. Certi-Block strives to empower individuals and
-            organizations by leveraging the power of blockchain to verify and
-            authenticate certifications.
+          <p className="text-base md:text-lg lg:text-xl font-bold leading-6 mb-0 text-black dark:text-white">
+            Our mission is to make certification processes secure, transparent, and efficient. Certi-Block strives to empower individuals and organizations by leveraging the power of blockchain to verify and authenticate certifications.
           </p>
         </div>
-        <h2
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-            lineHeight: "2.2",
-            marginTop: "24px",
-            position: "relative",
-            zIndex: 1,
-          }}
-          className="text-black dark:text-white"
-        >
-          Our Vision
+
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-6 mt-6 md:mt-8 text-black dark:text-white">
+         Our vision
         </h2>
-        <div
-          style={{
-            padding: "16px",
-            borderRadius: "8px",
-            margin: "16px 0",
-          }}
-          className="bg-[#F3F4F6] dark:bg-[#1F2937]"
-        >
-          <p
-            style={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              fontWeight: "bold",
-              marginBottom: "0",
-            }}
-            className="text-black dark:text-white"
-          >
-            At Certi-Block, we envision a future where the certification process
-            is simplified, accessible, and tamper-proof. We believe in the
-            potential of blockchain technology to revolutionize the way
-            certifications are managed and verified.
+        <div className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md">
+          <p className="text-base md:text-lg lg:text-xl font-bold leading-6 text-black dark:text-white">
+            At Certi-Block, we envision a future where the certification process is simplified, accessible, and tamper-proof. We believe in the potential of blockchain technology to revolutionize the way certifications are managed and verified.
           </p>
         </div>
-        <h2
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-            lineHeight: "2.2",
-            marginTop: "24px",
-            position: "relative",
-            zIndex: 1,
-          }}
-          className="text-black dark:text-white"
-        >
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-6 mt-6 md:mt-8 text-black dark:text-white">
           Meet Our Team
         </h2>
-        <div
-          style={{
-            padding: "16px",
-            borderRadius: "8px",
-            margin: "16px 0",
-          }}
-          className="bg-[#F3F4F6] dark:bg-[#1F2937] text-black dark:text-white"
-        >
-          <ul
-            style={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              fontWeight: "bold",
-              marginBottom: "0",
-            }}
-          >
+
+        <div className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md">
+          <ul className="text-base md:text-lg lg:text-xl font-bold leading-6">
             <li>Mrudul Patel</li>
             <li>Mukund Chamariya</li>
             <li>Mayur Limbhore</li>
             <li>Madhura Patil</li>
           </ul>
         </div>
+
       </div>
     </div>
   );
