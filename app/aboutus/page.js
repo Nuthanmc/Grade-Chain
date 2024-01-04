@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles";
 import { navVariants } from "@/utils/motion";
+import React, { useState, useEffect } from "react";
 
 const navLinks = [
   { title: "Home", link: "/" },
@@ -89,42 +89,73 @@ const AboutUs = () => {
         </div>
       </motion.nav>
 
-      <div className={`container mx-auto px-4 md:px-8 lg:px-16 pt-16 md:pt-24 pb-8 text-center text-black dark:text-white relative`}>
-        
-        <h1 className="text-2xl lg:text-4xl xl:text-5xl font-bold leading-tight text-black dark:text-white">
-          About Us
-        </h1>
-        <div className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md">
-          <p className="text-base md:text-lg lg:text-xl font-bold leading-6 mb-4 text-black dark:text-white">
+      <div>
+        <motion.div
+          className={`container mx-auto px-4 md:px-8 lg:px-16 pt-16 md:pt-24 pb-8 text-center text-black dark:text-white relative`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h1
+            className="text-2xl lg:text-4xl xl:text-5xl font-bold leading-tight text-black dark:text-white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            About Us
+          </motion.h1>
+
+          <motion.div
+            className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             Welcome to Certi-Block! We are a team of passionate individuals dedicated to providing innovative solutions in the world of certification and blockchain technology.
-          </p>
 
-          <p className="text-base md:text-lg lg:text-xl font-bold leading-6 mb-0 text-black dark:text-white">
-            Our mission is to make certification processes secure, transparent, and efficient. Certi-Block strives to empower individuals and organizations by leveraging the power of blockchain to verify and authenticate certifications.
-          </p>
-        </div>
+          </motion.div>
 
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-6 mt-6 md:mt-8 text-black dark:text-white">
-         Our vision
-        </h2>
-        <div className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md">
-          <p className="text-base md:text-lg lg:text-xl font-bold leading-6 text-black dark:text-white">
+          <motion.h2
+            className="text-xl md:text-2xl lg:text-3xl font-bold leading-6 mt-6 md:mt-8 text-black dark:text-white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            Our Vision
+          </motion.h2>
+
+          <motion.div
+            className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
             At Certi-Block, we envision a future where the certification process is simplified, accessible, and tamper-proof. We believe in the potential of blockchain technology to revolutionize the way certifications are managed and verified.
-          </p>
-        </div>
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-6 mt-6 md:mt-8 text-black dark:text-white">
-          Meet Our Team
-        </h2>
+          </motion.div>
 
-        <div className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md">
-          <ul className="text-base md:text-lg lg:text-xl font-bold leading-6">
-            <li>Mrudul Patel</li>
-            <li>Mukund Chamariya</li>
-            <li>Mayur Limbhore</li>
-            <li>Madhura Patil</li>
-          </ul>
-        </div>
+          <motion.h2
+            className="text-xl md:text-2xl lg:text-3xl font-bold leading-6 mt-6 md:mt-8 text-black dark:text-white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            Meet Our Team
+          </motion.h2>
 
+          <motion.div
+            className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+          >
+            <ul className="text-base md:text-lg lg:text-xl font-bold leading-6">
+              <li>Mrudul Patel</li>
+              <li>Mukund Chamariya</li>
+              <li>Mayur Limbhore</li>
+              <li>Madhura Patil</li>
+            </ul>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
