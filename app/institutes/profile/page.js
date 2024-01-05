@@ -67,12 +67,13 @@ const InstituteProfile = () => {
             >
               Back
             </button>
-            <button
+            <a
               type="button"
+              href="/contactus"
               className="font-bold text-[18px] leading-[25px] dark:text-white hover:text-gray-600 dark:hover:text-gray-500"
             >
               Contact Us
-            </button>
+            </a>
           </div>
         </div>
       </nav>

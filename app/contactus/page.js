@@ -21,17 +21,17 @@ const ContactUs = () => {
 
   return (
     // contact us section
-    <div className=" flex justify-center items-center">
+    <div className=" flex justify-center items-center h-screen">
       <motion.div className="antialiased flex bg-gray-900 w-[1000px] rounded-md p-4 m-5">
-        <motion.div className="flex w-fit min-h-fit justify-center items-center ">
+        <motion.div className="flex w-fit justify-center items-center ">
           <div className="flex flex-col space-y-6 w—full max—w-[500px] p—8 rounded—xl shadow—lg text-white md:flex-row md:space-x-6 md:space-y">
-            <div className="flex flex-col justify-between">
-              <div className=" ">
-                <h1 className="font-bold tracking-wide text-3xl">
+            <div className="flex flex-col justify-center w-full">
+              <div>
+                <h1 className="font-bold tracking-wide text-3xl ml-5">
                   Get In Touch With Us
                 </h1>
               </div>
-              <div className="flex flex-col space-y-6 mt-6 ">
+              <div className="flex flex-col ml-5 space-y-6 mt-6 ">
                 <div className="inline-flex space-x-4 items-center">
                   <LocalPhoneOutlined />
                   <span>+91 86987 93479</span>
@@ -45,7 +45,7 @@ const ContactUs = () => {
                   <span>Pune</span>
                 </div>
               </div>
-              <div className="flex space-x-4 text-xl my-6 ">
+              <div className="flex space-x-4 ml-5 text-xl my-6 ">
                 <a href="">
                   <LinkedIn />
                 </a>
@@ -61,7 +61,7 @@ const ContactUs = () => {
               </div>
             </div>
             <div></div>
-            <div className="flex flex-col justify-center items-center w-[35rem] space-y-6 max—w-full p—8 rounded—xl shadow—lg text-white md:space-x-6 md:space-y">
+            <div className="flex flex-col w-[35rem] space-y-6 max—w-full p—8 rounded—xl shadow—lg text-white md:space-x-6 md:space-y">
               {/* form */}
               <form className="flex flex-col space-y-6" action="" method="POST">
                 <div className="flex flex-col space-y-1">
@@ -73,7 +73,7 @@ const ContactUs = () => {
                     name="name"
                     id="name"
                     placeholder="Your Name"
-                    className="px-4 py-2 rounded-lg bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 w-full rounded-lg bg-gray-800 border focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
