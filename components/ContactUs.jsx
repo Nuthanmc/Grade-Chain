@@ -12,22 +12,18 @@ import {
   Twitter,
 } from "@mui/icons-material";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const ContactUs = () => {
   const [agreed, setAgreed] = useState(false);
 
   return (
     // contact us section
-    <div className=" flex justify-center items-center lg:h-screen">
-      <motion.div className="antialiased flex bg-gray-900 w-full lg:w-[1000px] rounded-md p-4 m-5">
-        <motion.div className="flex w-fit justify-center items-center ">
+    <div className="flex justify-center mt-12 items-center lg:h-screen">
+      <motion.div className="flex sm:w-screen lg:w-[1000px] rounded-md p-4 m-5">
+        <motion.div className="flex w-fit lg:bg-black/5 p-4 rounded-md justify-center items-center ">
           <div className="flex flex-col space-y-6 w—full max-w-screen p—8 rounded—xl shadow—lg text-white md:flex-row md:space-x-6 md:space-y">
             <div className="flex flex-col justify-center w-full">
               <div>
-                <h1 className="font-bold tracking-wide text-3xl ml-5">
+                <h1 className="font-bold tracking-wide text-2xl ml-5">
                   Get In Touch With Us
                 </h1>
               </div>
@@ -63,7 +59,7 @@ const ContactUs = () => {
             <div></div>
             <div className="flex flex-col lg:w-[35rem] space-y-6 max—w-screen p—8 rounded—xl shadow—lg text-white lg:space-x-6 lg:space-y">
               {/* form */}
-              <form className="flex flex-col space-y-6" action="" method="POST">
+              <form className="flex flex-col min-w-max space-y-6" action="" method="POST">
                 <div className="flex flex-col space-y-1">
                   <label htmlFor="name" className="text-sm font-semibold">
                     Name
@@ -73,7 +69,7 @@ const ContactUs = () => {
                     name="name"
                     id="name"
                     placeholder="Your Name"
-                    className="px-4 py-2 max-w-screen lg:w-full rounded-lg bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 min-w-full lg:w-full rounded-lg bg-gray-800 border focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
