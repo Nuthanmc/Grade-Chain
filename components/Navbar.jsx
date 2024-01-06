@@ -68,10 +68,10 @@ const Navbar = () => {
                     <summary>Options</summary>
                     <ul className="p-1 z-10 text-sm bg-base-100 rounded-t-none">
                       <li>
-                        <Link href="#AboutUs">About Us</Link>
+                        <Link href="/aboutus">About Us</Link>
                       </li>
                       <li>
-                        <Link href="#contactus">Contact Us</Link>
+                        <Link href="/contactus">Contact Us</Link>
                       </li>
                     </ul>
                   </details>
