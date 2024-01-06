@@ -11,6 +11,7 @@ import {
   MailOutlineOutlined,
   Twitter,
 } from "@mui/icons-material";
+import Link from "next/link";
 
 const ContactUs = () => {
   const [agreed, setAgreed] = useState(false);
@@ -30,15 +31,15 @@ const ContactUs = () => {
               <div className="flex flex-col ml-5 space-y-6 mt-6 ">
                 <div className="inline-flex space-x-4 items-center">
                   <LocalPhoneOutlined />
-                  <span>+91 86987 93479</span>
+                  <Link href='tel:+918698793479'>+918698793479</Link>
                 </div>
                 <div className="inline-flex space-x-4 items-center">
                   <MailOutlineOutlined />
-                  <span>info.certi-block@gmail.com</span>
+                  <Link target="_blank" href={"mailto:info.certi-block@gmail.com?subject=Inquiry%20About%20Certi-Block&body=Hello, I would like to inquire about Certi-Block."}>info.certi-block@gmail.com</Link>
                 </div>
                 <div className="inline-flex space-x-4 items-center">
                   <LocationOnOutlined />
-                  <span>Pune</span>
+                  <Link href={"https://maps.app.goo.gl/c4sL2xau9PYCUzd67"}>Pune</Link>
                 </div>
               </div>
               <div className="flex space-x-4 ml-5 text-xl my-6 ">
