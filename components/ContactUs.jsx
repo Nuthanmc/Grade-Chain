@@ -151,7 +151,7 @@ const ContactUs = () => {
                   />
                   <label htmlFor="agreement" className="text-sm">
                     I agree to the{" "}
-                    <Link href={'https://www.termsfeed.com/live/af81dab3-a00b-4da9-a13d-9e542f16c7e7'} className="underline">Privacy Policy</Link>
+                    <Link target="_blank" href={'https://www.termsfeed.com/live/af81dab3-a00b-4da9-a13d-9e542f16c7e7'} className="underline">Privacy Policy</Link>
                   </label>
                 </div>
                 <div className="flex flex-col sm:justify-between text-center items-center">
