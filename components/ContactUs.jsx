@@ -22,7 +22,7 @@ const ContactUs = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if(agreed === false){
       toast.error("Please agree to the privacy policy");
@@ -37,8 +37,26 @@ const ContactUs = () => {
       setEmail("");
       setMessage("");
       setAgreed(false);
-      toast.success("Your message has been sent successfully");
     });
+
+    const res = await fetch("/api/sendEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+      }),
+    });
+
+    const { error } = await res.json();
+    if (error) {
+      toast.error("Something went wrong. Please try again later");
+    } else {  
+      toast.success("Feedback sent successfully");
+    }
   }
 
   return (
