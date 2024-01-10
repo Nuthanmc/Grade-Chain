@@ -10,7 +10,7 @@ const CreateInstitutes = () => {
     name: "",
     description: "",
   });
-  const [approved, setApproved] = useState(false);
+
   const [institutes, setInstitutes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
@@ -53,7 +53,6 @@ const CreateInstitutes = () => {
             walletAddress: institute.walletAddress,
             name: institute.name,
             description: institute.description,
-            approved: institute.approved,
           });
         });
         setInstitutes(arr);
@@ -90,8 +89,7 @@ const CreateInstitutes = () => {
       const transaction = await contract.addInstitute(
         formData.address,
         formData.name,
-        formData.description,
-        approved
+        formData.description
       );
       await transaction.wait();
       console.log("Transaction successful:", transaction);
@@ -313,22 +311,6 @@ const CreateInstitutes = () => {
               Add Institute
             </button>
             <button
-              className="btn btn-primary"
-              onClick={() => {
-                window.location.href = "/institutes/profile";
-              }}
-            >
-              Profile
-            </button>
-            <button
-              onClick={() => {
-                window.location.href = "/institutes/settings";
-              }}
-              className="btn btn-accent"
-            >
-              Settings
-            </button>
-            <button
               className="btn btn-ghost"
               onClick={() =>
                 document.getElementById("logout_modal").showModal()
@@ -352,7 +334,6 @@ const CreateInstitutes = () => {
                   <th>Wallet Address</th>
                   <th>Institute Name</th>
                   <th>Description</th>
-                  <th>Approved</th>
                 </tr>
               </thead>
               <tbody>
@@ -404,15 +385,12 @@ const CreateInstitutes = () => {
                   </tr>
                 ) : institutes.length > 0 ? (
                   institutes.map((institute, index) => (
-                    <tr key={index+1}>
+                    <tr key={index + 1}>
                       <td>{index + 1}</td>
                       <td>{institute.walletAddress}</td>
                       <td>{institute.name}</td>
                       <td className="max-w-[100px] md:max-w-[300px] overflow-clip text-ellipsis">
                         {institute.description}
-                      </td>
-                      <td className="max-w-[300px] overflow-clip text-ellipsis">
-                        {institute.approved ? "Approved" : "Not Approved"}
                       </td>
                     </tr>
                   ))
@@ -492,35 +470,7 @@ const CreateInstitutes = () => {
               className="input input-bordered input-primary w-full max-w-2xl"
             />
           </div>
-          <div className="form-control">
-            {/* <input
-              type="password"
-              name="password"
-              onChange={(e) => handleChange(e)}
-              required
-              placeholder="Enter Password"
-              className="input input-bordered input-primary w-full max-w-2xl"
-            /> */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center justify-around w-full mt-3">
-                <label className="cursor-pointer text-center">
-                  <span className="">Approve</span>
-                </label>
-                <input
-                  type="checkbox"
-                  className="toggle"
-                  value={approved}
-                  onChange={() => {
-                    if (approved) {
-                      setApproved(false);
-                    } else {
-                      setApproved(true);
-                    }
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+
           <div className="flex items-end justify-end gap-2">
             <div className="modal-action">
               <form method="dialog" className="">

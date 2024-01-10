@@ -1,4 +1,5 @@
-export const contractAddress = "0x4a090EeD9857fBCf35cf55ebd22C654bEDE33791";
+//export const contractAddress = "0x4a090EeD9857fBCf35cf55ebd22C654bEDE33791";
+export const contractAddress = "0x4faC7fa17dD0Fe90780370cf922668b29Bcd65c0";
 
 export const InstitutesABI = [
 	{
@@ -17,11 +18,6 @@ export const InstitutesABI = [
 				"internalType": "string",
 				"name": "_description",
 				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "_approved",
-				"type": "bool"
 			}
 		],
 		"name": "addInstitute",
@@ -54,11 +50,6 @@ export const InstitutesABI = [
 						"internalType": "string",
 						"name": "description",
 						"type": "string"
-					},
-					{
-						"internalType": "bool",
-						"name": "approved",
-						"type": "bool"
 					}
 				],
 				"internalType": "struct Institutes.Institute[]",
@@ -100,11 +91,6 @@ export const InstitutesABI = [
 						"internalType": "string",
 						"name": "description",
 						"type": "string"
-					},
-					{
-						"internalType": "bool",
-						"name": "approved",
-						"type": "bool"
 					}
 				],
 				"internalType": "struct Institutes.Institute",
@@ -144,11 +130,6 @@ export const InstitutesABI = [
 				"internalType": "string",
 				"name": "description",
 				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "approved",
-				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -183,11 +164,6 @@ export const InstitutesABI = [
 				"internalType": "string",
 				"name": "description",
 				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "approved",
-				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -212,4 +188,4 @@ export const InstitutesABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-];
+]
