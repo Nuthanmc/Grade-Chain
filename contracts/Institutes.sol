@@ -102,7 +102,6 @@ contract Institutes {
         address walletAddress;
         string name;
         string description;
-        bool approved;
     }
 
     uint256 institutesCount; // number of institutes
@@ -112,8 +111,7 @@ contract Institutes {
     function addInstitute(
         address _walletAddress,
         string memory _name,
-        string memory _description,
-        bool _approved
+        string memory _description
     ) public {
         require(
             institutesMap[_walletAddress].id == 0,
@@ -124,8 +122,7 @@ contract Institutes {
             institutesCount,
             _walletAddress,
             _name,
-            _description,
-            _approved
+            _description
         );
         institutes.push(newInstitute);
         institutesMap[_walletAddress] = newInstitute;
