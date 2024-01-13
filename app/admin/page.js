@@ -18,6 +18,7 @@ const CreateInstitutes = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
+  const [coursesLoading, setCoursesLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +38,6 @@ const CreateInstitutes = () => {
   }, []);
 
   const getAllInstitutes = async () => {
-    setLoading(true);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     console.log(signer);
@@ -51,7 +51,6 @@ const CreateInstitutes = () => {
       .getAllInstitutes()
       .then((institutes) => {
         let arr = [];
-        let coursesArr = [];
 
         institutes.forEach((institute) => {
           arr.push({
@@ -65,15 +64,17 @@ const CreateInstitutes = () => {
 
         setInstitutes(arr);
         console.log(arr);
+        setLoading(false);
       })
       .catch((err) => {
         toast.error("Please login to Metamask");
         console.log(err);
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   useEffect(() => {
+    setLoading(true);
     getAllInstitutes();
   }, []);
 
@@ -112,7 +113,7 @@ const CreateInstitutes = () => {
   };
 
   const getAllCourses = async (walletAddress) => {
-    setLoading(true);
+    setCoursesLoading(true);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     console.log(signer);
@@ -135,12 +136,13 @@ const CreateInstitutes = () => {
 
         console.log(arr);
         setCourses(arr);
+        setCoursesLoading(false);
       })
       .catch((err) => {
         toast.error("Please login to Metamask");
         console.log(err);
+        setCoursesLoading(false);
       });
-    setLoading(false);
   };
 
   return (
@@ -298,7 +300,9 @@ const CreateInstitutes = () => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Wallet Address</span>
+              <span className="label-text">
+                Wallet Address <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -312,7 +316,9 @@ const CreateInstitutes = () => {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Institute Name</span>
+              <span className="label-text">
+                Institute Name <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -325,7 +331,9 @@ const CreateInstitutes = () => {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Description</span>
+              <span className="label-text">
+                Description <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -339,7 +347,13 @@ const CreateInstitutes = () => {
           <div className="form-control">
             <label className="label">
               <span className="label-text">Add Institute Courses</span>
+              <p className="label-text-alt text-xs text-gray-400">(Optional)</p>
             </label>
+            {/* More info about Courses */}
+            <p className="text-xs text-gray-400 mb-1">
+              Courses allow you to create certificates for different courses in
+              your institute.
+            </p>
             <input
               type="text"
               placeholder="Enter Course Name"
@@ -364,6 +378,7 @@ const CreateInstitutes = () => {
                 }));
               }}
               className="btn btn-primary m-4 w-52"
+              disabled={formData.course_name === ""}
             >
               Add Course
             </button>
@@ -423,7 +438,15 @@ const CreateInstitutes = () => {
                 </button>
               </form>
             </div>
-            <button onClick={handleSubmit} className="btn btn-success">
+            <button
+              onClick={() => {}}
+              disabled={
+                formData.address === "" ||
+                formData.name === "" ||
+                formData.description === ""
+              }
+              className="btn btn-success"
+            >
               {createLoading ? (
                 <span className="loading loading-spinner loading-md"></span>
               ) : (
@@ -446,29 +469,14 @@ const CreateInstitutes = () => {
                 </tr>
               </thead>
               <tbody>
-                {loading ? (
+                {coursesLoading ? (
                   <tr>
-                    {/* Loading */}
                     <td
                       role="status"
                       className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
-                      colSpan={2}
+                      colSpan={5}
                     >
                       <div className="flex items-center justify-between">
-                        <div>
-                          <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                          <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                        </div>
-                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                      </div>
-                      <div className="flex items-center justify-between pt-4">
-                        <div>
-                          <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                          <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                        </div>
-                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                      </div>
-                      <div className="flex items-center justify-between pt-4">
                         <div>
                           <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
                           <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>

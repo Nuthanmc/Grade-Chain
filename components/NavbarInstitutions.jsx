@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { FaGear } from "react-icons/fa6";
 
-const NavbarInstitutions = ({ institute }) => {
+const NavbarInstitutions = ({ institute, courses }) => {
   return (
     <>
       <div className="navbar bg-base-100">
@@ -13,6 +13,14 @@ const NavbarInstitutions = ({ institute }) => {
           </h3>
         </div>
         <div className="flex-none gap-3 hidden lg:flex">
+          <button
+            className="btn btn-secondary"
+            onClick={() => {
+              document.getElementById("view_courses_modal").showModal();
+            }}
+          >
+            View My Courses
+          </button>
           <button
             className="btn btn-primary"
             onClick={() => {
@@ -51,7 +59,13 @@ const NavbarInstitutions = ({ institute }) => {
                     <Link href="/institutes/settings">Settings</Link>
                   </li>
                   <li>
-                    <button onClick={() => document.getElementById("my_modal_1").showModal()}>Logout</button>
+                    <button
+                      onClick={() =>
+                        document.getElementById("my_modal_1").showModal()
+                      }
+                    >
+                      Logout
+                    </button>
                   </li>
                 </ul>
               </details>
@@ -76,6 +90,45 @@ const NavbarInstitutions = ({ institute }) => {
             >
               Yes
             </button>
+          </div>
+        </div>
+      </dialog>
+      {/* View Courses Modal */}
+      <dialog id="view_courses_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Institute Courses</h3>
+          <div className="overflow-x-auto">
+            <table className="table text-center">
+              <thead>
+                <tr className="text-center text-md md:text-lg">
+                  <th>ID</th>
+                  <th>Course Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {courses.length > 0 ? (
+                  courses.map((course, index) => (
+                    <tr key={index + 1}>
+                      <td>{index + 1}</td>
+                      <td>{course}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td className="text-center" colSpan={2}>
+                      No Courses Created
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              <button id="cancel_view_courses_dialog" className="btn btn-error">
+                Cancel
+              </button>
+            </form>
           </div>
         </div>
       </dialog>
