@@ -66,7 +66,7 @@ const AboutUs = () => {
               type="button"
               className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:text-white dark:hover:text-gray-500 hover:text-gray-600"
             >
-              <Link href="/contactus">Contact Us</Link>
+              <Link href="/#contactus">Contact Us</Link>
             </button>
             <div className="flex-none lg:hidden">
               <ul className="menu menu-horizontal px-4 min-w-max">
@@ -78,7 +78,7 @@ const AboutUs = () => {
                         <Link href="/">Home</Link>
                       </li>
                       <li>
-                        <Link href="/contactus">Contact Us</Link>
+                        <Link href="/#contactus">Contact Us</Link>
                       </li>
                     </ul>
                   </details>
