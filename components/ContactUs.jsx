@@ -66,7 +66,7 @@ const ContactUs = () => {
       id="contactus"
     >
       <motion.div className="flex sm:w-screen lg:w-[1000px] rounded-md p-4 m-5">
-        <motion.div className="flex w-fit bg-black/50 lg:dark:bg-black/5 p-4 rounded-md justify-center items-center ">
+        <motion.div className="flex w-fit bg-black/50 lg:dark:bg-gray-900/80 p-4 rounded-md justify-center items-center ">
           <div className="flex flex-col space-y-6 w—full max-w-screen p—8 rounded—xl shadow—lg text-white md:flex-row md:space-x-6 md:space-y">
             <div className="flex flex-col justify-center w-full">
               <div>
@@ -130,7 +130,7 @@ const ContactUs = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your Name"
-                    className="px-4 py-2 min-w-full lg:w-full placeholder:text-black/80 rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 min-w-full lg:w-full placeholder:text-black/80 dark:placeholder:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
@@ -144,7 +144,7 @@ const ContactUs = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="px-4 py-2 placeholder:text-black/80 rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white  rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
@@ -158,7 +158,7 @@ const ContactUs = () => {
                     rows="4"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="px-4 py-2 placeholder:text-black/80 rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
                   ></textarea>
                 </div>
                 <div className="flex items-center space-x-2">
