@@ -20,9 +20,9 @@ const Footer = () => (
         <div className="flex items-center justify-between flex-col md:flex-row gap-4">
           <h4 className="font-extrabold text-[24px] text-gray-900 dark:text-white">CERTI-BLOCK</h4>
           <Link href={"/admin-login"}>Admin Login</Link>
-          <p className="font-normal text-[14px] text-white opacity-50">
-            Copyright © {new Date().getFullYear() - 1} -{" "}
-            {new Date().getFullYear()} Certi-Block. All rights reserved.
+          <p className="font-normal text-[14px] dark:text-white text-gray-900 opacity-50">
+            Copyright © {new Date().getFullYear()} -{" "}
+            {new Date().getFullYear()+1} Certi-Block. All rights reserved.
           </p>
 
           <div className="flex gap-1">

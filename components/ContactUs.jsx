@@ -130,7 +130,7 @@ const ContactUs = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your Name"
-                    className="px-4 py-2 min-w-full lg:w-full placeholder:text-black/80 dark:placeholder:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 min-w-full lg:w-full placeholder:text-black/80 dark:placeholder:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
@@ -144,7 +144,7 @@ const ContactUs = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white  rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-black  rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
@@ -158,7 +158,7 @@ const ContactUs = () => {
                     rows="4"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
                   ></textarea>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -186,7 +186,8 @@ const ContactUs = () => {
                 <div className="flex flex-col sm:justify-between text-center items-center">
                   <button
                     type="submit"
-                    className="bg-blue-600 w-full py-2 px-6 rounded-lg text-white text-sm tracking-wide hover:bg-slate-300 dark:hover:text-black hover:outline-2 hover:outline-gray-700 transition ease-in-out duration-300"
+                    disabled={name === "" || email === "" || message === ""}
+                    className="bg-blue-600 disabled:cursor-not-allowed w-full py-2 px-6 rounded-lg text-white text-sm tracking-wide hover:bg-slate-500 dark:hover:text-black hover:outline-2 hover:outline-gray-700 transition ease-in-out duration-300"
                   >
                     Submit
                   </button>
