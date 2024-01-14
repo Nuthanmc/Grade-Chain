@@ -439,7 +439,7 @@ const CreateInstitutes = () => {
               </form>
             </div>
             <button
-              onClick={() => {}}
+              onClick={handleSubmit}
               disabled={
                 formData.address === "" ||
                 formData.name === "" ||
