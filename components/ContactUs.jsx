@@ -66,7 +66,7 @@ const ContactUs = () => {
       id="contactus"
     >
       <motion.div className="flex sm:w-screen lg:w-[1000px] rounded-md p-4 m-5">
-        <motion.div className="flex w-fit bg-black/50 lg:dark:bg-gray-900/80 p-4 rounded-md justify-center items-center ">
+        <motion.div className="flex w-fit bg-gray-400 lg:dark:bg-gray-900/80 p-4 rounded-md justify-center items-center">
           <div className="flex flex-col space-y-6 w—full max-w-screen p—8 rounded—xl shadow—lg text-white md:flex-row md:space-x-6 md:space-y">
             <div className="flex flex-col justify-center w-full">
               <div>
