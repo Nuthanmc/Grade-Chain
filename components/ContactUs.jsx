@@ -24,7 +24,7 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(agreed === false){
+    if (agreed === false) {
       toast.error("Please agree to the privacy policy");
       return;
     }
@@ -54,16 +54,19 @@ const ContactUs = () => {
     const { error } = await res.json();
     if (error) {
       toast.error("Something went wrong. Please try again later");
-    } else {  
+    } else {
       toast.success("Feedback sent successfully");
     }
-  }
+  };
 
   return (
     // contact us section
-    <div className="flex justify-center mt-12 items-center lg:h-screen" id="contactus">
+    <div
+      className="flex justify-center mt-12 items-center lg:h-screen"
+      id="contactus"
+    >
       <motion.div className="flex sm:w-screen lg:w-[1000px] rounded-md p-4 m-5">
-        <motion.div className="flex w-fit lg:bg-black/5 p-4 rounded-md justify-center items-center ">
+        <motion.div className="flex w-fit bg-black/50 lg:dark:bg-black/5 p-4 rounded-md justify-center items-center ">
           <div className="flex flex-col space-y-6 w—full max-w-screen p—8 rounded—xl shadow—lg text-white md:flex-row md:space-x-6 md:space-y">
             <div className="flex flex-col justify-center w-full">
               <div>
@@ -127,7 +130,7 @@ const ContactUs = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your Name"
-                    className="px-4 py-2 min-w-full lg:w-full rounded-lg bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 min-w-full lg:w-full placeholder:text-black/80 rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
@@ -141,7 +144,7 @@ const ContactUs = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="px-4 py-2 rounded-lg bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 placeholder:text-black/80 rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
@@ -155,7 +158,7 @@ const ContactUs = () => {
                     rows="4"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="px-4 py-2 rounded-lg bg-gray-800 border focus:border-blue-500 focus:outline-none"
+                    className="px-4 py-2 placeholder:text-black/80 rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none"
                   ></textarea>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -165,11 +168,19 @@ const ContactUs = () => {
                     id="agreement"
                     checked={agreed}
                     onChange={() => setAgreed(!agreed)}
-                    className="rounded border-gray-300 focus:ring-blue-500 h-4 w-4 text-blue-600"
+                    className="checkbox checkbox-primary"
                   />
                   <label htmlFor="agreement" className="text-sm">
                     I agree to the{" "}
-                    <Link target="_blank" href={'https://www.termsfeed.com/live/af81dab3-a00b-4da9-a13d-9e542f16c7e7'} className="underline">Privacy Policy</Link>
+                    <Link
+                      target="_blank"
+                      href={
+                        "https://www.termsfeed.com/live/af81dab3-a00b-4da9-a13d-9e542f16c7e7"
+                      }
+                      className="underline"
+                    >
+                      Privacy Policy
+                    </Link>
                   </label>
                 </div>
                 <div className="flex flex-col sm:justify-between text-center items-center">
@@ -179,7 +190,7 @@ const ContactUs = () => {
                   >
                     Submit
                   </button>
-                  <p className="text-sm text-center text-gray-400 p-2">
+                  <p className="text-sm text-center text-gray-800 dark:text-gray-400 p-2">
                     We usually respond within 24 hours
                   </p>
                 </div>

@@ -24,18 +24,10 @@ const NavbarInstitutions = ({ institute, courses }) => {
           <button
             className="btn btn-primary"
             onClick={() => {
-              window.location.href = "/institutes/profile";
+              document.getElementById("show_profile_modal").showModal();
             }}
           >
             Profile
-          </button>
-          <button
-            onClick={() => {
-              window.location.href = "/institutes/settings";
-            }}
-            className="btn btn-accent"
-          >
-            Settings
           </button>
           <button
             className="btn btn-ghost"
@@ -54,9 +46,6 @@ const NavbarInstitutions = ({ institute, courses }) => {
                 <ul className="p-1 z-10 text-sm bg-base-100 rounded-t-none">
                   <li>
                     <Link href="/institutes/profile">Profile</Link>
-                  </li>
-                  <li>
-                    <Link href="/institutes/settings">Settings</Link>
                   </li>
                   <li>
                     <button
@@ -126,7 +115,42 @@ const NavbarInstitutions = ({ institute, courses }) => {
           <div className="modal-action">
             <form method="dialog">
               <button id="cancel_view_courses_dialog" className="btn btn-error">
-                Cancel
+                Close
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+      {/* View Profile Modal */}
+      <dialog id="show_profile_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg text-center">Institute Profile</h3>
+          <div className="overflow-x-hidden">
+            {institute.name !== "" ? (
+              <table className="table">
+                <tbody>
+                  <tr>
+                    <th className="font-bold">Name</th>
+                    <td className="text-wrap">{institute.name}</td>
+                  </tr>
+                  <tr>
+                    <th className="font-bold">Address</th>
+                    <td>{institute.address}</td>
+                  </tr>
+                  <tr>
+                    <th className="font-bold">Description</th>
+                    <td className="text-wrap">{institute.description}</td>
+                  </tr>
+                </tbody>
+              </table>
+            ) : (
+              <h5>Loading Profile</h5>
+            )}
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              <button id="cancel_view_courses_dialog" className="btn btn-error">
+                Close
               </button>
             </form>
           </div>
