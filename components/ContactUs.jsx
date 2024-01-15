@@ -144,7 +144,7 @@ const ContactUs = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-black  rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
+                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white  rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
