@@ -16,7 +16,7 @@ const CreateInstitutes = () => {
 
   const [institutes, setInstitutes] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [createLoading, setCreateLoading] = useState(false);
   const [coursesLoading, setCoursesLoading] = useState(false);
 
@@ -66,15 +66,35 @@ const CreateInstitutes = () => {
         console.log(arr);
         setLoading(false);
       })
-      .catch((err) => {
-        toast.error("Please login to Metamask");
+      .catch(async (err) => {
+        await loginToMetaMask().then((accounts) => {
+          if (accounts.length > 0) {
+            getAllInstitutes();
+          }
+        }).catch(((errorr) => {
+          toast.error("Please login to Metamask");
+          loginToMetaMask();
+        }));
         console.log(err);
         setLoading(false);
       });
   };
 
+  const loginToMetaMask = async () => {
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      console.log(accounts);
+      return accounts;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
+
     getAllInstitutes();
   }, []);
 
@@ -177,13 +197,13 @@ const CreateInstitutes = () => {
         <div className="flex mt-10 items-center justify-center">
           <div className="overflow-x-auto">
             <h3 className="text-md sm:text-xl text-white capitalize p-3">
-              Institutes
+              All Institutes
             </h3>
             <table className="table">
               <thead>
                 <tr className="text-center text-md md:text-lg">
-                  <th>ID</th>
-                  <th>Wallet Address</th>
+                  <th>Sr. No.</th>
+                  <th>Institute Wallet Address</th>
                   <th>Institute Name</th>
                   <th>Description</th>
                   <th>Courses</th>
