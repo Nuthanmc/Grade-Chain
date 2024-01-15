@@ -3,6 +3,7 @@ import NavbarInstitutions from '@/components/NavbarInstitutions';
 import React, { useEffect, useState } from 'react'
 import { ethers } from "ethers";
 import { contractAddress, InstitutesABI } from '@/constants';
+import InstituteHero from '@/components/InstituteHero';
 
 const InstitutesPage = () => {
   const [institution, setInstitution] = useState([]);
@@ -46,6 +47,7 @@ const InstitutesPage = () => {
   return (
     <>
       <NavbarInstitutions institute={institution} courses={courses} />
+      <InstituteHero institute={institution} courses={courses} />
     </>
   )
 }
