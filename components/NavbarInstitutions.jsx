@@ -8,9 +8,7 @@ const NavbarInstitutions = ({ institute, courses }) => {
       <div className="navbar bg-base-100">
         <div className="flex-1">
           <a className="btn btn-ghost normal-case text-xl">Certi-Block</a>
-          <h3 className="ml-3 text-sm  text-ellipsis lg:text-lg">
-            Welcome {institute.name}
-          </h3>
+          
         </div>
         <div className="flex-none gap-3 hidden lg:flex">
           <button
