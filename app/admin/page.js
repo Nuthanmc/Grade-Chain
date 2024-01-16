@@ -3,17 +3,22 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import toast from "react-hot-toast";
 import { contractAddress, InstitutesABI } from "@/constants";
+import { CloseOutlined } from "@mui/icons-material";
 
 const CreateInstitutes = () => {
   const [formData, setFormData] = useState({
     address: "",
     name: "",
     description: "",
+    course_name: "",
+    courses: [],
   });
-  const [approved, setApproved] = useState(false);
+
   const [institutes, setInstitutes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [createLoading, setCreateLoading] = useState(false);
+  const [coursesLoading, setCoursesLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +38,6 @@ const CreateInstitutes = () => {
   }, []);
 
   const getAllInstitutes = async () => {
-    setLoading(true);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     console.log(signer);
@@ -47,26 +51,50 @@ const CreateInstitutes = () => {
       .getAllInstitutes()
       .then((institutes) => {
         let arr = [];
+
         institutes.forEach((institute) => {
           arr.push({
             id: institute.id._hex,
             walletAddress: institute.walletAddress,
             name: institute.name,
             description: institute.description,
-            approved: institute.approved,
+            coursesCount: institute.coursesCount,
           });
         });
+
         setInstitutes(arr);
         console.log(arr);
+        setLoading(false);
       })
-      .catch((err) => {
-        toast.error("Please login to Metamask");
+      .catch(async (err) => {
+        await loginToMetaMask().then((accounts) => {
+          if (accounts.length > 0) {
+            getAllInstitutes();
+          }
+        }).catch(((errorr) => {
+          toast.error("Please login to Metamask");
+          loginToMetaMask();
+        }));
         console.log(err);
+        setLoading(false);
       });
-    setLoading(false);
+  };
+
+  const loginToMetaMask = async () => {
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      console.log(accounts);
+      return accounts;
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   useEffect(() => {
+    setLoading(true);
+
     getAllInstitutes();
   }, []);
 
@@ -87,14 +115,14 @@ const CreateInstitutes = () => {
       );
 
       //   Perform contract interaction (e.g., create institute) here
-      const transaction = await contract.addInstitute(
+      const transaction = await contract.addInstituteAndCourses(
         formData.address,
         formData.name,
         formData.description,
-        approved
+        formData.courses
       );
       await transaction.wait();
-      console.log("Transaction successful:", transaction);
+      console.log("Institute created successfully:", transaction);
       toast.success("Institute Created Successfully");
       setCreateLoading(false);
       document.getElementById("cancel_add_institute_dialog").click();
@@ -104,199 +132,41 @@ const CreateInstitutes = () => {
     }
   };
 
-  return (
-    // <section className="flex flex-col h-screen items-center">
-    //   <div className="w-full md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12         flex items-center justify-center">
-    //     <div className="w-full h-100">
-    //       <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">
-    //         Create Institute Account
-    //       </h1>
-    //       <form className="mt-6" onSubmit={handleSubmit}>
-    //         <div>
-    //           <label className="block text-gray-300">
-    //             Enter Institute Wallet Address
-    //           </label>
-    //           <input
-    //             type="text"
-    //             placeholder="Enter Wallet Address"
-    //             autoFocus
-    //             onChange={(e) => handleChange(e)}
-    //             name="address"
-    //             required
-    //             className="input input-bordered input-primary w-full max-w-2xl"
-    //           />
-    //         </div>
-    //         <div className="mt-4">
-    //           <label className="block text-gray-300">
-    //             Enter Institute Name
-    //           </label>
-    //           <input
-    //             type="text"
-    //             placeholder="Enter Institute Name"
-    //             onChange={(e) => handleChange(e)}
-    //             name="name"
-    //             required
-    //             className="input input-bordered input-primary w-full max-w-2xl"
-    //           />
-    //         </div>
-    //         <div className="mt-4">
-    //           <label className="block text-gray-300">
-    //             Enter Institute Description
-    //           </label>
-    //           <input
-    //             type="text"
-    //             placeholder="Enter Description"
-    //             onChange={(e) => handleChange(e)}
-    //             name="description"
-    //             required
-    //             className="input input-bordered input-primary w-full max-w-2xl"
-    //           />
-    //         </div>
-    //         <div className="mt-4">
-    //           <label className="block text-gray-300">Password</label>
-    //           <input
-    //             type="password"
-    //             name="password"
-    //             onChange={(e) => handleChange(e)}
-    //             required
-    //             placeholder="Enter Password"
-    //             className="input input-bordered input-primary w-full max-w-2xl"
-    //           />
-    //         </div>
-    //         <button
-    //           type="submit"
-    //           className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg               px-4 py-3 mt-6"
-    //         >
-    //           Create Account
-    //         </button>
-    //       </form>
-    //     </div>
-    //   </div>
-    //   <div className="bg-[#083D77] hidden lg:block w-full">
-    //     <div className="flex items-center justify-center mt-10 h-[95.5vh]">
-    //       <div className="overflow-x-auto">
-    //         <table className="table table-zebra">
-    //           <thead>
-    //             <tr>
-    //               <th>ID</th>
-    //               <th>Wallet Address</th>
-    //               <th>Institute Name</th>
-    //               <th>Description</th>
-    //               <th>Password</th>
-    //             </tr>
-    //           </thead>
-    //           <tbody>
-    //             {institutes.map((institute, index) => (
-    //               <tr key={institute.id?._hex}>
-    //                 <td>{index + 1}</td>
-    //                 <td>{institute.walletAddress}</td>
-    //                 <td>{institute.name}</td>
-    //                 <td>{institute.description}</td>
-    //                 <td>{institute.password}</td>
-    //               </tr>
-    //             ))}
-    //           </tbody>
-    //         </table>
-    //       </div>
-    //     </div>
-    //   </div>
+  const getAllCourses = async (walletAddress) => {
+    setCoursesLoading(true);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    console.log(signer);
+    const contract = new ethers.Contract(
+      contractAddress,
+      InstitutesABI,
+      signer
+    );
 
-    // </section>
+    contract
+      .getAllCourses(walletAddress)
+      .then((courses) => {
+        let arr = [];
+
+        courses.forEach((course) => {
+          arr.push({
+            name: course.name,
+          });
+        });
+
+        console.log(arr);
+        setCourses(arr);
+        setCoursesLoading(false);
+      })
+      .catch((err) => {
+        toast.error("Please login to Metamask");
+        console.log(err);
+        setCoursesLoading(false);
+      });
+  };
+
+  return (
     <section className="h-screen">
-      {/* <div className="w-full md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12 flex items-center justify-center">
-        <div className="w-full h-100">
-          <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">
-            Create Institute Account
-          </h1>
-          <form className="mt-6" onSubmit={handleSubmit}>
-            <div className="mt-4">
-              <label className="block text-gray-300">
-                Enter Institute Wallet Address
-              </label>
-              <input
-                type="text"
-                placeholder="Enter Wallet Address"
-                autoFocus
-                onChange={(e) => handleChange(e)}
-                name="address"
-                required
-                className="input input-bordered input-primary w-full max-w-2xl"
-              />
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-300">
-                Enter Institute Name
-              </label>
-              <input
-                type="text"
-                placeholder="Enter Institute Name"
-                onChange={(e) => handleChange(e)}
-                name="name"
-                required
-                className="input input-bordered input-primary w-full max-w-2xl"
-              />
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-300">
-                Enter Institute Description
-              </label>
-              <input
-                type="text"
-                placeholder="Enter Description"
-                onChange={(e) => handleChange(e)}
-                name="description"
-                required
-                className="input input-bordered input-primary w-full max-w-2xl"
-              />
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-300">Password</label>
-              <input
-                type="password"
-                name="password"
-                onChange={(e) => handleChange(e)}
-                required
-                placeholder="Enter Password"
-                className="input input-bordered input-primary w-full max-w-2xl"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6"
-            >
-              Create Account
-            </button>
-          </form>
-        </div>
-      </div>
-      <div className="bg-[#083D77] hidden lg:block w-full">
-        <div className="flex items-center justify-center mt-10 h-[95.5vh]">
-          <div className="overflow-x-auto">
-            <table className="table-auto">
-              <thead className="text-white">
-                <tr>
-                  <th className="px-4 py-2">ID</th>
-                  <th className="px-4 py-2">Wallet Address</th>
-                  <th className="px-4 py-2">Institute Name</th>
-                  <th className="px-4 py-2">Description</th>
-                  <th className="px-4 py-2">Password</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-300">
-                {institutes.map((institute, index) => (
-                  <tr key={institute.id?._hex}>
-                    <td className="px-4 py-2">{index + 1}</td>
-                    <td className="px-4 py-2">{institute.walletAddress}</td>
-                    <td className="px-4 py-2">{institute.name}</td>
-                    <td className="px-4 py-2">{institute.description}</td>
-                    <td className="px-4 py-2">{institute.password}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div> */}
       {/* Navbar */}
       <div className="navbar bg-base-100">
         <div className="flex-1">
@@ -313,22 +183,6 @@ const CreateInstitutes = () => {
               Add Institute
             </button>
             <button
-              className="btn btn-primary"
-              onClick={() => {
-                window.location.href = "/institutes/profile";
-              }}
-            >
-              Profile
-            </button>
-            <button
-              onClick={() => {
-                window.location.href = "/institutes/settings";
-              }}
-              className="btn btn-accent"
-            >
-              Settings
-            </button>
-            <button
               className="btn btn-ghost"
               onClick={() =>
                 document.getElementById("logout_modal").showModal()
@@ -343,16 +197,16 @@ const CreateInstitutes = () => {
         <div className="flex mt-10 items-center justify-center">
           <div className="overflow-x-auto">
             <h3 className="text-md sm:text-xl text-white capitalize p-3">
-              Institutes
+              All Institutes
             </h3>
             <table className="table">
               <thead>
                 <tr className="text-center text-md md:text-lg">
-                  <th>ID</th>
-                  <th>Wallet Address</th>
+                  <th>Sr. No.</th>
+                  <th>Institute Wallet Address</th>
                   <th>Institute Name</th>
                   <th>Description</th>
-                  <th>Approved</th>
+                  <th>Courses</th>
                 </tr>
               </thead>
               <tbody>
@@ -404,15 +258,25 @@ const CreateInstitutes = () => {
                   </tr>
                 ) : institutes.length > 0 ? (
                   institutes.map((institute, index) => (
-                    <tr key={index+1}>
+                    <tr key={index + 1}>
                       <td>{index + 1}</td>
                       <td>{institute.walletAddress}</td>
                       <td>{institute.name}</td>
                       <td className="max-w-[100px] md:max-w-[300px] overflow-clip text-ellipsis">
                         {institute.description}
                       </td>
-                      <td className="max-w-[300px] overflow-clip text-ellipsis">
-                        {institute.approved ? "Approved" : "Not Approved"}
+                      <td className="text-center">
+                        <button
+                          className="btn btn-accent"
+                          onClick={() => {
+                            getAllCourses(institute.walletAddress);
+                            document
+                              .getElementById("view_courses_modal")
+                              .showModal();
+                          }}
+                        >
+                          View Courses
+                        </button>
                       </td>
                     </tr>
                   ))
@@ -428,6 +292,7 @@ const CreateInstitutes = () => {
           </div>
         </div>
       </div>
+      {/* Logout Modal */}
       <dialog id="logout_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Logout Confirmation</h3>
@@ -448,13 +313,16 @@ const CreateInstitutes = () => {
           </div>
         </div>
       </dialog>
+      {/* Add Institute Modal */}
       <dialog id="add_institute_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Create New Institute</h3>
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Wallet Address</span>
+              <span className="label-text">
+                Wallet Address <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -468,7 +336,9 @@ const CreateInstitutes = () => {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Institute Name</span>
+              <span className="label-text">
+                Institute Name <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -481,7 +351,9 @@ const CreateInstitutes = () => {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Description</span>
+              <span className="label-text">
+                Description <span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               type="text"
@@ -493,52 +365,184 @@ const CreateInstitutes = () => {
             />
           </div>
           <div className="form-control">
-            {/* <input
-              type="password"
-              name="password"
+            <label className="label">
+              <span className="label-text">Add Institute Courses</span>
+              <p className="label-text-alt text-xs text-gray-400">(Optional)</p>
+            </label>
+            {/* More info about Courses */}
+            <p className="text-xs text-gray-400 mb-1">
+              Courses allow you to create certificates for different courses in
+              your institute.
+            </p>
+            <input
+              type="text"
+              placeholder="Enter Course Name"
+              name="course_name"
               onChange={(e) => handleChange(e)}
               required
-              placeholder="Enter Password"
+              id="course_name"
               className="input input-bordered input-primary w-full max-w-2xl"
-            /> */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center justify-around w-full mt-3">
-                <label className="cursor-pointer text-center">
-                  <span className="">Approve</span>
-                </label>
-                <input
-                  type="checkbox"
-                  className="toggle"
-                  value={approved}
-                  onChange={() => {
-                    if (approved) {
-                      setApproved(false);
-                    } else {
-                      setApproved(true);
-                    }
-                  }}
-                />
-              </div>
-            </div>
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setFormData((prevData) => ({
+                  ...prevData,
+                  courses: [...prevData.courses, formData.course_name],
+                }));
+                document.getElementById("course_name").value = "";
+                console.log(formData.courses);
+                setFormData((prevData) => ({
+                  ...prevData,
+                  course_name: "",
+                }));
+              }}
+              className="btn btn-primary m-4 w-52"
+              disabled={formData.course_name === ""}
+            >
+              Add Course
+            </button>
+            {formData.courses.length > 0 ? (
+              <>
+                <h3 className="text-white text-md sm:text-xl">Courses Added</h3>
+                <table className="table border-0">
+                  <thead>
+                    <tr className="text-center text-md md:text-lg">
+                      <th>Sr. No.</th>
+                      <th>Course Name</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {formData.courses.map((course, index) => (
+                      <tr className="text-center" key={index + 1}>
+                        <td className="dark:text-white text-white text-md sm:text-xl">
+                          {index + 1}
+                        </td>
+                        <td
+                          key={index}
+                          className="dark:text-white text-black text-sm sm:text-xl"
+                        >
+                          {course}
+                        </td>
+                        <td>
+                          <CloseOutlined
+                            onClick={() => {
+                              setFormData((prevData) => ({
+                                ...prevData,
+                                courses: prevData.courses.filter(
+                                  (c) => c !== course
+                                ),
+                              }));
+                              console.log(formData.courses);
+                            }}
+                            className="hover:text-white text-gray-400"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            ) : null}
           </div>
+
           <div className="flex items-end justify-end gap-2">
             <div className="modal-action">
               <form method="dialog" className="">
                 <button
                   id="cancel_add_institute_dialog"
-                  className="btn btn-primary"
+                  className="btn btn-error"
                 >
                   Cancel
                 </button>
               </form>
             </div>
-            <button onClick={handleSubmit} className="btn btn-success">
+            <button
+              onClick={handleSubmit}
+              disabled={
+                formData.address === "" ||
+                formData.name === "" ||
+                formData.description === ""
+              }
+              className="btn btn-success"
+            >
               {createLoading ? (
                 <span className="loading loading-spinner loading-md"></span>
               ) : (
                 "Create"
               )}
             </button>
+          </div>
+        </div>
+      </dialog>
+      {/* View Courses Modal */}
+      <dialog id="view_courses_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Institute Courses</h3>
+          <div className="overflow-x-auto">
+            <table className="table text-center">
+              <thead>
+                <tr className="text-center text-md md:text-lg">
+                  <th>ID</th>
+                  <th>Course Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {coursesLoading ? (
+                  <tr>
+                    <td
+                      role="status"
+                      className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+                      colSpan={5}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                          <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                        </div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                      </div>
+                      <div className="flex items-center justify-between pt-4">
+                        <div>
+                          <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                          <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                        </div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                      </div>
+                      <div className="flex items-center justify-between pt-4">
+                        <div>
+                          <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                          <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                        </div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                      </div>
+                      <span className="sr-only">Loading...</span>
+                    </td>
+                  </tr>
+                ) : courses.length > 0 ? (
+                  courses.map((course, index) => (
+                    <tr key={index + 1}>
+                      <td>{index + 1}</td>
+                      <td>{course.name}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td className="text-center" colSpan={2}>
+                      No Courses Created
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              <button id="cancel_view_courses_dialog" className="btn btn-error">
+                Cancel
+              </button>
+            </form>
           </div>
         </div>
       </dialog>

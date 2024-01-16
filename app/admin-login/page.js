@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
 
@@ -9,101 +10,101 @@ const variants = {
   exit: { opacity: 0, x: 50 },
 };
 
-
 const AdminLogin = () => {
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      if (email === "info.certi-block@gmail.com" && password === "admin") {
-        window.location.href = "/admin";
-        sessionStorage.setItem("address", email);
-      } else {
-        toast.error("Invalid Credentials");
-      }
-    };
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email === "info.certi-block@gmail.com" && password === "admin") {
+      window.location.href = "/admin";
+      sessionStorage.setItem("address", email);
+    } else {
+      toast.error("Invalid Credentials");
+    }
+  };
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="flex min-h-full flex-col">
-        <main className="flex min-h-screen bg-gray-50 dark:bg-gray-900 overflow-hidden pt-16 sm:py-28">
-          <div class="mx-auto flex w-full max-w-2xl flex-col px-4 sm:px-6">
-            <div class="relative">
-              <svg
-                viewBox="0 0 1090 1090"
-                aria-hidden="true"
-                fill="none"
-                preserveAspectRatio="none"
-                width="1090"
-                height="1090"
-                className="absolute z-10 -top-7 hidden lg:flex left-1/2 h-[500px] -translate-x-1/2 stroke-gray-300/30 [mask-image:linear-gradient(to_bottom,white_20%,transparent_75%)] sm:-top-9 sm:h-auto"
-              >
-                <circle cx="545" cy="545" r="544.5"></circle>
-                <circle cx="545" cy="545" r="480.5"></circle>
-                <circle cx="545" cy="545" r="416.5"></circle>
-                <circle cx="545" cy="545" r="352.5"></circle>
-              </svg>
-              <h1 class="text-center text-2xl font-medium tracking-tight text-gray-900 dark:text-white">
-                Login as Admin
-              </h1>
-            </div>
-            <motion.div
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              variants={variants}
-              class="w-full mx-auto z-20 mt-10 flex-auto bg-white px-4 py-10 shadow-2xl shadow-gray-900/10 sm:mx-auto sm:flex-none rounded-3xl sm:p-24"
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={variants}
+    >
+      <section class="h-screen">
+        <div class="flex justify-end">
+          <div class="text-center lg:text-left m-2   absolute">
+            <button
+              type="button"
+              class="inline-block rounded btn btn-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+              onClick={() => (window.location.href = "/")}
             >
-              <form onSubmit={handleSubmit}>
-                <div class="space-y-6">
-                  <div>
-                    <label
-                      for="email"
-                      class="mb-2 block text-sm text-center font-semibold text-gray-900"
-                    >
-                      Email
-                    </label>
-                    <input
-                      id="email"
-                      required
-                      class="block w-full appearance-none rounded-lg border border-gray-200 bg-white py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
-                      type="email"
-                      name="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      for="password"
-                      class="mb-2 block text-sm text-center font-semibold text-gray-900"
-                    >
-                      Password
-                    </label>
-                    <input
-                      id="password"
-                      autocomplete="current-password"
-                      required
-                      class="block w-full appearance-none rounded-lg border border-gray-200 bg-white py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
-                      type="password"
-                      name="password"
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <button
-                  class="inline-flex justify-center rounded-lg py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors relative overflow-hidden bg-cyan-500 text-white before:absolute before:inset-0 active:before:bg-transparent hover:before:bg-white/10 active:bg-cyan-600 active:text-white/80 before:transition-colors mt-8 w-full"
-                  type="submit"
-                >
-                  Login
-                </button>
-                <hr />
-              </form>
-            </motion.div>
+              Back
+            </button>
           </div>
-        </main>
-      </div>
-    </div>
+        </div>
+        <div class="h-full">
+          <div class="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
+            <div class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
+              <Image
+                src="/admin_login.svg"
+                class="w-full"
+                width={600}
+                height={400}
+                alt="Sample image"
+              />
+            </div>
+
+            <div class="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
+              <form>
+                <div class="mb-6">
+                  <label
+                    for="email"
+                    class="pointer-events-none mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                  >
+                    Email address
+                  </label>
+                  <input
+                    type="text"
+                    class="peer block min-h-[auto] w-1/2 rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200"
+                    id="email"
+                    name="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter Email address"
+                  />
+                </div>
+
+                <div class="mb-6">
+                  <label
+                    for="password"
+                    class="pointer-events-none  mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out  motion-reduce:transition-none dark:text-neutral-200"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    class="peer block min-h-[auto] w-1/2 rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200"
+                    id="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter Password"
+                  />
+                </div>
+                <div class="text-center lg:text-left">
+                  <button
+                    type="button"
+                    class="inline-block rounded btn btn-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white transition duration-150 ease-in-out" 
+                    onClick={handleSubmit}
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </motion.div>
   );
 };
 

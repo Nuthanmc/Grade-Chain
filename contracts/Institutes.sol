@@ -1,99 +1,5 @@
-// pragma solidity ^0.8.9;
-
-// // 0x5FbDB2315678afecb367f032d93F642f64180aa3
-// // SEPOLIA CONTRACT ADDRESS: 0x2d6a1440550ea48f0665e23b9d19084b0c8c1bd2
-// contract Institutes {
-//     // institute structure
-//     struct Institute {
-//         uint256 id;
-//         address walletAddress;
-//         string name;
-//         string description;
-//         bytes32 password;
-//     }
-
-//     uint256 public institutesCount; // number of institutes
-//     Institute[] public institutes; // array of institutes
-//     mapping(address => Institute) public institutesMap;
-
-//     // login function
-//     function login(
-//         address _walletAddress,
-//         string memory _password
-//     ) public view returns (bool) {
-//         for (uint256 i = 0; i < institutesCount; i++) {
-//             if (
-//                 keccak256(abi.encodePacked(institutes[i].walletAddress)) ==
-//                 keccak256(abi.encodePacked(_walletAddress))
-//             ) {
-//                 if (
-//                     keccak256(abi.encodePacked(institutes[i].password)) ==
-//                     keccak256(abi.encodePacked(_password))
-//                 ) {
-//                     return true;
-//                 }
-//             }
-//         }
-//         return false;
-//     }
-
-//     // get all institutes function
-//     function getAllInstitutes() public view returns (Institute[] memory) {
-//         return institutes;
-//     }
-
-//     function addInstitute(
-//         address _walletAddress,
-//         string memory _name,
-//         string memory _description,
-//         string memory _password
-//     ) public {
-//         require(
-//             institutesMap[_walletAddress].id == 0,
-//             "Institute with this address already exists"
-//         );
-//         institutesCount++;
-//         Institute memory newInstitute = Institute(
-//             institutesCount,
-//             _walletAddress,
-//             _name,
-//             _description,
-//             keccak256(abi.encodePacked(_password))
-//         );
-//         institutes.push(newInstitute);
-//         institutesMap[_walletAddress] = newInstitute;
-//     }
-
-//     function getInstitute(
-//         address _walletAddress
-//     ) public view returns (Institute memory) {
-//         Institute memory institute = institutesMap[_walletAddress];
-//         require(institute.id != 0, "Institute not found");
-//         return institute;
-//     }
-
-//     // Reset Password function
-//     function resetPassword(
-//         address _walletAddress,
-//         string memory _oldPassword,
-//         string memory _newPassword
-//     ) public {
-//         require(
-//             institutesMap[_walletAddress].id != 0,
-//             "Institute with this address does not exist"
-//         );
-//         require(
-//             keccak256(abi.encodePacked(institutesMap[_walletAddress].password)) ==
-//                 keccak256(abi.encodePacked(_oldPassword)),
-//             "Old password is incorrect"
-//         );
-//         institutesMap[_walletAddress].password = keccak256(
-//             abi.encodePacked(_newPassword)
-//         );
-//     }
-// }
-
 // SPDX-License-Identifier: MIT
+// 0xe507d2c54ae06e83f3db348f8d2bbcef85445237
 pragma solidity ^0.8.9;
 
 contract Institutes {
@@ -102,33 +8,51 @@ contract Institutes {
         address walletAddress;
         string name;
         string description;
-        bool approved;
+        uint256 coursesCount; // Number of courses
     }
 
-    uint256 institutesCount; // number of institutes
-    Institute[] public institutes; // array of institutes
+    struct Course {
+        string name; // name of the course
+        // string description; //brief desc of course
+    }
+
+    uint256 institutesCount; // Number of institutes
+    Institute[] public institutes; // Array of institutes
+    // Mapping from wallet address to Institute details
     mapping(address => Institute) public institutesMap;
 
-    function addInstitute(
+    // Nested mapping from wallet address to course ID to Course details
+    mapping(address => mapping(uint256 => Course)) public coursesMap;
+
+    function addInstituteAndCourses(
         address _walletAddress,
         string memory _name,
         string memory _description,
-        bool _approved
+        string[] memory _courseNames
     ) public {
-        require(
-            institutesMap[_walletAddress].id == 0,
-            "Institute with this address already exists"
-        );
-        institutesCount++;
-        Institute memory newInstitute = Institute(
-            institutesCount,
-            _walletAddress,
-            _name,
-            _description,
-            _approved
-        );
-        institutes.push(newInstitute);
-        institutesMap[_walletAddress] = newInstitute;
+        Institute storage institute = institutesMap[_walletAddress];
+
+        // Now, whether the institute exists or is newly created, add the courses
+        for (uint256 i = 0; i < _courseNames.length; i++) {
+            uint256 courseId = i;
+            Course memory newCourse = Course(_courseNames[i]);
+            coursesMap[_walletAddress][courseId] = newCourse;
+        }
+
+        // Check if the institute already exists
+        if (institute.id == 0) {
+            // If not, create a new institute
+            institutesCount++;
+            Institute memory newInstitute = Institute(
+                institutesCount,
+                _walletAddress,
+                _name,
+                _description,
+                _courseNames.length
+            );
+            institutes.push(newInstitute);
+            institutesMap[_walletAddress] = newInstitute;
+        }
     }
 
     // get all institutes function
@@ -136,21 +60,49 @@ contract Institutes {
         return institutes;
     }
 
-    function login(address _walletAddress) public view returns (bool) {
-        for (uint256 i=0; i<institutesCount; i++) 
-        {
-            if(_walletAddress == institutesMap[_walletAddress].walletAddress) {
-                return true;
-            }   
-        }
-        return false;
-    }
-
-    function getInstitute(
-        address _walletAddress
-    ) public view returns (Institute memory) {
+    function getAllCourses(address _walletAddress)
+        public
+        view
+        returns (Course[] memory)
+    {
         Institute memory institute = institutesMap[_walletAddress];
         require(institute.id != 0, "Institute not found");
-        return institute;
+
+        // Create an array to store Course objects based on the number of courses in the institute
+        Course[] memory courses = new Course[](institute.coursesCount);
+
+        // Loop through each course in the institute
+        for (uint256 i = 0; i < institute.coursesCount; i++) {
+            // Assign each course from the mapping to the corresponding index in the courses array
+            // Note: The index in the array is i - 1, as array indices start from 0
+            courses[i] = coursesMap[_walletAddress][i];
+        }
+
+        return courses;
+    }
+
+    function login(address _walletAddress) public view returns (bool) {
+        return institutesMap[_walletAddress].id != 0;
+    }
+
+    function getInstitute(address _walletAddress)
+        public
+        view
+        returns (Institute memory, Course[] memory)
+    {
+        Institute memory institute = institutesMap[_walletAddress];
+        require(institute.id != 0, "Institute not found");
+
+        // Create an array to store Course objects based on the number of courses in the institute
+        Course[] memory courses = new Course[](institute.coursesCount);
+
+        // Loop through each course in the institute
+        for (uint256 i = 0; i < institute.coursesCount; i++) {
+            // Assign each course from the mapping to the corresponding index in the courses array
+            // Note: The index in the array is i - 1, as array indices start from 0
+            courses[i] = coursesMap[_walletAddress][i];
+        }
+
+        return (institute, courses);
     }
 }

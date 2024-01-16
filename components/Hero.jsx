@@ -79,7 +79,7 @@ const Hero = () => {
               >
                 <button
                   className="btn btn-primary"
-                  onClick={() => (window.location.href = "/validate")}
+                  onClick={() => (window.location.href = "/validate-certificate")}
                 >
                   Validate Certificates
                 </button>
