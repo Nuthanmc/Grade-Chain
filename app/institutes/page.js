@@ -13,7 +13,7 @@ import InstituteHero from "@/components/InstituteHero";
 const InstitutesPage = () => {
   const [institution, setInstitution] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [certificates, setCertificates] = useState([]);
+  // const [certificates, setCertificates] = useState([]);
 
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -52,21 +52,6 @@ const InstitutesPage = () => {
           });
           setCourses(arr);
           console.log(institution);
-
-          certificateContract
-            .getCertificatesByIssuer(res[0].walletAddress)
-            .then((certificates) => {
-              let certificatesArr = [];
-              certificates.forEach((certificate) => {
-                certificatesArr.push({
-                  recipientName:
-                    certificate.first_name + " " + certificate.last_name,
-                  certificateId: certificate.certificateId,
-                });
-              });
-              setCertificates(certificatesArr);
-              console.log(certificatesArr);
-            });
         })
         .catch((err) => {
           console.log(err);
@@ -75,9 +60,6 @@ const InstitutesPage = () => {
         });
     };
     getDataFromBlockchain();
-
-    const getCertificatesByIssuer = async () => {};
-    getCertificatesByIssuer();
   }, []);
   return (
     <>
@@ -85,8 +67,6 @@ const InstitutesPage = () => {
       <InstituteHero
         institute={institution}
         courses={courses}
-        certificates={certificates}
-        setCertificates={setCertificates}
       />
     </>
   );
