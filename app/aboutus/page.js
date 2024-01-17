@@ -254,9 +254,9 @@ const AboutUs = () => {
                 src="/certi-block-hi-res.jpg"
                 width={0}
                 height={0}
-                sizes="100vw"
+                sizes="40vw"
                 alt="Certi-Block Logo"
-                style={{ width: "100%", height: "auto" }} // optional
+                style={{ width: "60%", height: "auto" }} // optional
                 class="relative z-40 object-cover w-full h-96"
               />
             </div>
