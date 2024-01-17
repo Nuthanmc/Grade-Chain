@@ -1,19 +1,72 @@
 import { CertificateABI, certificateContractAddress } from "@/constants";
+import { ContentCopyOutlined } from "@mui/icons-material";
 import { ethers } from "ethers";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 
-const InstituteHero = ({
-  institute,
-  courses,
-  certificates,
-  setCertificates,
-}) => {
+const InstituteHero = ({ institute, courses }) => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [course, setCourse] = React.useState("");
+  const [creationDate, setCreationDate] = React.useState(getCurrentDate());
+  const [waiting, setWaiting] = React.useState(false); // waiting for transaction to be mined
   const [createLoading, setCreateLoading] = React.useState(false);
+  const [loadingCertificates, setLoadingCertificates] = React.useState(true); // loading certificates from blockchain
+  const [loadingInstitute, setLoadingInstitute] = React.useState(true); // loading institute from blockchain
+  const [certificates, setCertificates] = React.useState([]);
+
+  function getCurrentDate() {
+    const currentDate = new Date();
+
+    // Get day, month, and year components
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1; // Months are zero-based
+    const year = currentDate.getFullYear();
+
+    // Pad single-digit day or month with a leading zero if needed
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+
+    // Create the formatted date string
+    const formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
+
+    return formattedDate;
+  }
+
+  // get all certificates from blockchain
+  useEffect(() => {
+    const getDataFromBlockchain = async () => {
+      setLoadingCertificates(true);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      const certificateContract = new ethers.Contract(
+        certificateContractAddress,
+        CertificateABI,
+        signer
+      );
+      if (institute.address === undefined) return;
+      certificateContract
+        .getCertificatesByIssuer(institute?.address)
+        .then((certificates) => {
+          let certificatesArr = [];
+          console.log(certificates);
+          certificates.forEach((certificate) => {
+            certificatesArr.push({
+              recipientName:
+                certificate.first_name + " " + certificate.last_name,
+              certificateId: certificate.certificateId,
+              course: certificate.course_name,
+            });
+          });
+          setCertificates(certificatesArr);
+          console.log(certificatesArr);
+          setLoadingCertificates(false);
+        });
+    };
+    getDataFromBlockchain();
+  }, [institute]);
 
   const getAllCertificates = async () => {
     try {
@@ -58,16 +111,24 @@ const InstituteHero = ({
         lastName,
         institute.name,
         institute.address,
-        course
+        course,
+        creationDate
       );
+      setWaiting(true);
       await tx.wait();
       console.log("Certificate generated successfully:", tx);
       toast.success("Certificate Generated Successfully");
       setCreateLoading(false);
+      setWaiting(false);
       document.getElementById("cancel_issue_certificate_modal").click();
       getAllCertificates().then((certificates) => {
         setCertificates(certificates);
       });
+      getDataFromBlockchain();
+      setFirstName("");
+      setLastName("");
+      setCourse("");
+      setCreationDate(getCurrentDate());
     } catch (err) {
       console.log(err);
       toast.error("Error while issuing certificate");
@@ -75,11 +136,54 @@ const InstituteHero = ({
     }
   };
 
+  const getDataFromBlockchain = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    const certificateContract = new ethers.Contract(
+      certificateContractAddress,
+      CertificateABI,
+      signer
+    );
+
+    certificateContract
+      .getCertificatesByIssuer(institute.address)
+      .then((certificates) => {
+        let certificatesArr = [];
+        console.log(certificates);
+        certificates.forEach((certificate) => {
+          certificatesArr.push({
+            recipientName: certificate.first_name + " " + certificate.last_name,
+            certificateId: certificate.certificateId,
+            course: certificate.course_name,
+          });
+        });
+        setCertificates(certificatesArr);
+        console.log(certificatesArr);
+      });
+  };
+
   return (
     <div className="h-screen flex flex-col m-4">
       <div className="flex items-center justify-between border rounded-lg border-gray-700 p-2">
-        <h3 className="ml-3 text-sm text-ellipsis lg:text-lg">
-          Welcome {institute.name}
+        <h3 className="ml-3 h-2.5 flex flex-row items-center justify-start text-sm text-ellipsis lg:text-lg">
+          {institute.name !== undefined ? (
+            "Welcome, " + institute.name
+          ) : (
+            <div
+              role="status"
+              className=" p-1 w-[500px] h-2.5 divide-y divide-gray-200 rounded shadow animate-pulse mb-4 dark:divide-gray-700 dark:border-gray-700"
+            >
+              <div className="flex items-center justify-start">
+                <div>
+                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                  <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                </div>
+                <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+              </div>
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
         </h3>
         <button
           onClick={() => {
@@ -97,23 +201,82 @@ const InstituteHero = ({
         <thead className="text-center">
           <tr>
             <th className="text-lg">Sr. No.</th>
-            <th className="text-lg">Recipient Name</th>
             <th className="text-lg">Certificate ID</th>
+            <th className="text-lg">Reciever Name</th>
+            <th className="text-lg">Course Name</th>
             <th className="text-lg">View Certificate</th>
           </tr>
         </thead>
         <tbody className="text-center">
-          {certificates.length > 0 ? (
+          {loadingCertificates ? (
+            <tr>
+              <td
+                role="status"
+                className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+                colSpan={5}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                </div>
+                <div className="flex items-center justify-between pt-4">
+                  <div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                </div>
+                <div className="flex items-center justify-between pt-4">
+                  <div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                </div>
+                <div className="flex items-center justify-between pt-4">
+                  <div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                </div>
+                <div className="flex items-center justify-between pt-4">
+                  <div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
+                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                </div>
+                <span className="sr-only">Loading...</span>
+              </td>
+            </tr>
+          ) : certificates.length > 0 ? (
             certificates.map((certificate, index) => (
-              <tr key={certificate._id}>
+              <tr key={certificate.certificateId + index}>
                 <td className="text-lg">{index + 1}</td>
+                <td className="text-lg">
+                  {certificate.certificateId}
+                  <button
+                    className="btn btn-ghost ml-2"
+                    onClick={() => {
+                      navigator.clipboard.writeText(certificate.certificateId);
+                      toast.success("Copied to clipboard");
+                    }}
+                  >
+                    <ContentCopyOutlined />
+                  </button>
+                </td>
                 <td className="text-lg">{certificate.recipientName}</td>
-                <td className="text-lg">{certificate.certificateId}</td>
+                <td className="text-lg">{certificate.course}</td>
                 <td className="text-lg">
                   <Link
+                    className="btn btn-ghost"
                     target="_blank"
                     referrerPolicy="no-referrer"
-                    href={`http://localhost:3000/view-certificate/${certificate.certificateId}`}
+                    href={`/view-certificate/${certificate.certificateId}`}
                   >
                     View Certificate
                   </Link>
@@ -122,7 +285,7 @@ const InstituteHero = ({
             ))
           ) : (
             <tr>
-              <td colSpan="4" className="text-lg text-center">
+              <td colSpan="5" className="text-lg text-center">
                 No Certificates Issued
               </td>
             </tr>
@@ -209,6 +372,29 @@ const InstituteHero = ({
                 </option>
               ))}
             </select>
+          </div>
+          <div className="form-control">
+            <label htmlFor="creation_date" className="label">
+              <span className="label-text">
+                Issuing Date <span className="text-red-500">*</span>
+              </span>
+            </label>
+            <input
+              type="string"
+              id="creation_date"
+              name="creation_date"
+              value={creationDate}
+              disabled
+              className="input input-bordered input-primary w-full max-w-2xl"
+            />
+          </div>
+
+          <div className="m-5 flex items-center justify-center">
+            {waiting ? (
+              <div className="alert font-semibold text-md w-10/12 alert-info">
+                Waiting for transaction to be verified on blockchain...
+              </div>
+            ) : null}
           </div>
 
           <div className="flex items-end justify-end gap-2">

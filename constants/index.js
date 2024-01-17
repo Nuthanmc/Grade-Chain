@@ -7,321 +7,400 @@
 export const contractAddress = "0xe507d2c54ae06e83f3db348f8d2bbcef85445237";
 
 export const certificateContractAddress =
-  "0xc8996f62657e0aa94f8b8e9a6699adc13cd41057";
+  "0x9c1a7ce8cac114f4320a67689053fa9e486858af";
 
 // ABI
 export const CertificateABI = [
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "string",
-        name: "certificateId",
-        type: "string",
-      },
-    ],
-    name: "CertificateGenerated",
-    type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "certificates",
-    outputs: [
-      {
-        internalType: "string",
-        name: "certificateId",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "first_name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "last_name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "issuer_name",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "issuer_address",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "course_name",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "certificatesMap",
-    outputs: [
-      {
-        internalType: "string",
-        name: "certificateId",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "first_name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "last_name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "issuer_name",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "issuer_address",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "course_name",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_first_name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_last_name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_issuer_name",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "_issuer_address",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_course_name",
-        type: "string",
-      },
-    ],
-    name: "generateCertificate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "generateCertificateId",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getAllCertificates",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "certificateId",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "first_name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "last_name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "issuer_name",
-            type: "string",
-          },
-          {
-            internalType: "address",
-            name: "issuer_address",
-            type: "address",
-          },
-          {
-            internalType: "string",
-            name: "course_name",
-            type: "string",
-          },
-        ],
-        internalType: "struct Certificates.Certificate[]",
-        name: "",
-        type: "tuple[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_certificateId",
-        type: "string",
-      },
-    ],
-    name: "getCertificateById",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_issuer_address",
-        type: "address",
-      },
-    ],
-    name: "getCertificatesByIssuer",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "certificateId",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "first_name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "last_name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "issuer_name",
-            type: "string",
-          },
-          {
-            internalType: "address",
-            name: "issuer_address",
-            type: "address",
-          },
-          {
-            internalType: "string",
-            name: "course_name",
-            type: "string",
-          },
-        ],
-        internalType: "struct Certificates.Certificate[]",
-        name: "",
-        type: "tuple[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_issuer_address",
-        type: "address",
-      },
-    ],
-    name: "getCertificatesCountByIssuer",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "certificateId",
+				"type": "string"
+			}
+		],
+		"name": "CertificateGenerated",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_first_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_last_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_issuer_name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_issuer_address",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_course_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_creation_date",
+				"type": "string"
+			}
+		],
+		"name": "generateCertificate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "generateCertificateId",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "certificates",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "certificateId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "first_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "last_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "issuer_name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "issuer_address",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "course_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "creation_date",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "certificatesMap",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "certificateId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "first_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "last_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "issuer_name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "issuer_address",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "course_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "creation_date",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllCertificates",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "certificateId",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "first_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "last_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "issuer_name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "issuer_address",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "course_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "creation_date",
+						"type": "string"
+					}
+				],
+				"internalType": "struct Certificates.Certificate[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_certificateId",
+				"type": "string"
+			}
+		],
+		"name": "getCertificateById",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_certificateId",
+				"type": "string"
+			}
+		],
+		"name": "getCertificateByIdDirect",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_issuer_address",
+				"type": "address"
+			}
+		],
+		"name": "getCertificatesByIssuer",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "certificateId",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "first_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "last_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "issuer_name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "issuer_address",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "course_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "creation_date",
+						"type": "string"
+					}
+				],
+				"internalType": "struct Certificates.Certificate[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_issuer_address",
+				"type": "address"
+			}
+		],
+		"name": "getCertificatesCountByIssuer",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
 ];
 
 export const InstitutesABI = [
