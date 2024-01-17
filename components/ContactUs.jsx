@@ -112,9 +112,10 @@ const ContactUs = () => {
                 </a>
               </div>
             </div>
-            <div></div>
+
+            {/* form */}
+
             <div className="flex flex-col lg:w-[35rem] space-y-6 max—w-screen p—8 rounded—xl shadow—lg text-white lg:space-x-6 lg:space-y">
-              {/* form */}
               <form
                 className="flex flex-col min-w-max space-y-6"
                 onSubmit={handleSubmit}
@@ -130,7 +131,7 @@ const ContactUs = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your Name"
-                    className="px-4 py-2 min-w-full lg:w-full placeholder:text-black/80 dark:placeholder:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
+                    className="px-4 py-2 min-w-full lg:w-full placeholder:text-black/80 dark:placeholder:text-white rounded-lg dark:text-white dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
@@ -144,7 +145,7 @@ const ContactUs = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white  rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
+                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white dark:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
                   />
                 </div>
                 <div className="flex flex-col space-y-1">
@@ -158,7 +159,7 @@ const ContactUs = () => {
                     rows="4"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
+                    className="px-4 py-2 placeholder:text-black/80 dark:placeholder:text-white dark:text-white rounded-lg dark:bg-gray-800 border focus:border-blue-500 focus:outline-none text-black"
                   ></textarea>
                 </div>
                 <div className="flex items-center space-x-2">

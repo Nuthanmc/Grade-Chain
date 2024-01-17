@@ -254,9 +254,9 @@ const AboutUs = () => {
                 src="/certi-block-hi-res.jpg"
                 width={0}
                 height={0}
-                sizes="100vw"
+                sizes="40vw"
                 alt="Certi-Block Logo"
-                style={{ width: "100%", height: "auto" }} // optional
+                style={{ width: "60%", height: "auto" }} // optional
                 class="relative z-40 object-cover w-full h-96"
               />
             </div>
@@ -343,7 +343,7 @@ const AboutUs = () => {
                       <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
                     </svg>
                   </span>
-                  <Link className="dark:hover:text-white hover:text-black"  href={"https://www.linkedin.com/in/madhura-patil-7a903a1a5/"}>Madhura Patil</Link>
+                  <Link className="dark:hover:text-white hover:text-black" href={"https://www.linkedin.com/in/madhura-patil-7a903a1a5/"}>Madhura Patil</Link>
                 </li>
               </ul>
             </div>
