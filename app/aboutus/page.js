@@ -1,10 +1,10 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles";
 import { navVariants } from "@/utils/motion";
-import React, { useState, useEffect } from "react";
 
 const navLinks = [
   { title: "Home", link: "/" },
@@ -89,23 +89,6 @@ const AboutUs = () => {
         </div>
       </motion.nav>
 
-<<<<<<< HEAD
-      <div>
-        <motion.div
-          className={`container mx-auto px-4 md:px-8 lg:px-16 pt-16 md:pt-24 pb-8 text-center text-black dark:text-white relative`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.h1
-            className="text-2xl lg:text-4xl xl:text-5xl font-bold leading-tight text-black dark:text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            About Us
-          </motion.h1>
-=======
       {/* <div
         className={`${styles.innerWidth}  ${styles.yPaddings}`}
         style={{
@@ -127,62 +110,123 @@ const AboutUs = () => {
             left: 0,
           }}
         />
->>>>>>> 3a7923bca5b2516e6edcb0a179464b87136bc636
 
-          <motion.div
-            className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+        <h1
+          style={{
+            fontSize: "44px",
+            fontWeight: "bold",
+            lineHeight: "64.4px",
+            textTransform: "uppercase",
+            position: "relative",
+            zIndex: 1,
+          }}
+          className="text-black dark:text-white"
+        >
+          About Us
+        </h1>
+
+        <div
+          style={{
+            padding: "16px",
+            borderRadius: "8px",
+            margin: "16px 0",
+          }}
+          className="bg-[#F3F4F6] dark:bg-[#1F2937]"
+        >
+          <p
+            style={{
+              fontSize: "1rem",
+              lineHeight: "1.6",
+              fontWeight: "bold",
+              marginBottom: "0",
+            }}
+            className="text-black dark:text-white"
           >
-            Welcome to Certi-Block! We are a team of passionate individuals dedicated to providing innovative solutions in the world of certification and blockchain technology.
+            Welcome to Certi-Block! We are a team of passionate individuals
+            dedicated to providing innovative solutions in the world of
+            certification and blockchain technology.
+          </p>
 
-          </motion.div>
-
-          <motion.h2
-            className="text-xl md:text-2xl lg:text-3xl font-bold leading-6 mt-6 md:mt-8 text-black dark:text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+          <p
+            style={{
+              fontSize: "1rem",
+              lineHeight: "1.6",
+              fontWeight: "bold",
+              marginBottom: "0",
+            }}
+            className="text-black dark:text-white"
           >
-            Our Vision
-          </motion.h2>
-
-          <motion.div
-            className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            Our mission is to make certification processes secure, transparent,
+            and efficient. Certi-Block strives to empower individuals and
+            organizations by leveraging the power of blockchain to verify and
+            authenticate certifications.
+          </p>
+        </div>
+        <h2
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            lineHeight: "2.2",
+            marginTop: "24px",
+            position: "relative",
+            zIndex: 1,
+          }}
+          className="text-black dark:text-white"
+        >
+          Our Vision
+        </h2>
+        <div
+          style={{
+            padding: "16px",
+            borderRadius: "8px",
+            margin: "16px 0",
+          }}
+          className="bg-[#F3F4F6] dark:bg-[#1F2937]"
+        >
+          <p
+            style={{
+              fontSize: "1rem",
+              lineHeight: "1.6",
+              fontWeight: "bold",
+              marginBottom: "0",
+            }}
+            className="text-black dark:text-white"
           >
-            At Certi-Block, we envision a future where the certification process is simplified, accessible, and tamper-proof. We believe in the potential of blockchain technology to revolutionize the way certifications are managed and verified.
-          </motion.div>
-
-          <motion.h2
-            className="text-xl md:text-2xl lg:text-3xl font-bold leading-6 mt-6 md:mt-8 text-black dark:text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
+            At Certi-Block, we envision a future where the certification process
+            is simplified, accessible, and tamper-proof. We believe in the
+            potential of blockchain technology to revolutionize the way
+            certifications are managed and verified.
+          </p>
+        </div>
+        <h2
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            lineHeight: "2.2",
+            marginTop: "24px",
+            position: "relative",
+            zIndex: 1,
+          }}
+          className="text-black dark:text-white"
+        >
+          Meet Our Team
+        </h2>
+        <div
+          style={{
+            padding: "16px",
+            borderRadius: "8px",
+            margin: "16px 0",
+          }}
+          className="bg-[#F3F4F6] dark:bg-[#1F2937] text-black dark:text-white"
+        >
+          <ul
+            style={{
+              fontSize: "1rem",
+              lineHeight: "1.6",
+              fontWeight: "bold",
+              marginBottom: "0",
+            }}
           >
-<<<<<<< HEAD
-            Meet Our Team
-          </motion.h2>
-
-          <motion.div
-            className="p-4 md:p-6 lg:p-6 m-8 md:mb-12 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-md"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-          >
-            <ul className="text-base md:text-lg lg:text-xl font-bold leading-6">
-              <li>Mrudul Patel</li>
-              <li>Mukund Chamariya</li>
-              <li>Mayur Limbhore</li>
-              <li>Madhura Patil</li>
-            </ul>
-          </motion.div>
-        </motion.div>
-      </div>
-=======
             <li>Mrudul Patel</li>
             <li>Mukund Chamariya</li>
             <li>Mayur Limbhore</li>
@@ -299,14 +343,13 @@ const AboutUs = () => {
                       <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
                     </svg>
                   </span>
-                  <Link className="dark:hover:text-white hover:text-black"  href={"https://www.linkedin.com/in/madhura-patil-7a903a1a5/"}>Madhura Patil</Link>
+                  <Link className="dark:hover:text-white hover:text-black" href={"https://www.linkedin.com/in/madhura-patil-7a903a1a5/"}>Madhura Patil</Link>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </section>
->>>>>>> 3a7923bca5b2516e6edcb0a179464b87136bc636
     </div>
   );
 };
