@@ -233,7 +233,7 @@ const CreateInstitutes = () => {
       <div className="w-full">
         <div className="flex mt-10 items-center justify-center">
           <div className="overflow-x-auto">
-            <h3 className="text-md sm:text-xl text-white capitalize p-3">
+            <h3 className="text-md sm:text-xl dark:text-white text-gray-900 capitalize p-3">
               All Institutes
             </h3>
             <table className="table overflow-auto!">
