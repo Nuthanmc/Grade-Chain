@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import toast from "react-hot-toast";
 import { contractAddress, InstitutesABI } from "@/constants";
 import { CloseOutlined } from "@mui/icons-material";
+import { FaGear } from "react-icons/fa6";
 
 const CreateInstitutes = () => {
   const [formData, setFormData] = useState({
@@ -67,14 +68,16 @@ const CreateInstitutes = () => {
         setLoading(false);
       })
       .catch(async (err) => {
-        await loginToMetaMask().then((accounts) => {
-          if (accounts.length > 0) {
-            getAllInstitutes();
-          }
-        }).catch(((errorr) => {
-          toast.error("Please login to Metamask");
-          loginToMetaMask();
-        }));
+        await loginToMetaMask()
+          .then((accounts) => {
+            if (accounts.length > 0) {
+              getAllInstitutes();
+            }
+          })
+          .catch((errorr) => {
+            toast.error("Please login to Metamask");
+            loginToMetaMask();
+          });
         console.log(err);
         setLoading(false);
       });
@@ -168,12 +171,12 @@ const CreateInstitutes = () => {
   return (
     <section className="h-screen">
       {/* Navbar */}
-      <div className="navbar bg-base-100">
+      <div className="navbar flex bg-base-100">
         <div className="flex-1">
           <a className="btn btn-ghost normal-case text-xl">Certi-Block</a>
         </div>
-        <div className="flex-none">
-          <div className="dropdown dropdown-end space-x-4">
+        <div className="hidden lg:flex">
+          <div className="space-x-4">
             <button
               className="btn btn-success"
               onClick={() =>
@@ -192,7 +195,41 @@ const CreateInstitutes = () => {
             </button>
           </div>
         </div>
+        <div className="flex-none lg:hidden mr-4">
+          <ul className="menu menu-horizontal px-4 min-w-max">
+            <li>
+              <details>
+                <summary>
+                  <FaGear />
+                </summary>
+                <ul className="p-1 z-10 text-sm bg-base-100 rounded-t-none">
+                  <li>
+                    <button
+                      onClick={() =>
+                        document
+                          .getElementById("add_institute_modal")
+                          .showModal()
+                      }
+                    >
+                      Add Institute
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() =>
+                        document.getElementById("logout_modal").showModal()
+                      }
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </div>
       </div>
+      {/* MAIN CONTENT */}
       <div className="w-full">
         <div className="flex mt-10 items-center justify-center">
           <div className="overflow-x-auto">
