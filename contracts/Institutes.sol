@@ -23,7 +23,7 @@ contract Institutes {
 
     // Nested mapping from wallet address to course ID to Course details
     mapping(address => mapping(uint256 => Course)) public coursesMap;
-
+ 
     function addInstituteAndCourses(
         address _walletAddress,
         string memory _name,

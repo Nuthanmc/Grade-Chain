@@ -1,5 +1,6 @@
 "use client";
 import { CertificateABI, certificateContractAddress } from "@/constants";
+import { Launch } from "@mui/icons-material";
 import { ethers } from "ethers";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -75,7 +76,7 @@ const ValidateCertificates = () => {
             <h1 className="text-3xl font-bold text-center text-white">
               Validate Certificates
             </h1>
-            <div className="modal-box w-[125%]">
+            <div className="modal-box w-[100%] lg:w-[125%]">
               <div className="form-control">
                 <label className="label">
                   <span className="text-2xl">
@@ -91,7 +92,7 @@ const ValidateCertificates = () => {
                   id="id"
                   value={id}
                   required
-                  className="input input-bordered input-primary w-full max-w-2xl"
+                  className="input focus:scale-105 transition input-bordered input-primary w-full max-w-2xl"
                 />
               </div>
               <div className="form-control mt-6">
@@ -112,7 +113,12 @@ const ValidateCertificates = () => {
                 target="_blank"
                 className="form-control hover:text-white flex text-xl mt-8 text-center flex-col hover:scale-110 cursor-pointer transition"
               >
-                {valid ? "View Certificate" : null}
+                {valid ? (
+                  <div className="flex hover:scale-[1.01] transition items-center justify-center">
+                    View Certificate&nbsp;
+                    <Launch />
+                  </div>
+                ) : null}
               </Link>
             </div>
           </div>

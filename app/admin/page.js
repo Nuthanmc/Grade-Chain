@@ -199,7 +199,7 @@ const CreateInstitutes = () => {
             <h3 className="text-md sm:text-xl text-white capitalize p-3">
               All Institutes
             </h3>
-            <table className="table">
+            <table className="table overflow-auto!">
               <thead>
                 <tr className="text-center text-md md:text-lg">
                   <th>Sr. No.</th>

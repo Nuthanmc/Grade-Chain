@@ -1,5 +1,5 @@
 import { CertificateABI, certificateContractAddress } from "@/constants";
-import { ContentCopyOutlined } from "@mui/icons-material";
+import { ContentCopyOutlined, Launch } from "@mui/icons-material";
 import { ethers } from "ethers";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -166,7 +166,7 @@ const InstituteHero = ({ institute, courses }) => {
   return (
     <div className="h-screen flex flex-col m-4">
       <div className="flex items-center justify-between border rounded-lg border-gray-700 p-2">
-        <h3 className="ml-3 h-2.5 flex flex-row items-center justify-start text-sm text-ellipsis lg:text-lg">
+        <h3 className="ml-3 h-fit flex flex-row items-center justify-start text-[12px] md:text-sm text-ellipsis lg:text-lg">
           {institute.name !== undefined ? (
             "Welcome, " + institute.name
           ) : (
@@ -189,109 +189,113 @@ const InstituteHero = ({ institute, courses }) => {
           onClick={() => {
             document.getElementById("issue_certificates_modal").showModal();
           }}
-          className="btn btn-success"
+          className="btn btn-sm lg:btn-md btn-success sm:text-sm"
         >
           Issue Certificate
         </button>
       </div>
-      <table className="table m-2">
-        <caption className="text-left text-2xl text-gray-900 dark:text-slate-200">
-          Issued Certificates
-        </caption>
-        <thead className="text-center">
-          <tr>
-            <th className="text-lg">Sr. No.</th>
-            <th className="text-lg">Certificate ID</th>
-            <th className="text-lg">Reciever Name</th>
-            <th className="text-lg">Course Name</th>
-            <th className="text-lg">View Certificate</th>
-          </tr>
-        </thead>
-        <tbody className="text-center">
-          {loadingCertificates ? (
+      <div className="overflow-x-auto lg:overflow-hidden mt-3 border rounded border-gray-700">
+        <table className="table m-2">
+          <caption className="text-left text-2xl text-gray-900 dark:text-slate-200">
+            Issued Certificates
+          </caption>
+          <thead className="text-center">
             <tr>
-              <td
-                role="status"
-                className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
-                colSpan={5}
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                </div>
-                <div className="flex items-center justify-between pt-4">
-                  <div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                </div>
-                <div className="flex items-center justify-between pt-4">
-                  <div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                </div>
-                <div className="flex items-center justify-between pt-4">
-                  <div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                </div>
-                <div className="flex items-center justify-between pt-4">
-                  <div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </div>
-                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                </div>
-                <span className="sr-only">Loading...</span>
-              </td>
+              <th className="text-lg">Sr. No.</th>
+              <th className="text-lg">Certificate ID</th>
+              <th className="text-lg">Reciever Name</th>
+              <th className="text-lg">Course Name</th>
+              <th className="text-lg">View Certificate</th>
             </tr>
-          ) : certificates.length > 0 ? (
-            certificates.map((certificate, index) => (
-              <tr key={certificate.certificateId + index}>
-                <td className="text-lg">{index + 1}</td>
-                <td className="text-lg">
-                  {certificate.certificateId}
-                  <button
-                    className="btn btn-ghost ml-2"
-                    onClick={() => {
-                      navigator.clipboard.writeText(certificate.certificateId);
-                      toast.success("Copied to clipboard");
-                    }}
-                  >
-                    <ContentCopyOutlined />
-                  </button>
-                </td>
-                <td className="text-lg">{certificate.recipientName}</td>
-                <td className="text-lg">{certificate.course}</td>
-                <td className="text-lg">
-                  <Link
-                    className="btn btn-ghost"
-                    target="_blank"
-                    referrerPolicy="no-referrer"
-                    href={`/view-certificate/${certificate.certificateId}`}
-                  >
-                    View Certificate
-                  </Link>
+          </thead>
+          <tbody className="text-center">
+            {loadingCertificates ? (
+              <tr>
+                <td
+                  role="status"
+                  className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+                  colSpan={5}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <span className="sr-only">Loading...</span>
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="text-lg text-center">
-                No Certificates Issued
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            ) : certificates.length > 0 ? (
+              certificates.map((certificate, index) => (
+                <tr key={certificate.certificateId + index}>
+                  <td className="text-lg">{index + 1}</td>
+                  <td className="text-sm lg:text-lg">
+                    {certificate.certificateId}
+                    <button
+                      className="btn btn-ghost ml-2"
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          certificate.certificateId
+                        );
+                        toast.success("Copied to clipboard");
+                      }}
+                    >
+                      <ContentCopyOutlined />
+                    </button>
+                  </td>
+                  <td className="text-lg">{certificate.recipientName}</td>
+                  <td className="text-lg">{certificate.course}</td>
+                  <td className="text-lg">
+                    <Link
+                      className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
+                      target="_blank"
+                      referrerPolicy="no-referrer"
+                      href={`/view-certificate/${certificate.certificateId}`}
+                    >
+                      View Certificate&nbsp;&nbsp;<Launch />
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="text-lg text-center">
+                  No Certificates Issued
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
       <dialog id="issue_certificates_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Issue Certificate</h3>
@@ -311,7 +315,7 @@ const InstituteHero = ({ institute, courses }) => {
               name="first_name"
               required
               value={firstName}
-              className="input input-bordered input-primary w-full max-w-2xl"
+              className="input input-bordered focus:scale-105 transition input-primary w-full max-w-2xl"
             />
           </div>
           <div className="form-control">
@@ -328,7 +332,7 @@ const InstituteHero = ({ institute, courses }) => {
               name="last_name"
               required
               value={lastName}
-              className="input input-bordered input-primary w-full max-w-2xl"
+              className="input input-bordered focus:scale-105 transition input-primary w-full max-w-2xl"
             />
           </div>
           <div className="form-control">
@@ -344,7 +348,7 @@ const InstituteHero = ({ institute, courses }) => {
               required
               value={institute.name}
               disabled
-              className="input input-bordered input-primary w-full max-w-2xl"
+              className="input input-bordered focus:scale-105 transition input-primary w-full max-w-2xl"
             />
           </div>
           <div className="form-control">
@@ -357,7 +361,7 @@ const InstituteHero = ({ institute, courses }) => {
               onChange={(e) => {
                 setCourse(e.target.value);
               }}
-              className="select select-primary text-white select-bordered w-full"
+              className="select select-primary focus:scale-105 transition text-white select-bordered w-full"
             >
               <option disabled selected className="text-black dark:text-white">
                 Select Course

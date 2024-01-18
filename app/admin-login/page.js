@@ -45,17 +45,17 @@ const AdminLogin = () => {
         </div>
         <div class="h-full">
           <div class="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
-            <div class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
+            <div class="shrink-1 m-10 sm:m-10 lg:mb-12 grow-0 basis-auto md:mt-10 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
               <Image
                 src="/admin_login.svg"
-                class="w-full"
+                class="w-full sm:mt-10 lg:mt-0"
                 width={600}
                 height={400}
                 alt="Sample image"
               />
             </div>
 
-            <div class="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
+            <div class="lg:mb-12 mb-40 md:w-8/12 lg:w-5/12 xl:w-5/12">
               <form>
                 <div class="mb-6">
                   <label
@@ -66,7 +66,7 @@ const AdminLogin = () => {
                   </label>
                   <input
                     type="text"
-                    class="peer block min-h-[auto] w-1/2 rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200"
+                    class="peer focus:scale-105 block min-h-[auto] lg:w-1/2 rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 hover:border-primary dark:placeholder:text-neutral-200"
                     id="email"
                     name="email"
                     onChange={(e) => setEmail(e.target.value)}
@@ -77,14 +77,14 @@ const AdminLogin = () => {
                 <div class="mb-6">
                   <label
                     for="password"
-                    class="pointer-events-none  mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out  motion-reduce:transition-none dark:text-neutral-200"
+                    class="pointer-events-none mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out  motion-reduce:transition-none dark:text-neutral-200"
                   >
                     Password
                   </label>
                   <input
                     type="password"
                     name="password"
-                    class="peer block min-h-[auto] w-1/2 rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100  motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200"
+                    class="peer focus:scale-105 block min-h-[auto] lg:w-1/2 rounded border bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear hover:border-primary focus:placeholder:opacity-100  motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200"
                     id="password"
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter Password"
@@ -93,7 +93,7 @@ const AdminLogin = () => {
                 <div class="text-center lg:text-left">
                   <button
                     type="button"
-                    class="inline-block rounded btn btn-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white transition duration-150 ease-in-out" 
+                    class="inline-block btn-outline hover:scale-110 rounded btn btn-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white! transition duration-150 ease-in-out" 
                     onClick={handleSubmit}
                   >
                     Login

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import { FaGear } from "react-icons/fa6";
 
@@ -8,7 +7,6 @@ const NavbarInstitutions = ({ institute, courses }) => {
       <div className="navbar bg-base-100">
         <div className="flex-1">
           <a className="btn btn-ghost normal-case text-xl">Certi-Block</a>
-          
         </div>
         <div className="flex-none gap-3 hidden lg:flex">
           <button
@@ -43,7 +41,26 @@ const NavbarInstitutions = ({ institute, courses }) => {
                 </summary>
                 <ul className="p-1 z-10 text-sm bg-base-100 rounded-t-none">
                   <li>
-                    <Link href="/institutes/profile">Profile</Link>
+                    <button
+                      onClick={() => {
+                        document
+                          .getElementById("view_courses_modal")
+                          .showModal();
+                      }}
+                    >
+                      View My Courses
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => {
+                        document
+                          .getElementById("show_profile_modal")
+                          .showModal();
+                      }}
+                    >
+                      Profile
+                    </button>
                   </li>
                   <li>
                     <button

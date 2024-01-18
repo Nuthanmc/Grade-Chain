@@ -15,6 +15,7 @@ import Link from "next/link";
 import db from "@/config/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import toast from "react-hot-toast";
+import { textVariant } from "@/utils/motion";
 
 const ContactUs = () => {
   const [agreed, setAgreed] = useState(false);
@@ -61,16 +62,20 @@ const ContactUs = () => {
 
   return (
     // contact us section
-    <div
+    <motion.div
+      initial="hidden"
+      whileInView="show"  
+      viewport={{ once: false, amount: 0.25 }}
       className="flex justify-center mt-12 items-center lg:h-screen"
       id="contactus"
+      variants={textVariant(0.5)}
     >
-      <motion.div className="flex sm:w-screen lg:w-[1000px] rounded-md p-4 m-5">
-        <motion.div className="flex w-fit bg-gray-400 lg:dark:bg-gray-900/80 p-4 rounded-md justify-center items-center">
+      <div className="flex sm:w-screen lg:w-[1000px] rounded-md p-4 m-5">
+        <div className="flex w-max bg-gray-400 dark:bg-gray-900/80 p-4 rounded-md justify-center items-center">
           <div className="flex flex-col space-y-6 w—full max-w-screen p—8 rounded—xl shadow—lg text-white md:flex-row md:space-x-6 md:space-y">
             <div className="flex flex-col justify-center w-full">
               <div>
-                <h1 className="font-bold tracking-wide text-2xl ml-5">
+                <h1 className="font-bold tracking-wide text-2xl ml-1 lg:ml-5">
                   Get In Touch With Us
                 </h1>
               </div>
@@ -192,16 +197,16 @@ const ContactUs = () => {
                   >
                     Submit
                   </button>
-                  <p className="text-sm text-center text-gray-800 dark:text-gray-400 p-2">
-                    We usually respond within 24 hours
-                  </p>
                 </div>
+                <p className="text-sm text-center  dark:text-gray-400 p-2">
+                  We usually respond within 24 hours
+                </p>
               </form>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
-    </div>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 

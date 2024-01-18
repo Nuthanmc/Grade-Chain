@@ -78,16 +78,16 @@ const Hero = () => {
                 className="flex flex-col lg:flex-row items-center justify-center mt-5"
               >
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary hover:scale-105 transition"
                   onClick={() => (window.location.href = "/validate-certificate")}
                 >
                   Validate Certificates
                 </button>
                 <br />
-                <p className="text-white">&nbsp;&nbsp;OR&nbsp;&nbsp;</p>
+                <p className="text-gray-900 dark:text-white">&nbsp;&nbsp;OR&nbsp;&nbsp;</p>
                 <br />
                 <button
-                  className="btn btn-secondary"
+                  className="btn btn-secondary hover:scale-105 transition"
                   onClick={() => {
                     document.getElementById("login_modal").showModal();
                     handleLogin();
@@ -105,7 +105,7 @@ const Hero = () => {
           <h3 className="font-bold text-lg">
             Login to your Metamask Wallet Account
           </h3>
-          <p className="py-4">
+          <p className="py-4 text-md">
             Login to your Metamask Account on Sepolia Testnet
           </p>
           <div className="items-center flex justify-center flex-col">
@@ -114,10 +114,10 @@ const Hero = () => {
             {show === true ? (
               <>
               <div className="text-left">
-                <p className="text-base">
-                  Recieved Account from Metamask: <b>{account}</b>
+                <p className="text-sm lg:text-base">
+                  Recieved Account from Metamask: <b className="text-accent">{account}</b>
                 </p>
-                <p className="text-base">
+                <p className="text-sm lg:text-base">
                   Please wait while we verify this account
                 </p>
               </div>
