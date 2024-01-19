@@ -127,7 +127,7 @@ const ViewCertificate = () => {
       {!loading ? (
         <>
           <p className="text-3xl lg:text-5xl xl:text-6xl mb-3 ml-3  absolute text-white">
-            This is just for testing purposes
+            Page Under Development
           </p>
         </>
       ) : (
