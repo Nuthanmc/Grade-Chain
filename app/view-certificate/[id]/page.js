@@ -16,7 +16,9 @@ const ViewCertificate = () => {
     course: "",
     creation_date: "",
   });
+
   const { id } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -50,7 +52,6 @@ const ViewCertificate = () => {
           course: certificates[5],
           creation_date: certificates[6],
         });
-        setLoading(false);
 
         const doc = new jsPDF("l", "px", "a4", true);
 
@@ -91,7 +92,8 @@ const ViewCertificate = () => {
 
         // QR Code
         const url = await QRCode.toDataURL(
-          "https://certi-block-web3.vercel.app/view-certificate/" + certificates[0],
+          "https://certi-block-web3.vercel.app/view-certificate/" +
+            certificates[0],
           {
             width: 200,
             height: 200,
@@ -113,7 +115,20 @@ const ViewCertificate = () => {
           100,
           100
         );
-        doc.save("certificate.pdf");
+        const output = doc.output("dataurlstring");
+        console.log(output);
+        setLoading(false);
+        // Create an embed element
+        var embedElement = document.createElement("embed");
+        embedElement.setAttribute("type", "application/pdf");
+        embedElement.setAttribute("src", output + "#toolbar=0&navpanes=0");
+        embedElement.setAttribute("width", doc.internal.pageSize.width + 200);
+        embedElement.setAttribute("height", doc.internal.pageSize.height + 200);
+        embedElement.setAttribute("unselectable", "on");
+        embedElement.setAttribute("onContextMenu", "return false;");
+        // Append the embed element to a container in the HTML document
+        document.getElementById("pdfContainer").appendChild(embedElement);
+        // doc.save("certificate.pdf");
       } catch (error) {
         console.error("Error fetching data from blockchain:", error.message);
         // Handle error as needed
@@ -123,17 +138,22 @@ const ViewCertificate = () => {
   }, [id]);
 
   return (
-    <div className="h-screen w-screen overflow-x-auto flex items-center justify-center">
+    <div
+      onContextMenu={(e) => {
+        e.preventDefault();
+        return false;
+      }}
+      className="h-screen w-screen overflow-x-auto flex items-center justify-center"
+    >
       {!loading ? (
         <>
-          <p className="text-3xl lg:text-5xl xl:text-6xl mb-3 ml-3  absolute text-white">
-            Page Under Development
-          </p>
+          <div id="pdfContainer"></div>
         </>
       ) : (
-        <p className="text-3xl lg:text-5xl xl:text-6xl mb-3 ml-3  absolute text-white">
-          Loading...
-        </p>
+        <div className="flex items-center justify-center">
+          <p className="loading loading-spinner loading-lg"></p>
+          <p className="text-lg ml-3 dark:text-white text-black">Fetching certificate details...</p>
+        </div>
       )}
     </div>
   );
