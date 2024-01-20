@@ -3,16 +3,19 @@ import { CertificateABI, certificateContractAddress } from "@/constants";
 import { Launch } from "@mui/icons-material";
 import { ethers } from "ethers";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const ValidateCertificates = () => {
   const [id, setId] = useState("");
   const [valid, setValid] = useState(false);
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
 
-  const validate = async () => {
+  const validate = async (certIdFromSearchParams) => {
     try {
+      console.log("ID: ", id);
       setLoading(true);
       const provider = new ethers.providers.WebSocketProvider(
         "wss://sepolia.infura.io/ws/v3/0aa8c89265604a2684abddfb063e3b42"
@@ -33,7 +36,9 @@ const ValidateCertificates = () => {
       console.log("Certificates Contract: ", contract);
 
       // Call the contract function;
-      const certificates = await contract.getCertificateByIdDirect(id);
+      const certificates = await contract.getCertificateByIdDirect(
+        id === "" ? certIdFromSearchParams : id
+      );
 
       console.log(certificates);
       if (certificates[0] === "") {
@@ -51,6 +56,13 @@ const ValidateCertificates = () => {
       // Handle error as needed
     }
   };
+  useEffect(() => {
+    console.log(searchParams.get("id"));
+    if (searchParams.get("id") && id === "") {
+      setId(searchParams.get("id"));
+      validate(searchParams.get("id"));
+    }
+  }, []);
 
   return (
     <div>
