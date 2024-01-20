@@ -273,7 +273,7 @@ const InstituteHero = ({ institute, courses }) => {
                     </button>
                   </td>
                   <td className="text-lg">{certificate.recipientName}</td>
-                  <td className="text-lg">{certificate.course}</td>
+                  <td className="text-lg">{certificate.course === "" ? "N/A" : certificate.course}</td>
                   <td className="text-lg">
                     <Link
                       className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
@@ -358,6 +358,7 @@ const InstituteHero = ({ institute, courses }) => {
               </span>
             </label>
             <select
+              id="course"
               onChange={(e) => {
                 setCourse(e.target.value);
               }}
@@ -405,6 +406,12 @@ const InstituteHero = ({ institute, courses }) => {
             <div className="modal-action">
               <form method="dialog" className="">
                 <button
+                  onClick={() => {
+                    setFirstName("");
+                    setLastName("");
+                    setCourse("");
+                    document.getElementById("course").value = "Select Course";
+                  }}
                   id="cancel_issue_certificate_modal"
                   className="btn btn-outline btn-error"
                 >
@@ -416,7 +423,7 @@ const InstituteHero = ({ institute, courses }) => {
               disabled={
                 firstName === "" ||
                 lastName === "" ||
-                course === "" ||
+                courses.length > 0 && course === "" ||
                 course === "Select Course"
               }
               onClick={(e) => {
