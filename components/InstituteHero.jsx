@@ -189,7 +189,8 @@ const InstituteHero = ({ institute, courses }) => {
           onClick={() => {
             document.getElementById("issue_certificates_modal").showModal();
           }}
-          className="btn btn-sm lg:btn-md btn-success sm:text-sm"
+          disabled={loadingCertificates}
+          className="btn btn-sm lg:btn-md btn-success sm:text-sm disabled:cursor-not-allowed"
         >
           Issue Certificate
         </button>
