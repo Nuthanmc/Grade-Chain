@@ -10,7 +10,8 @@ const NavbarInstitutions = ({ institute, courses }) => {
         </div>
         <div className="flex-none gap-3 hidden lg:flex">
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary disabled:cursor-not-allowed"
+            disabled={institute?.name === undefined ? true : false}
             onClick={() => {
               document.getElementById("view_courses_modal").showModal();
             }}
@@ -18,7 +19,8 @@ const NavbarInstitutions = ({ institute, courses }) => {
             View My Courses
           </button>
           <button
-            className="btn btn-primary"
+            className="btn btn-primary disabled:cursor-not-allowed"
+            disabled={institute?.name === undefined ? true : false}
             onClick={() => {
               document.getElementById("show_profile_modal").showModal();
             }}
@@ -26,7 +28,7 @@ const NavbarInstitutions = ({ institute, courses }) => {
             Profile
           </button>
           <button
-            className="btn btn-ghost"
+            className="btn btn-ghost btn-outline"
             onClick={() => document.getElementById("my_modal_1").showModal()}
           >
             Logout

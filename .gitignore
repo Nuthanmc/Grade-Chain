@@ -43,3 +43,6 @@ typechain-types
 
 # Hardhat files
 cache
+
+# VSCODE
+.vscode

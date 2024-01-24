@@ -5,6 +5,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  theme: {
+    extend: {
+      fontFamily: {
+        italianno: ["Italianno"],
+        lily: ["Lily Script One"],
+      }
+    }
+  },
   plugins: [require("daisyui")],
   daisyui: {
     themes: ["light", "dark"],

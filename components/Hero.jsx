@@ -14,33 +14,45 @@ const Hero = () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
-    console.log(accounts[0]);
-    setAccount(accounts[0]);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(
-      contractAddress,
-      InstitutesABI,
-      signer
-    );
-    console.log(contract);
-    setShow(true);
-    contract
-      .login(accounts[0])
-      .then((approved) => {
-        if (approved) {
-          sessionStorage.setItem("address", accounts[0]);
-          window.location.href = "/institutes";
-        } else {
-          toast.error("Login Failed. Please use the correct account.");
+    // detect what network is the account linked to 
+    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+    // check if chainId matches with Sepolia network
+    console.log(chainId);
+    if (chainId !== '0xaa36a7') {
+      document.getElementById("login_modal").close();
+      toast.error(
+        "Please switch to Sepolia Testnet"
+      );
+    }
+    else {
+      console.log(accounts[0]);
+      setAccount(accounts[0]);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        contractAddress,
+        InstitutesABI,
+        signer
+      );
+      console.log(contract);
+      setShow(true);
+      contract
+        .login(accounts[0])
+        .then((approved) => {
+          if (approved) {
+            sessionStorage.setItem("address", accounts[0]);
+            window.location.href = "/institutes";
+          } else {
+            toast.error("Login Failed. Please use the correct account.");
+            document.getElementById("login_modal").close();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Login Failed");
           document.getElementById("login_modal").close();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Login Failed");
-        document.getElementById("login_modal").close();
-      });
+        });
+    }
   };
   return (
     <>
@@ -113,20 +125,20 @@ const Hero = () => {
             <p className="text-base">Waiting for your response...</p>
             {show === true ? (
               <>
-              <div className="text-left">
-                <p className="text-sm lg:text-base">
-                  Recieved Account from Metamask: <b className="text-accent">{account}</b>
-                </p>
-                <p className="text-sm lg:text-base">
-                  Please wait while we verify this account
-                </p>
-              </div>
+                <div className="text-left">
+                  <p className="text-sm lg:text-base">
+                    Recieved Account from Metamask: <b className="text-accent">{account}</b>
+                  </p>
+                  <p className="text-sm lg:text-base">
+                    Please wait while we verify this account
+                  </p>
+                </div>
               </>
             ) : null}
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn btn-accent">Cancel</button>
+              <button className="btn btn-error" id="close_login_modal">Cancel</button>
             </form>
           </div>
         </div>
