@@ -186,7 +186,7 @@ const CreateInstitutes = () => {
               Add Institute
             </button>
             <button
-              className="btn btn-ghost"
+              className="btn btn-outline btn-ghost"
               onClick={() =>
                 document.getElementById("logout_modal").showModal()
               }
@@ -195,6 +195,7 @@ const CreateInstitutes = () => {
             </button>
           </div>
         </div>
+        {/* NAVBAR MOBILE */}
         <div className="flex-none lg:hidden mr-4">
           <ul className="menu menu-horizontal px-4 min-w-max">
             <li>

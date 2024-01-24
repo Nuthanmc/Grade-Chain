@@ -44,6 +44,7 @@ const NavbarInstitutions = ({ institute, courses }) => {
                 <ul className="p-1 z-10 text-sm bg-base-100 rounded-t-none">
                   <li>
                     <button
+                      disabled={institute?.name === undefined}
                       onClick={() => {
                         document
                           .getElementById("view_courses_modal")
@@ -55,6 +56,7 @@ const NavbarInstitutions = ({ institute, courses }) => {
                   </li>
                   <li>
                     <button
+                      disabled={institute?.name === undefined}
                       onClick={() => {
                         document
                           .getElementById("show_profile_modal")
