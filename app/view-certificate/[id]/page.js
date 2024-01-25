@@ -156,7 +156,6 @@ const ViewCertificate = () => {
         const pdf = await pdfjsLib.getDocument(output).promise;
         console.log(pdf);
         const page = await pdf.getPage(1);
-        // display the page inside the div with id = certificate
         const viewport = page.getViewport({ scale: 1 });
         const canvas = document.getElementById("certificate");
         const context = canvas.getContext("2d");
@@ -167,6 +166,12 @@ const ViewCertificate = () => {
           viewport: viewport,
         };
         await page.render(renderContext);
+        if (isMobile()) {
+          canvas.style.transformOrigin = "center center";
+          canvas.style.transform = "scale(0.45)";
+          canvas.style.translate = "-27% 0%"
+          canvas.style.margin = "0% 0%"
+        }
         console.log("pdf generated");
       } catch (error) {
         console.error("Error fetching data from blockchain:", error.message);
@@ -182,7 +187,7 @@ const ViewCertificate = () => {
         e.preventDefault();
         return false;
       }}
-      className="lg:h-screen lg:w-screen lg:flex lg:items-center lg:justify-center overflow-auto"
+      className="lg:h-screen lg:w-screen lg:flex lg:items-center lg:justify-center overflow-hidden"
     >
       {!loading ? (
         <>
