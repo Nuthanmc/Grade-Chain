@@ -168,8 +168,8 @@ const ViewCertificate = () => {
         await page.render(renderContext);
         if (isMobile()) {
           canvas.style.transformOrigin = "center center";
-          canvas.style.transform = "scale(0.45)";
-          canvas.style.translate = "-27% 0%"
+          canvas.style.transform = "scale(0.40)";
+          canvas.style.translate = "-27.5% 0%"
           canvas.style.margin = "0% 0%"
         }
         console.log("pdf generated");
