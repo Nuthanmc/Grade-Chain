@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import {Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
@@ -30,7 +30,8 @@ export default function RootLayout({ children }) {
       </body>
       {/* Google Tag Manager */}
       <GoogleTagManager gtmId="GTM-KF9C5VCT" />
-      {/* End Google Tag Manager */}
+      {/* Google Analytics 4 */}
+      <GoogleAnalytics gaId="G-KDK6101B2R" />
     </html>
   );
 }
