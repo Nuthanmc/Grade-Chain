@@ -55,7 +55,9 @@ const ViewCertificate = () => {
         const doc = new jsPDF("l", "px", "a4");
 
         doc.addImage(
-          "/certificate-template/1.png",
+          certificates[5] !== ""
+            ? "/certificate-template/1.png"
+            : "/certificate-template/4.png",
           0,
           0,
           doc.internal.pageSize.width,
@@ -74,20 +76,34 @@ const ViewCertificate = () => {
         doc.setTextColor(1, 1, 1);
         doc.setFontSize(55);
         doc.setFont("Italianno-Regular", "normal");
-        doc.text(
-          certificates[1] + " " + certificates[2],
-          doc.internal.pageSize.width / 2,
-          205,
-          {
-            align: "center",
-          }
-        );
+        if (certificates[5] !== "") {
+          doc.text(
+            certificates[1] + " " + certificates[2],
+            doc.internal.pageSize.width / 2,
+            205,
+            {
+              align: "center",
+            }
+          );
+        } else {
+          doc.text(
+            certificates[1] + " " + certificates[2],
+            doc.internal.pageSize.width / 2,
+            190,
+            {
+              align: "center",
+            }
+          );
+        }
         // add Lily Script One Font
         if (
           doc.getFont("LilyScriptOne-Regular-normal").fontName !==
           "LilyScriptOne-Regular-normal"
         ) {
-          doc.addFileToVFS("LilyScriptOne-Regular-normal.ttf", LilyScriptOneFont);
+          doc.addFileToVFS(
+            "LilyScriptOne-Regular-normal.ttf",
+            LilyScriptOneFont
+          );
           doc.addFont(
             "LilyScriptOne-Regular-normal.ttf",
             "LilyScriptOne-Regular",
@@ -160,18 +176,19 @@ const ViewCertificate = () => {
           align: "left",
         });
 
-        doc.text(certificates[6], doc.internal.pageSize.width / 3 - 85, 300, {
+        doc.text(certificates[6], doc.internal.pageSize.width / 3 - 81, 300, {
           align: "left",
         });
         // 3, 0
         doc.text("Issued By: ", doc.internal.pageSize.width / 3 - 150, 315, {
           align: "left",
         });
-        doc.text(certificates[3], doc.internal.pageSize.width / 3 - 85, 315, {
+        doc.text(certificates[3], doc.internal.pageSize.width / 3 - 81, 315, {
           align: "left",
         });
 
         doc.setFontSize(14);
+        if(certificates[5] !== "") {
         doc.text(
           "Certificate ID: ",
           doc.internal.pageSize.width / 3 - 150,
@@ -183,6 +200,19 @@ const ViewCertificate = () => {
         doc.text(certificates[0], doc.internal.pageSize.width / 3 - 81, 400, {
           align: "left",
         });
+      } else {
+        doc.text(
+          "Certificate ID: ",
+          doc.internal.pageSize.width / 3 - 145,
+          385,
+          {
+            align: "left",
+          }
+        );
+        doc.text(certificates[0], doc.internal.pageSize.width / 3 - 76, 385, {
+          align: "left",
+        });
+      }
         const output = doc.output("dataurlstring");
         // Set the worker source for PDF.js library
         setLoading(false);
