@@ -46,7 +46,7 @@ const ViewCertificate = () => {
         const doc = new jsPDF("l", "px", "a4");
 
         doc.addImage(
-          "/certificate-4.jpg",
+          "/certificate-template/1.jpg",
           0,
           0,
           doc.internal.pageSize.width,
