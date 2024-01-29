@@ -2,6 +2,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleTagManager } from "@next/third-parties/google";
+import {Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "Certi-Block",
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
       <body>
         <Toaster position="bottom-center" toastOptions={{ duration: 3000 }} />
         {children}
+        <Analytics />
         <SpeedInsights />
       </body>
       {/* Google Tag Manager */}
