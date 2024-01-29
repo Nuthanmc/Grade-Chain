@@ -1,5 +1,11 @@
 "use client";
-import { CertificateABI, certificateContractAddress } from "@/constants";
+import {
+  CertificateABI,
+  InterFont,
+  ItaliannoFont,
+  LilyScriptOneFont,
+  certificateContractAddress,
+} from "@/constants";
 import { ethers } from "ethers";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -9,11 +15,14 @@ import jsPDF from "jspdf";
 
 const ViewCertificate = () => {
   const [loading, setLoading] = useState(true);
-  const [loadingText, setLoadingText] = useState("Fetching Certificate details...");
+  const [loadingText, setLoadingText] = useState(
+    "Fetching Certificate details..."
+  );
   const { id } = useParams();
   useEffect(() => {
     function isMobile() {
-      const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+      const regex =
+        /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
       return regex.test(navigator.userAgent);
     }
     const fetchData = async () => {
@@ -37,7 +46,7 @@ const ViewCertificate = () => {
 
         // Call the contract function;
         const certificates = await contract.getCertificateByIdDirect(id);
-        console.log("Certificate contract found")
+        console.log("Certificate contract found");
         console.log(certificates);
 
         setLoadingText("Loading Certificate...");
@@ -46,15 +55,25 @@ const ViewCertificate = () => {
         const doc = new jsPDF("l", "px", "a4");
 
         doc.addImage(
-          "/certificate-template/1.jpg",
+          "/certificate-template/1.png",
           0,
           0,
           doc.internal.pageSize.width,
           doc.internal.pageSize.height
         );
+        // add Italianno Font
+        if (doc.getFont("Italianno-Regular").fontName !== "Italianno-Regular") {
+          doc.addFileToVFS("Italianno-Regular-normal.ttf", ItaliannoFont);
+          doc.addFont(
+            "Italianno-Regular-normal.ttf",
+            "Italianno-Regular",
+            "normal"
+          );
+          console.log("Font added");
+        }
         doc.setTextColor(1, 1, 1);
-        doc.setFontSize(48);
-        doc.setFont("helvetica", "italic");
+        doc.setFontSize(55);
+        doc.setFont("Italianno-Regular", "normal");
         doc.text(
           certificates[1] + " " + certificates[2],
           doc.internal.pageSize.width / 2,
@@ -63,18 +82,40 @@ const ViewCertificate = () => {
             align: "center",
           }
         );
-        doc.setFontSize(30);
+        // add Lily Script One Font
+        if (
+          doc.getFont("LilyScriptOne-Regular-normal").fontName !==
+          "LilyScriptOne-Regular-normal"
+        ) {
+          doc.addFileToVFS("LilyScriptOne-Regular-normal.ttf", LilyScriptOneFont);
+          doc.addFont(
+            "LilyScriptOne-Regular-normal.ttf",
+            "LilyScriptOne-Regular",
+            "normal"
+          );
+          console.log("Font Lily Script One added");
+        }
+        doc.setFontSize(35);
+        doc.setFont("LilyScriptOne-Regular", "normal");
         doc.text(certificates[5], doc.internal.pageSize.width / 2, 268, {
           align: "center",
         });
 
         // set font to normal
-        doc.setFont("helvetica", "normal");
+        // add Inter Font
+        if (doc.getFont("Inter").fontName !== "Inter") {
+          doc.addFileToVFS("Inter-normal.ttf", InterFont);
+          doc.addFont("Inter-normal.ttf", "Inter", "normal");
+          console.log("Font Inter added");
+        }
+        doc.setFont("Inter", "normal");
         doc.setFontSize(12);
         doc.text(
           "To validate the certificate,",
           // 75% of the doc.interal.pageSize.width
-          doc.internal.pageSize.width / 2 + doc.internal.pageSize.width / 4 + 25,
+          doc.internal.pageSize.width / 2 +
+            doc.internal.pageSize.width / 4 +
+            25,
           390,
           {
             align: "center",
@@ -83,7 +124,9 @@ const ViewCertificate = () => {
         doc.text(
           "please scan the QR Code",
           // 75% of the doc.interal.pageSize.width
-          doc.internal.pageSize.width / 2 + doc.internal.pageSize.width / 4 + 25,
+          doc.internal.pageSize.width / 2 +
+            doc.internal.pageSize.width / 4 +
+            25,
           400,
           {
             align: "center",
@@ -104,34 +147,26 @@ const ViewCertificate = () => {
           doc.addImage(
             url,
             "PNG",
-            doc.internal.pageSize.width / 2 + doc.internal.pageSize.width / 4 - 25,
+            doc.internal.pageSize.width / 2 +
+              doc.internal.pageSize.width / 4 -
+              25,
             doc.internal.pageSize.height / 2 + 55,
             100,
             100
           );
         });
         doc.setFontSize(18);
-        doc.text(
-          "Issued On: ",
-          doc.internal.pageSize.width / 3 - 150,
-          300,
-          {
-            align: "left",
-          }
-        )
+        doc.text("Issued On: ", doc.internal.pageSize.width / 3 - 150, 300, {
+          align: "left",
+        });
 
         doc.text(certificates[6], doc.internal.pageSize.width / 3 - 85, 300, {
           align: "left",
         });
         // 3, 0
-        doc.text(
-          "Issued By: ",
-          doc.internal.pageSize.width / 3 - 150,
-          315,
-          {
-            align: "left",
-          }
-        )
+        doc.text("Issued By: ", doc.internal.pageSize.width / 3 - 150, 315, {
+          align: "left",
+        });
         doc.text(certificates[3], doc.internal.pageSize.width / 3 - 85, 315, {
           align: "left",
         });
@@ -144,15 +179,15 @@ const ViewCertificate = () => {
           {
             align: "left",
           }
-        )
-        doc.text(certificates[0], doc.internal.pageSize.width / 3 - 85, 400, {
+        );
+        doc.text(certificates[0], doc.internal.pageSize.width / 3 - 81, 400, {
           align: "left",
-
         });
         const output = doc.output("dataurlstring");
         // Set the worker source for PDF.js library
         setLoading(false);
-        pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js";
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js";
         const pdf = await pdfjsLib.getDocument(output).promise;
         console.log(pdf);
         const page = await pdf.getPage(1);
@@ -169,8 +204,8 @@ const ViewCertificate = () => {
         if (isMobile()) {
           canvas.style.transformOrigin = "center center";
           canvas.style.transform = "scale(0.40)";
-          canvas.style.translate = "-27.5% 0%"
-          canvas.style.margin = "0% 0%"
+          canvas.style.translate = "-27.5% 0%";
+          canvas.style.margin = "0% 0%";
         }
         console.log("pdf generated");
       } catch (error) {
