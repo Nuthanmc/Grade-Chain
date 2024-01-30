@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 "use client";
 import {
   CertificateABI,
@@ -12,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import QRCode from "qrcode";
 import jsPDF from "jspdf";
+import Link from "next/link";
 
 const ViewCertificate = () => {
   const [loading, setLoading] = useState(true);
@@ -63,6 +65,50 @@ const ViewCertificate = () => {
           doc.internal.pageSize.width,
           doc.internal.pageSize.height
         );
+        // Function to add watermark to each page
+        function addWatermark(pdf, watermarkText, positions) {
+          const totalPages = pdf.internal.getNumberOfPages();
+
+          for (let i = 1; i <= totalPages; i++) {
+            pdf.setPage(i);
+
+            positions.forEach((position) => {
+              // Set watermark properties
+              if (position.x === 0.5 && position.y === 0.5) {
+                pdf.setTextColor(211, 211, 211);
+              } else {
+                pdf.setTextColor(200, 200, 200);
+              }
+              pdf.setFontSize(30);
+              pdf.setFont("arial", "italic");
+
+              // Calculate position based on page size
+              const pageSize = pdf.internal.pageSize;
+              const x = pageSize.width * position.x;
+              const y = pageSize.height * position.y;
+
+              // Add slanted watermark text
+              const angle = position.angle || 0;
+              pdf.text(watermarkText, x, y, { angle: angle, align: "center" });
+            });
+          }
+        }
+
+        const watermarkText = "CertiBlock";
+        const watermarkPositions = [
+          { x: 0.2, y: 0.2, angle: 45 },
+          { x: 0.5, y: 0.2, angle: 45 },
+          { x: 0.2, y: 0.5, angle: 45 },
+          { x: 0.9, y: 0.9, angle: 45 },
+          { x: 0.2, y: 0.9, angle: 45 },
+          { x: 0.5, y: 0.9, angle: 45 },
+          { x: 0.9, y: 0.2, angle: 45 },
+          { x: 0.9, y: 0.5, angle: 45 },
+          { x: 0.5, y: 0.5, angle: 45 },
+        ];
+        addWatermark(doc, watermarkText, watermarkPositions);
+
+        
         // add Italianno Font
         if (doc.getFont("Italianno-Regular").fontName !== "Italianno-Regular") {
           doc.addFileToVFS("Italianno-Regular-normal.ttf", ItaliannoFont);
@@ -117,13 +163,13 @@ const ViewCertificate = () => {
           align: "center",
         });
 
-        // set font to normal
         // add Inter Font
         if (doc.getFont("Inter").fontName !== "Inter") {
           doc.addFileToVFS("Inter-normal.ttf", InterFont);
           doc.addFont("Inter-normal.ttf", "Inter", "normal");
           console.log("Font Inter added");
         }
+        doc.setTextColor(1, 1, 1);
         doc.setFont("Inter", "normal");
         doc.setFontSize(12);
         doc.text(
@@ -188,31 +234,31 @@ const ViewCertificate = () => {
         });
 
         doc.setFontSize(14);
-        if(certificates[5] !== "") {
-        doc.text(
-          "Certificate ID: ",
-          doc.internal.pageSize.width / 3 - 150,
-          400,
-          {
+        if (certificates[5] !== "") {
+          doc.text(
+            "Certificate ID: ",
+            doc.internal.pageSize.width / 3 - 150,
+            400,
+            {
+              align: "left",
+            }
+          );
+          doc.text(certificates[0], doc.internal.pageSize.width / 3 - 81, 400, {
             align: "left",
-          }
-        );
-        doc.text(certificates[0], doc.internal.pageSize.width / 3 - 81, 400, {
-          align: "left",
-        });
-      } else {
-        doc.text(
-          "Certificate ID: ",
-          doc.internal.pageSize.width / 3 - 145,
-          385,
-          {
+          });
+        } else {
+          doc.text(
+            "Certificate ID: ",
+            doc.internal.pageSize.width / 3 - 145,
+            385,
+            {
+              align: "left",
+            }
+          );
+          doc.text(certificates[0], doc.internal.pageSize.width / 3 - 76, 385, {
             align: "left",
-          }
-        );
-        doc.text(certificates[0], doc.internal.pageSize.width / 3 - 76, 385, {
-          align: "left",
-        });
-      }
+          });
+        }
         const output = doc.output("dataurlstring");
         // Set the worker source for PDF.js library
         setLoading(false);
@@ -266,6 +312,18 @@ const ViewCertificate = () => {
           </p>
         </div>
       )}
+      <Link
+        href="//www.dmca.com/Protection/Status.aspx?ID=14657be4-398f-4914-93be-279de6886c84"
+        title="DMCA.com Protection Status"
+        target="_blank"
+        className="dmca-badge absolute bottom-0 right-0"
+      >
+        <img
+          src="https://images.dmca.com/Badges/dmca-badge-w150-2x1-04.png?ID=14657be4-398f-4914-93be-279de6886c84"
+          alt="DMCA.com Protection Status"
+        />
+      </Link>
+      <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script>
     </div>
   );
 };
