@@ -3,9 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  Facebook,
   Instagram,
-  LinkedIn,
   LocalPhoneOutlined,
   LocationOnOutlined,
   MailOutlineOutlined,
@@ -104,13 +102,7 @@ const ContactUs = () => {
               </div>
               <div className="flex space-x-4 ml-5 text-xl my-6 ">
                 <a href="">
-                  <LinkedIn />
-                </a>
-                <a href="">
                   <Instagram />
-                </a>
-                <a href="">
-                  <Facebook />
                 </a>
                 <a href="">
                   <Twitter />
