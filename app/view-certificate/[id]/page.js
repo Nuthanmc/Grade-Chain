@@ -312,7 +312,7 @@ const ViewCertificate = () => {
           </p>
         </div>
       )}
-      <Link
+      {/* <Link
         href="//www.dmca.com/Protection/Status.aspx?ID=14657be4-398f-4914-93be-279de6886c84"
         title="DMCA.com Protection Status"
         target="_blank"
@@ -323,7 +323,7 @@ const ViewCertificate = () => {
           alt="DMCA.com Protection Status"
         />
       </Link>
-      <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script>
+      <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script> */}
     </div>
   );
 };
