@@ -6,7 +6,7 @@ import {
   Instagram,
   LocalPhoneOutlined,
   LocationOnOutlined,
-  MailOutlineOutlined
+  MailOutlineOutlined,
 } from "@mui/icons-material";
 import Link from "next/link";
 import db from "@/config/firebase";
@@ -67,7 +67,7 @@ const ContactUs = () => {
       id="contactus"
       variants={textVariant(0.5)}
     >
-      <div className="flex sm:w-screen lg:w-[1000px] rounded-md p-4 m-5">
+      <div className="flex sm:w-screen lg:w-screen items-center justify-center rounded-md p-4 m-5">
         <div className="flex w-max bg-gray-400 dark:bg-gray-900/80 p-4 rounded-md justify-center items-center">
           <div className="flex flex-col space-y-6 w—full max-w-screen p—8 rounded—xl shadow—lg text-white md:flex-row md:space-x-6 md:space-y">
             <div className="flex flex-col justify-center w-full">
@@ -99,31 +99,32 @@ const ContactUs = () => {
                   </Link>
                 </div>
               </div>
-              <div className="flex space-x-4 ml-5 text-xl my-6 ">
+              <div className="flex items-center space-x-4 ml-5 text-xl my-6 ">
                 <a href="">
-                  <Instagram />
+                  <Instagram fontSize="large" />
                 </a>
                 <a href="">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="512"
-                    height="512"
-                    fill="none"
-                    viewBox="0 0 512 512"
-                    id="twitter"
+                    width="36"
+                    height="36"
+                    className="mt-1"
+                    viewBox="0 0 24 24"
                   >
-                    <g clip-path="url(#clip0_84_15697)">
-                      <rect width="512" height="512" fill="#000" rx="60"></rect>
-                      <path
-                        fill="#fff"
-                        d="M355.904 100H408.832L293.2 232.16L429.232 412H322.72L239.296 302.928L143.84 412H90.8805L214.56 270.64L84.0645 100H193.28L268.688 199.696L355.904 100ZM337.328 380.32H366.656L177.344 130.016H145.872L337.328 380.32Z"
-                      ></path>
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_84_15697">
-                        <rect width="512" height="512" fill="#fff"></rect>
-                      </clipPath>
-                    </defs>
+                    <path
+                      d="M10.053,7.988l5.631,8.024h-1.497L8.566,7.988H10.053z M21,6v12c0,1.657-1.343,3-3,3H6c-1.657,0-3-1.343-3-3V6c0-1.657,1.343-3,3-3h12C19.657,3,21,4.343,21,6z M17.538,17l-4.186-5.99L16.774,7h-1.311l-2.704,3.16L10.552,7H6.702l3.941,5.633L6.906,17h1.333l3.001-3.516L13.698,17H17.538z"
+                      style={{
+                        fill: window.matchMedia("(prefers-color-scheme: dark)")
+                          .matches
+                          ? "white"
+                          : "black",
+                        backgroundColor: window.matchMedia(
+                          "(prefers-color-scheme: dark)"
+                        ).matches
+                          ? "black"
+                          : "white",
+                      }}
+                    ></path>
                   </svg>
                 </a>
               </div>
