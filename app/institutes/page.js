@@ -35,7 +35,11 @@ const InstitutesPage = () => {
     console.log("Certificates Contract: ", certificateContract);
 
     const getDataFromBlockchain = async () => {
-      const docRef = doc(db, "institutes", sessionStorage.getItem("address"));
+      const docRef = doc(
+        db,
+        "institutes",
+        sessionStorage.getItem("address").toLowerCase()
+      );
       getDoc(docRef).then((doc) => {
         if (doc.exists()) {
           console.log("Document data:", doc.data());

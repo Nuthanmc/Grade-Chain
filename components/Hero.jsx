@@ -29,7 +29,7 @@ const Hero = () => {
       const docRef = doc(db, "institutes", accounts[0].toLowerCase());
       getDoc(docRef).then((data) => {
         if (data.exists()) {
-          sessionStorage.setItem("account", accounts[0].toLowerCase());
+          sessionStorage.setItem("address", accounts[0].toLowerCase());
           document.getElementById("login_modal").close();
           window.location.href = "/institutes";
         } else {
