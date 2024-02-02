@@ -5,6 +5,16 @@ import toast from "react-hot-toast";
 import { contractAddress, InstitutesABI } from "@/constants";
 import { CloseOutlined } from "@mui/icons-material";
 import { FaGear } from "react-icons/fa6";
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from "firebase/firestore";
+import db from "@/config/firebase";
 
 const CreateInstitutes = () => {
   const [formData, setFormData] = useState({
@@ -38,50 +48,50 @@ const CreateInstitutes = () => {
     }
   }, []);
 
-  const getAllInstitutes = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    console.log(signer);
-    const contract = new ethers.Contract(
-      contractAddress,
-      InstitutesABI,
-      signer
-    );
+  // const getAllInstitutes = async () => {
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //   const signer = provider.getSigner();
+  //   console.log(signer);
+  //   const contract = new ethers.Contract(
+  //     contractAddress,
+  //     InstitutesABI,
+  //     signer
+  //   );
 
-    contract
-      .getAllInstitutes()
-      .then((institutes) => {
-        let arr = [];
+  //   contract
+  //     .getAllInstitutes()
+  //     .then((institutes) => {
+  //       let arr = [];
 
-        institutes.forEach((institute) => {
-          arr.push({
-            id: institute.id._hex,
-            walletAddress: institute.walletAddress,
-            name: institute.name,
-            description: institute.description,
-            coursesCount: institute.coursesCount,
-          });
-        });
+  //       institutes.forEach((institute) => {
+  //         arr.push({
+  //           id: institute.id._hex,
+  //           walletAddress: institute.walletAddress,
+  //           name: institute.name,
+  //           description: institute.description,
+  //           coursesCount: institute.coursesCount,
+  //         });
+  //       });
 
-        setInstitutes(arr);
-        console.log(arr);
-        setLoading(false);
-      })
-      .catch(async (err) => {
-        await loginToMetaMask()
-          .then((accounts) => {
-            if (accounts.length > 0) {
-              getAllInstitutes();
-            }
-          })
-          .catch((errorr) => {
-            toast.error("Please login to Metamask");
-            loginToMetaMask();
-          });
-        console.log(err);
-        setLoading(false);
-      });
-  };
+  //       setInstitutes(arr);
+  //       console.log(arr);
+  //       setLoading(false);
+  //     })
+  //     .catch(async (err) => {
+  //       await loginToMetaMask()
+  //         .then((accounts) => {
+  //           if (accounts.length > 0) {
+  //             getAllInstitutes();
+  //           }
+  //         })
+  //         .catch((errorr) => {
+  //           toast.error("Please login to Metamask");
+  //           loginToMetaMask();
+  //         });
+  //       console.log(err);
+  //       setLoading(false);
+  //     });
+  // };
 
   const loginToMetaMask = async () => {
     try {
@@ -96,78 +106,138 @@ const CreateInstitutes = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const colRef = collection(db, "institutes");
 
-    getAllInstitutes();
-  }, []);
+        // MetaMask login
+        await loginToMetaMask()
+          .then((accounts) => {
+            if (accounts.length > 0) {
+              // Fetch data from Firebase
+              const q = query(colRef, orderBy("name", "asc"));
+              onSnapshot(q, (snapshot) => {
+                let arr = [];
+                snapshot.forEach((doc) => {
+                  arr.push(doc.data());
+                });
+                setInstitutes(arr);
+                setLoading(false);
+              });
+            }
+          })
+          .catch(() => {
+            toast.error("Please login to Metamask");
+          });
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
 
+    fetchData();
+  }, [db]);
+
+  // OLD
+  // const handleSubmit = async () => {
+  //   try {
+  //     setCreateLoading(true);
+  //     const accounts = await window.ethereum.request({
+  //       method: "eth_requestAccounts",
+  //     });
+  //     console.log(accounts);
+
+  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //     const signer = provider.getSigner();
+  //     const contract = new ethers.Contract(
+  //       contractAddress,
+  //       InstitutesABI,
+  //       signer
+  //     );
+
+  //     //   Perform contract interaction (e.g., create institute) here
+  //     const transaction = await contract.addInstituteAndCourses(
+  //       formData.address,
+  //       formData.name,
+  //       formData.description,
+  //       formData.courses
+  //     );
+  //     await transaction.wait();
+  //     console.log("Institute created successfully:", transaction);
+  //     toast.success("Institute Created Successfully");
+  //     setCreateLoading(false);
+  //     document.getElementById("cancel_add_institute_dialog").click();
+  //     getAllInstitutes();
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+  // NEW
   const handleSubmit = async () => {
+    setCreateLoading(true);
     try {
-      setCreateLoading(true);
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
+      const colRef = collection(db, "institutes");
+      const docRef = doc(db, "institutes", formData.address.toLowerCase());
+      setDoc(docRef, {
+        walletAddress: formData.address.toLowerCase(),
+        name: formData.name,
+        description: formData.description,
+        courses: formData.courses,
+      }).then(() => {
+        toast.success("Institute Created Successfully");
+        setCreateLoading(false);
+        document.getElementById("cancel_add_institute_dialog").click();
       });
-      console.log(accounts);
-
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        contractAddress,
-        InstitutesABI,
-        signer
-      );
-
-      //   Perform contract interaction (e.g., create institute) here
-      const transaction = await contract.addInstituteAndCourses(
-        formData.address,
-        formData.name,
-        formData.description,
-        formData.courses
-      );
-      await transaction.wait();
-      console.log("Institute created successfully:", transaction);
-      toast.success("Institute Created Successfully");
-      setCreateLoading(false);
-      document.getElementById("cancel_add_institute_dialog").click();
-      getAllInstitutes();
     } catch (error) {
-      console.error("Error:", error);
+      console.log("Error: ", error);
     }
   };
 
+  // OLD
+  // const getAllCourses = async (walletAddress) => {
+  //   setCoursesLoading(true);
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //   const signer = provider.getSigner();
+  //   console.log(signer);
+  //   const contract = new ethers.Contract(
+  //     contractAddress,
+  //     InstitutesABI,
+  //     signer
+  //   );
+
+  //   contract
+  //     .getAllCourses(walletAddress)
+  //     .then((courses) => {
+  //       let arr = [];
+
+  //       courses.forEach((course) => {
+  //         arr.push({
+  //           name: course.name,
+  //         });
+  //       });
+
+  //       console.log(arr);
+  //       setCourses(arr);
+  //       setCoursesLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       toast.error("Please login to Metamask");
+  //       console.log(err);
+  //       setCoursesLoading(false);
+  //     });
+  // };
+  // NEW
   const getAllCourses = async (walletAddress) => {
-    setCoursesLoading(true);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    console.log(signer);
-    const contract = new ethers.Contract(
-      contractAddress,
-      InstitutesABI,
-      signer
-    );
-
-    contract
-      .getAllCourses(walletAddress)
-      .then((courses) => {
-        let arr = [];
-
-        courses.forEach((course) => {
-          arr.push({
-            name: course.name,
-          });
-        });
-
-        console.log(arr);
-        setCourses(arr);
-        setCoursesLoading(false);
-      })
-      .catch((err) => {
-        toast.error("Please login to Metamask");
-        console.log(err);
-        setCoursesLoading(false);
-      });
+    const docRef = doc(db, "institutes", walletAddress);
+    getDoc(docRef).then((doc) => {
+      if (doc.exists()) {
+        setCourses(doc.data().courses);
+      } else {
+        console.log("No such document!");
+      }
+    });
   };
-
   return (
     <section className="h-screen">
       {/* Navbar */}
@@ -562,7 +632,7 @@ const CreateInstitutes = () => {
                   courses.map((course, index) => (
                     <tr key={index + 1}>
                       <td>{index + 1}</td>
-                      <td>{course.name}</td>
+                      <td>{course}</td>
                     </tr>
                   ))
                 ) : (
@@ -577,7 +647,11 @@ const CreateInstitutes = () => {
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button id="cancel_view_courses_dialog" className="btn btn-error">
+              <button
+                id="cancel_view_courses_dialog"
+                onClick={() => setCourses([])}
+                className="btn btn-error"
+              >
                 Cancel
               </button>
             </form>

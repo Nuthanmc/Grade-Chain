@@ -9,6 +9,8 @@ import {
   InstitutesABI,
 } from "@/constants";
 import InstituteHero from "@/components/InstituteHero";
+import { doc, getDoc } from "firebase/firestore";
+import db from "@/config/firebase";
 
 const InstitutesPage = () => {
   const [institution, setInstitution] = useState([]);
@@ -33,41 +35,31 @@ const InstitutesPage = () => {
     console.log("Certificates Contract: ", certificateContract);
 
     const getDataFromBlockchain = async () => {
-      contract
-        .getInstitute(sessionStorage.getItem("address"))
-        .then((res) => {
-          console.log(res);
-          let arr = [];
+      const docRef = doc(db, "institutes", sessionStorage.getItem("address"));
+      getDoc(docRef).then((doc) => {
+        if (doc.exists()) {
+          console.log("Document data:", doc.data());
           setInstitution({
-            id: res[0].id,
-            address: res[0].walletAddress,
-            name: res[0].name,
-            description: res[0].description,
+            id: doc.data().id,
+            address: doc.data().walletAddress,
+            name: doc.data().name,
+            description: doc.data().description,
           });
-          res[1].forEach((course) => {
-            console.log(course);
-            course.forEach((c) => {
-              arr.push(c);
-            });
-          });
-          setCourses(arr);
           console.log(institution);
-        })
-        .catch((err) => {
-          console.log(err);
-          sessionStorage.removeItem("address");
-          window.location.href = "/";
-        });
+          console.log(doc.data().courses);
+          setCourses(doc.data().courses);
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      });
     };
     getDataFromBlockchain();
   }, []);
   return (
     <>
       <NavbarInstitutions institute={institution} courses={courses} />
-      <InstituteHero
-        institute={institution}
-        courses={courses}
-      />
+      <InstituteHero institute={institution} courses={courses} />
     </>
   );
 };
