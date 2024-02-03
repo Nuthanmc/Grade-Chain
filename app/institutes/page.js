@@ -110,7 +110,7 @@ const InstitutesPage = () => {
     updateDoc(docRef, {
       name: editInstitute.name,
       description: editInstitute.description,
-      address: editInstitute.address.toLowerCase(),
+      walletAddress: editInstitute.address.toLowerCase(),
     })
       .then(() => {
         toast.success("Profile updated successfully!");
@@ -120,7 +120,7 @@ const InstitutesPage = () => {
       .catch((error) => {
         console.error("Error updating document: ", error);
       });
-  }
+  };
   return (
     <>
       <NavbarInstitutions
