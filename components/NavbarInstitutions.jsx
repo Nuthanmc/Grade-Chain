@@ -1,7 +1,19 @@
+import { CloseOutlined, RadioButtonChecked } from "@mui/icons-material";
 import React from "react";
 import { FaGear } from "react-icons/fa6";
 
-const NavbarInstitutions = ({ institute, courses }) => {
+const NavbarInstitutions = ({
+  institute,
+  editInstitute,
+  handleInstituteProfileUpdate,
+  setEditInstitute,
+  courses,
+  setCourses,
+  course_name,
+  setCourseName,
+  handleCoursesUpdate,
+  getCourses,
+}) => {
   return (
     <>
       <div className="navbar bg-base-100">
@@ -104,7 +116,18 @@ const NavbarInstitutions = ({ institute, courses }) => {
       {/* View Courses Modal */}
       <dialog id="view_courses_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Institute Courses</h3>
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-lg">Institute Courses</h3>
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={() => {
+                document.getElementById("view_courses_modal").close();
+                document.getElementById("edit_courses_modal").showModal();
+              }}
+            >
+              Edit Courses
+            </button>
+          </div>
           <div className="overflow-x-auto">
             <table className="table text-center">
               <thead>
@@ -140,10 +163,121 @@ const NavbarInstitutions = ({ institute, courses }) => {
           </div>
         </div>
       </dialog>
+
+      {/* Edit Courses Modal */}
+      <dialog id="edit_courses_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Edit Institute Courses</h3>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Add Institute Courses</span>
+              <p className="label-text-alt text-xs text-gray-400">(Optional)</p>
+            </label>
+            {/* More info about Courses */}
+            <p className="text-xs text-gray-400 mb-1">
+              Courses allow you to create certificates for different courses in
+              your institute.
+            </p>
+            <input
+              type="text"
+              placeholder="Enter Course Name"
+              name="course_name"
+              onChange={(e) => setCourseName(e.target.value)}
+              required
+              id="course_name"
+              className="input input-bordered input-primary w-full max-w-2xl"
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setCourses((prevCourses) => [...prevCourses, course_name]);
+                document.getElementById("course_name").value = "";
+                console.log(courses);
+              }}
+              className="btn btn-primary m-4 w-52"
+              disabled={course_name === ""}
+            >
+              Add Course
+            </button>
+            {courses.length > 0 ? (
+              <>
+                <h3 className="text-white text-md sm:text-xl">Courses Added</h3>
+                <table className="table border-0">
+                  <thead>
+                    <tr className="text-center text-md md:text-lg">
+                      <th>Sr. No.</th>
+                      <th>Course Name</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {courses.map((course, index) => (
+                      <tr className="text-center" key={index + 1}>
+                        <td className="dark:text-white text-white text-md sm:text-xl">
+                          {index + 1}
+                        </td>
+                        <td
+                          key={index}
+                          className="dark:text-white text-black text-sm sm:text-xl"
+                        >
+                          {course}
+                        </td>
+                        <td>
+                          <CloseOutlined
+                            onClick={() => {
+                              setCourses((prevCourses) =>
+                                prevCourses.filter((c) => c !== course)
+                              );
+                              console.log(courses);
+                            }}
+                            className="hover:text-white text-gray-400"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            ) : null}
+          </div>
+          <div className="modal-action">
+            <button
+              className="btn btn-accent btn-outline"
+              onClick={handleCoursesUpdate}
+            >
+              Update
+            </button>
+            <form method="dialog">
+              <button
+                onClick={() => {
+                  setCourseName("");
+                  getCourses();
+                }}
+                id="cancel_edit_courses_dialog"
+                className="btn btn-error"
+              >
+                Close
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
       {/* View Profile Modal */}
       <dialog id="show_profile_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg text-center">Institute Profile</h3>
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-lg text-center">Institute Profile</h3>
+            <button
+              onClick={() => {
+                document.getElementById("show_profile_modal").close();
+                document.getElementById("edit_profile_modal").showModal();
+              }}
+              className="btn btn-sm btn-primary"
+            >
+              Edit Profile
+            </button>
+          </div>
           <div className="overflow-x-hidden">
             {institute.name !== "" ? (
               <table className="table">
@@ -169,6 +303,87 @@ const NavbarInstitutions = ({ institute, courses }) => {
           <div className="modal-action">
             <form method="dialog">
               <button id="cancel_view_courses_dialog" className="btn btn-error">
+                Close
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* Edit Profile Modal */}
+      <dialog id="edit_profile_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg text-center">
+            Edit Institute Profile
+          </h3>
+          <div className="overflow-x-hidden">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Institute Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Institute Name"
+                name="institute_name"
+                required
+                value={editInstitute.name}
+                onChange={(e) =>
+                  setEditInstitute({ ...editInstitute, name: e.target.value })
+                }
+                id="institute_name"
+                className="input input-bordered input-primary w-full max-w-2xl"
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Institute Address</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Institute Address"
+                name="institute_address"
+                required
+                onChange={(e) =>
+                  setEditInstitute({
+                    ...editInstitute,
+                    address: e.target.value,
+                  })
+                }
+                value={editInstitute.address}
+                id="institute_address"
+                className="input input-bordered input-primary w-full max-w-2xl"
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Institute Description</span>
+              </label>
+              <textarea
+                placeholder="Enter Institute Description"
+                name="institute_description"
+                rows={editInstitute?.description?.split(" ").length / 15}
+                required
+                value={editInstitute.description}
+                onChange={(e) =>
+                  setEditInstitute({
+                    ...editInstitute,
+                    description: e.target.value,
+                  })
+                }
+                id="institute_description"
+                className="textarea textarea-bordered textarea-primary w-full max-w-2xl"
+              ></textarea>
+            </div>
+          </div>
+          <div className="modal-action">
+            <button
+              className="btn btn-accent btn-outline"
+              onClick={handleInstituteProfileUpdate}
+            >
+              Update
+            </button>
+            <form method="dialog">
+              <button id="cancel_edit_profile_dialog" className="btn btn-error">
                 Close
               </button>
             </form>

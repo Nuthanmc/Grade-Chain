@@ -13,7 +13,6 @@ const InstituteHero = ({ institute, courses }) => {
   const [waiting, setWaiting] = React.useState(false); // waiting for transaction to be mined
   const [createLoading, setCreateLoading] = React.useState(false);
   const [loadingCertificates, setLoadingCertificates] = React.useState(true); // loading certificates from blockchain
-  const [loadingInstitute, setLoadingInstitute] = React.useState(true); // loading institute from blockchain
   const [certificates, setCertificates] = React.useState([]);
 
   function getCurrentDate() {
@@ -51,7 +50,6 @@ const InstituteHero = ({ institute, courses }) => {
         .getCertificatesByIssuer(institute?.address)
         .then((certificates) => {
           let certificatesArr = [];
-          console.log(certificates);
           certificates.forEach((certificate) => {
             certificatesArr.push({
               recipientName:
@@ -61,7 +59,6 @@ const InstituteHero = ({ institute, courses }) => {
             });
           });
           setCertificates(certificatesArr);
-          console.log(certificatesArr);
           setLoadingCertificates(false);
         });
     };
@@ -80,14 +77,11 @@ const InstituteHero = ({ institute, courses }) => {
       const certificates = await contract.getCertificatesByIssuer(
         institute.address
       );
-      console.log(certificates);
       return certificates;
     } catch (err) {
       console.log(err);
     }
   };
-
-  console.log(institute?.address);
 
   const handleSubmit = async () => {
     setCreateLoading(true);
@@ -95,8 +89,6 @@ const InstituteHero = ({ institute, courses }) => {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-      console.log(accounts);
-
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(
@@ -104,8 +96,6 @@ const InstituteHero = ({ institute, courses }) => {
         CertificateABI,
         signer
       );
-      console.log("Institute Name:  ", institute.name);
-      console.log("Institute Address:  ", institute.walletAddress);
       const tx = await contract.generateCertificate(
         firstName,
         lastName,
@@ -116,7 +106,6 @@ const InstituteHero = ({ institute, courses }) => {
       );
       setWaiting(true);
       await tx.wait();
-      console.log("Certificate generated successfully:", tx);
       toast.success("Certificate Generated Successfully");
       setCreateLoading(false);
       setWaiting(false);
@@ -150,7 +139,6 @@ const InstituteHero = ({ institute, courses }) => {
       .getCertificatesByIssuer(institute.address)
       .then((certificates) => {
         let certificatesArr = [];
-        console.log(certificates);
         certificates.forEach((certificate) => {
           certificatesArr.push({
             recipientName: certificate.first_name + " " + certificate.last_name,
@@ -159,7 +147,6 @@ const InstituteHero = ({ institute, courses }) => {
           });
         });
         setCertificates(certificatesArr);
-        console.log(certificatesArr);
       });
   };
 
@@ -274,7 +261,9 @@ const InstituteHero = ({ institute, courses }) => {
                     </button>
                   </td>
                   <td className="text-lg">{certificate.recipientName}</td>
-                  <td className="text-lg">{certificate.course === "" ? "N/A" : certificate.course}</td>
+                  <td className="text-lg">
+                    {certificate.course === "" ? "N/A" : certificate.course}
+                  </td>
                   <td className="text-lg">
                     <Link
                       className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
@@ -282,7 +271,8 @@ const InstituteHero = ({ institute, courses }) => {
                       referrerPolicy="no-referrer"
                       href={`/view-certificate/${certificate.certificateId}`}
                     >
-                      View Certificate&nbsp;&nbsp;<Launch />
+                      View Certificate&nbsp;&nbsp;
+                      <Launch />
                     </Link>
                   </td>
                 </tr>
@@ -424,7 +414,7 @@ const InstituteHero = ({ institute, courses }) => {
               disabled={
                 firstName === "" ||
                 lastName === "" ||
-                courses.length > 0 && course === "" ||
+                (courses.length > 0 && course === "") ||
                 course === "Select Course"
               }
               onClick={(e) => {

@@ -139,40 +139,6 @@ const CreateInstitutes = () => {
     fetchData();
   }, [db]);
 
-  // OLD
-  // const handleSubmit = async () => {
-  //   try {
-  //     setCreateLoading(true);
-  //     const accounts = await window.ethereum.request({
-  //       method: "eth_requestAccounts",
-  //     });
-  //     console.log(accounts);
-
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //     const signer = provider.getSigner();
-  //     const contract = new ethers.Contract(
-  //       contractAddress,
-  //       InstitutesABI,
-  //       signer
-  //     );
-
-  //     //   Perform contract interaction (e.g., create institute) here
-  //     const transaction = await contract.addInstituteAndCourses(
-  //       formData.address,
-  //       formData.name,
-  //       formData.description,
-  //       formData.courses
-  //     );
-  //     await transaction.wait();
-  //     console.log("Institute created successfully:", transaction);
-  //     toast.success("Institute Created Successfully");
-  //     setCreateLoading(false);
-  //     document.getElementById("cancel_add_institute_dialog").click();
-  //     getAllInstitutes();
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
   // NEW
   const handleSubmit = async () => {
     setCreateLoading(true);
@@ -194,39 +160,6 @@ const CreateInstitutes = () => {
     }
   };
 
-  // OLD
-  // const getAllCourses = async (walletAddress) => {
-  //   setCoursesLoading(true);
-  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //   const signer = provider.getSigner();
-  //   console.log(signer);
-  //   const contract = new ethers.Contract(
-  //     contractAddress,
-  //     InstitutesABI,
-  //     signer
-  //   );
-
-  //   contract
-  //     .getAllCourses(walletAddress)
-  //     .then((courses) => {
-  //       let arr = [];
-
-  //       courses.forEach((course) => {
-  //         arr.push({
-  //           name: course.name,
-  //         });
-  //       });
-
-  //       console.log(arr);
-  //       setCourses(arr);
-  //       setCoursesLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       toast.error("Please login to Metamask");
-  //       console.log(err);
-  //       setCoursesLoading(false);
-  //     });
-  // };
   // NEW
   const getAllCourses = async (walletAddress) => {
     const docRef = doc(db, "institutes", walletAddress);

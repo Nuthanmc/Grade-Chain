@@ -3,8 +3,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import styles from "@/styles";
 import { staggerContainer, textVariant } from "@/utils/motion";
-import { ethers } from "ethers";
-import { contractAddress, InstitutesABI } from "@/constants";
 import toast from "react-hot-toast";
 import { doc, getDoc } from "firebase/firestore";
 import db from "@/config/firebase";
@@ -21,7 +19,6 @@ const Hero = () => {
     // check if chainId matches with Sepolia network
     console.log(chainId);
     if (chainId !== "0xaa36a7") {
-      document.getElementById("login_modal").close();
       toast.error("Please switch to Sepolia Testnet");
     } else {
       console.log(accounts[0]);
