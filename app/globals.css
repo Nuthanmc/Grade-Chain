@@ -182,13 +182,17 @@ body {
 
 /* CSS code */
 @media (prefers-color-scheme: dark) {
-  .MuiSvgIcon-root {
+  .MuiSvgIcon-root,
+  .MuiTablePagination-selectLabel,
+  .MuiTablePagination-displayedRows {
     color: white !important;
   }
 }
 
 @media (prefers-color-scheme: light) {
-  .MuiSvgIcon-root {
+  .MuiSvgIcon-root,
+  .MuiTablePagination-selectLabel,
+  .MuiTablePagination-displayedRows {
     color: black !important;
   }
 }
