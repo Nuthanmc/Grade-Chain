@@ -15,22 +15,13 @@ const InstitutesPage = () => {
   const [editInstitute, setEditInstitute] = useState([]);
 
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-
-    const certificateContract = new ethers.Contract(
-      certificateContractAddress,
-      CertificateABI,
-      signer
-    );
-
     const getDataFromBlockchain = async () => {
       const docRef = doc(
         db,
         "institutes",
         sessionStorage.getItem("address").toLowerCase()
-      );
-      getDoc(docRef).then((doc) => {
+        );
+        getDoc(docRef).then((doc) => {
         if (doc.exists()) {
           setInstitute({
             id: doc.data().id,

@@ -174,8 +174,21 @@ body {
   body {
     display: flex;
   }
-  
+
   .footer-gradient {
     display: none;
+  }
+}
+
+/* CSS code */
+@media (prefers-color-scheme: dark) {
+  .MuiSvgIcon-root {
+    color: white !important;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .MuiSvgIcon-root {
+    color: black !important;
   }
 }

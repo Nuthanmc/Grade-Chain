@@ -1,5 +1,6 @@
 import { CertificateABI, certificateContractAddress } from "@/constants";
 import { ContentCopyOutlined, Launch } from "@mui/icons-material";
+import { TablePagination } from "@mui/material";
 import { ethers } from "ethers";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -14,6 +15,21 @@ const InstituteHero = ({ institute, courses }) => {
   const [createLoading, setCreateLoading] = React.useState(false);
   const [loadingCertificates, setLoadingCertificates] = React.useState(true); // loading certificates from blockchain
   const [certificates, setCertificates] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [search, setSearch] = React.useState("");
+
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - certificates.length) : 0;
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value));
+    setPage(0);
+  };
 
   function getCurrentDate() {
     const currentDate = new Date();
@@ -152,8 +168,8 @@ const InstituteHero = ({ institute, courses }) => {
 
   return (
     <div className="h-screen flex flex-col m-4">
-      <div className="flex items-center justify-between border rounded-lg border-gray-700 p-2">
-        <h3 className="ml-3 h-fit flex flex-row items-center justify-start text-[12px] md:text-sm text-ellipsis lg:text-lg">
+      <div className="flex-col lg:flex lg:flex-row items-center justify-between border rounded-lg border-gray-700 p-2">
+        <h3 className="ml-3 h-fit flex flex-row items-center justify-start text-[14px] md:text-sm text-ellipsis lg:text-lg">
           {institute.name !== undefined ? (
             "Welcome, " + institute.name
           ) : (
@@ -172,15 +188,26 @@ const InstituteHero = ({ institute, courses }) => {
             </div>
           )}
         </h3>
-        <button
-          onClick={() => {
-            document.getElementById("issue_certificates_modal").showModal();
-          }}
-          disabled={loadingCertificates}
-          className="btn btn-sm lg:btn-md btn-success sm:text-sm disabled:cursor-not-allowed"
-        >
-          Issue Certificate
-        </button>
+        <div className="flex-col space-y-2 lg:space-y-0 lg:flex lg:flex-row items-center">
+          <input
+            type="text"
+            placeholder="Search By Reciever's Name"
+            value={search}
+            disabled={loadingCertificates}
+            onChange={(e) => setSearch(e.target.value)}
+            className="input border-2 border-primary lg:input-bordered lg:focus:scale-105 mt-3 sm:mt-0 mr-5 transition input-primary w-full md:w-72 lg:w-96 xl:w-96 2xl:w-96"
+          />
+
+          <button
+            onClick={() => {
+              document.getElementById("issue_certificates_modal").showModal();
+            }}
+            disabled={loadingCertificates}
+            className="btn btn-sm w-full sm:max-w-fit lg:btn-md btn-success sm:text-sm disabled:cursor-not-allowed"
+          >
+            Issue Certificate
+          </button>
+        </div>
       </div>
       <div className="overflow-x-auto lg:overflow-hidden mt-3 border rounded border-gray-700">
         <table className="table m-2">
@@ -197,7 +224,7 @@ const InstituteHero = ({ institute, courses }) => {
             </tr>
           </thead>
           <tbody className="text-center">
-            {loadingCertificates ? (
+            {/* {loadingCertificates ? (
               <tr>
                 <td
                   role="status"
@@ -283,10 +310,163 @@ const InstituteHero = ({ institute, courses }) => {
                   No Certificates Issued
                 </td>
               </tr>
+            )} */}
+            {!loadingCertificates ? (
+              search !== "" ? (
+                certificates
+                  .filter((item) =>
+                    item.recipientName
+                      .toLowerCase()
+                      .includes(search.toLowerCase())
+                  )
+                  .map((certificate, index) => (
+                    <tr key={certificate.certificateId + index}>
+                      <td className="text-lg">{index + 1}</td>
+                      <td className="text-sm lg:text-lg">
+                        {certificate.certificateId}
+                        <button
+                          className="btn btn-ghost ml-2"
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              certificate.certificateId
+                            );
+                            toast.success("Copied to clipboard");
+                          }}
+                        >
+                          <ContentCopyOutlined />
+                        </button>
+                      </td>
+                      <td className="text-lg">{certificate.recipientName}</td>
+                      <td className="text-lg">
+                        {certificate.course === "" ? "N/A" : certificate.course}
+                      </td>
+                      <td className="text-lg">
+                        <Link
+                          className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
+                          target="_blank"
+                          referrerPolicy="no-referrer"
+                          href={`/view-certificate/${certificate.certificateId}`}
+                        >
+                          View Certificate&nbsp;&nbsp;
+                          <Launch />
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+              ) : certificates.length >= 1 ? (
+                (rowsPerPage > 0
+                  ? certificates.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                  : certificates
+                )
+                  .filter((item) =>
+                    item.recipientName
+                      .toLowerCase()
+                      .includes(search.toLowerCase())
+                  )
+                  .map((certificate, index) => (
+                    <tr key={certificate.certificateId + index}>
+                      <td className="text-sm lg:text-lg">{index + 1}</td>
+                      <td className="text-sm lg:text-lg">
+                        {certificate.certificateId}
+                        <button
+                          className="btn btn-ghost ml-2"
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              certificate.certificateId
+                            );
+                            toast.success("Copied to clipboard");
+                          }}
+                        >
+                          <ContentCopyOutlined />
+                        </button>
+                      </td>
+                      <td className="text-lg">{certificate.recipientName}</td>
+                      <td className="text-lg">
+                        {certificate.course === "" ? "N/A" : certificate.course}
+                      </td>
+                      <td className="text-lg">
+                        <Link
+                          className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
+                          target="_blank"
+                          referrerPolicy="no-referrer"
+                          href={`/view-certificate/${certificate.certificateId}`}
+                        >
+                          View Certificate&nbsp;&nbsp;
+                          <Launch />
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                <tr>
+                  <td colSpan={5}>No certificates found.</td>
+                </tr>
+              )
+            ) : (
+              <tr>
+                <td
+                  role="status"
+                  className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+                  colSpan={5}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                </td>
+              </tr>
+            )}
+            {emptyRows > 0 && (
+              <tr style={{ height: 53 * emptyRows }}>
+                <td colSpan={5} />
+              </tr> 
             )}
           </tbody>
+          <tfoot className="border-0">
+            <tr>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 15, { label: "All", value: -1 }]}
+                colSpan={5}
+                count={certificates.length}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{ textAlign: "center", marginRight: "2% !important" }}
+                className="dark:text-white border-0"
+              />
+            </tr>
+          </tfoot>
         </table>
       </div>
+
       <dialog id="issue_certificates_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Issue Certificate</h3>
