@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
 import toast from "react-hot-toast";
-import { contractAddress, InstitutesABI } from "@/constants";
 import { CloseOutlined } from "@mui/icons-material";
 import { FaGear } from "react-icons/fa6";
 import {
@@ -21,6 +19,8 @@ const CreateInstitutes = () => {
     address: "",
     name: "",
     description: "",
+    website_url: "",
+    institute_type: "",
     course_name: "",
     courses: [],
   });
@@ -149,6 +149,7 @@ const CreateInstitutes = () => {
         walletAddress: formData.address.toLowerCase(),
         name: formData.name,
         description: formData.description,
+        website_url: formData.website_url,
         courses: formData.courses,
       }).then(() => {
         toast.success("Institute Created Successfully");
@@ -237,8 +238,11 @@ const CreateInstitutes = () => {
       <div className="w-full">
         <div className="flex mt-10 items-center justify-center">
           <div className="overflow-x-auto">
-            <h3 className="text-md sm:text-xl dark:text-white text-gray-900 capitalize p-3">
-              All Institutes
+            <h3 className="text-md sm:text-xl dark:text-white text-gray-900 capitalize p-3 flex items-center">
+              All Institutes{" "}
+              <div className="badge-primary p-2 ml-3 rounded-lg w-fit">
+                {institutes.length}
+              </div>
             </h3>
             <table className="table overflow-auto!">
               <thead>
@@ -246,7 +250,9 @@ const CreateInstitutes = () => {
                   <th>Sr. No.</th>
                   <th>Institute Wallet Address</th>
                   <th>Institute Name</th>
+                  <th>Institute Type</th>
                   <th>Description</th>
+                  <th>Website URL</th>
                   <th>Courses</th>
                 </tr>
               </thead>
@@ -257,7 +263,7 @@ const CreateInstitutes = () => {
                     <td
                       role="status"
                       className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
-                      colSpan={5}
+                      colSpan={7}
                     >
                       <div className="flex items-center justify-between">
                         <div>
@@ -303,8 +309,14 @@ const CreateInstitutes = () => {
                       <td>{index + 1}</td>
                       <td>{institute.walletAddress}</td>
                       <td>{institute.name}</td>
+                      <td>{institute.institute_type}</td>
                       <td className="max-w-[100px] md:max-w-[300px] overflow-clip text-ellipsis">
                         {institute.description}
+                      </td>
+                      <td className="max-w-[100px] md:max-w-[300px] overflow-clip text-ellipsis">
+                        {institute.website_url !== undefined
+                          ? institute.website_url
+                          : "N/A"}
                       </td>
                       <td className="text-center">
                         <button
@@ -354,6 +366,7 @@ const CreateInstitutes = () => {
           </div>
         </div>
       </dialog>
+
       {/* Add Institute Modal */}
       <dialog id="add_institute_modal" className="modal">
         <div className="modal-box">
@@ -391,6 +404,27 @@ const CreateInstitutes = () => {
             />
           </div>
           <div className="form-control">
+            <label htmlFor="institute_type" className="label">
+              <span className="label-text">
+                Institute Type
+                <span className="text-red-500">*</span>
+              </span>
+            </label>
+            <select
+              id="institute_type"
+              onChange={(e) => handleChange(e)}
+              name="institute_type"
+              required
+              className="select w-full border border-primary max-w-full"
+            >
+              <option disabled selected>
+                Select a type
+              </option>
+              <option>Educational Institute</option>
+              <option>Corporate Institute</option>
+            </select>
+          </div>
+          <div className="form-control">
             <label className="label">
               <span className="label-text">
                 Description <span className="text-red-500">*</span>
@@ -405,6 +439,21 @@ const CreateInstitutes = () => {
               className="input input-bordered input-primary w-full max-w-2xl"
             />
           </div>
+
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Website URL</span>
+            </label>
+            <input
+              type="url"
+              placeholder="Enter Website URL"
+              onChange={(e) => handleChange(e)}
+              name="website_url"
+              required
+              className="input input-bordered input-primary w-full max-w-2xl"
+            />
+          </div>
+
           <div className="form-control">
             <label className="label">
               <span className="label-text">Add Institute Courses</span>
@@ -517,6 +566,7 @@ const CreateInstitutes = () => {
           </div>
         </div>
       </dialog>
+
       {/* View Courses Modal */}
       <dialog id="view_courses_modal" className="modal">
         <div className="modal-box">

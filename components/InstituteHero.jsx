@@ -187,6 +187,28 @@ const InstituteHero = ({ institute, courses }) => {
               <span className="sr-only">Loading...</span>
             </div>
           )}
+          {certificates.length > 0 ? (
+            <button className="btn btn-outline btn-ghost ml-3">
+              Issued Certificates
+              <div className="badge-primary p-2 rounded-lg">
+                {certificates.length}
+              </div>
+            </button>
+          ) : (
+            <div
+              role="status"
+              className=" p-1 w-[100px] h-2.5 divide-y divide-gray-200 rounded shadow animate-pulse mb-4 dark:divide-gray-700 dark:border-gray-700"
+            >
+              <div className="flex items-center justify-start">
+                <div>
+                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                  <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                </div>
+                <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+              </div>
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
         </h3>
         <div className="flex-col space-y-2 lg:space-y-0 lg:flex lg:flex-row items-center">
           <input
@@ -446,7 +468,7 @@ const InstituteHero = ({ institute, courses }) => {
             {emptyRows > 0 && (
               <tr style={{ height: 53 * emptyRows }}>
                 <td colSpan={5} />
-              </tr> 
+              </tr>
             )}
           </tbody>
           <tfoot className="border-0">

@@ -1,8 +1,6 @@
 "use client";
 import NavbarInstitutions from "@/components/NavbarInstitutions";
 import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
-import { CertificateABI, certificateContractAddress } from "@/constants";
 import InstituteHero from "@/components/InstituteHero";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "@/config/firebase";
@@ -28,12 +26,16 @@ const InstitutesPage = () => {
             address: doc.data().walletAddress,
             name: doc.data().name,
             description: doc.data().description,
+            website_url: doc.data().website_url,
+            institute_type: doc.data().institute_type,
           });
           setEditInstitute({
             id: doc.data().id,
             address: doc.data().walletAddress,
             name: doc.data().name,
             description: doc.data().description,
+            website_url: doc.data().website_url,
+            institute_type: doc.data().institute_type,
           });
           setCourses(doc.data().courses);
         } else {
@@ -101,6 +103,8 @@ const InstitutesPage = () => {
     updateDoc(docRef, {
       name: editInstitute.name,
       description: editInstitute.description,
+      website_url: editInstitute.website_url,
+      institute_type: editInstitute.institute_type,
       walletAddress: editInstitute.address.toLowerCase(),
     })
       .then(() => {

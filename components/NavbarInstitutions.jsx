@@ -295,6 +295,14 @@ const NavbarInstitutions = ({
                     <th className="font-bold">Description</th>
                     <td className="text-wrap">{institute.description}</td>
                   </tr>
+                  <tr>
+                    <th className="font-bold">Website URL</th>
+                    <td className="text-wrap">
+                      {institute.website_url !== undefined
+                        ? institute.website_url
+                        : "N/A"}
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             ) : (
@@ -374,6 +382,26 @@ const NavbarInstitutions = ({
                 id="institute_description"
                 className="textarea textarea-bordered textarea-primary w-full max-w-2xl"
               ></textarea>
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Institute Website URL</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Institute Website URL"
+                name="institute_website_url"
+                required
+                value={editInstitute.website_url}
+                onChange={(e) =>
+                  setEditInstitute({
+                    ...editInstitute,
+                    website_url: e.target.value,
+                  })
+                }
+                id="institute_website_url"
+                className="input input-bordered input-primary w-full max-w-2xl"
+              />
             </div>
           </div>
           <div className="modal-action">
