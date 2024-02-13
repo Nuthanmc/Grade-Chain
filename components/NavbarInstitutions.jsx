@@ -22,7 +22,7 @@ const NavbarInstitutions = ({
         </div>
         <div className="flex-none gap-3 hidden lg:flex">
           <button
-            className="btn btn-secondary disabled:cursor-not-allowed"
+            className="btn btn-primary disabled:cursor-not-allowed"
             disabled={institute?.name === undefined ? true : false}
             onClick={() => {
               document.getElementById("view_courses_modal").showModal();
@@ -31,7 +31,7 @@ const NavbarInstitutions = ({
             View My Courses
           </button>
           <button
-            className="btn btn-primary disabled:cursor-not-allowed"
+            className="btn btn-secondary disabled:cursor-not-allowed"
             disabled={institute?.name === undefined ? true : false}
             onClick={() => {
               document.getElementById("show_profile_modal").showModal();
@@ -202,7 +202,7 @@ const NavbarInstitutions = ({
             </button>
             {courses.length > 0 ? (
               <>
-                <h3 className="text-white text-md sm:text-xl">Courses Added</h3>
+                <h3 className="text-md sm:text-xl">Courses Added</h3>
                 <table className="table border-0">
                   <thead>
                     <tr className="text-center text-md md:text-lg">
@@ -214,12 +214,12 @@ const NavbarInstitutions = ({
                   <tbody>
                     {courses.map((course, index) => (
                       <tr className="text-center" key={index + 1}>
-                        <td className="dark:text-white text-white text-md sm:text-xl">
+                        <td className=" text-md sm:text-xl">
                           {index + 1}
                         </td>
                         <td
                           key={index}
-                          className="dark:text-white text-black text-sm sm:text-xl"
+                          className=" text-sm sm:text-xl"
                         >
                           {course}
                         </td>

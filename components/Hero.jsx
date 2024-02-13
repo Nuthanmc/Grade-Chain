@@ -56,13 +56,13 @@ const Hero = () => {
             <div className="flex justify-center items-center flex-col relative z-10">
               <motion.h1
                 variants={textVariant(0.5)}
-                className="mb-5 text-5xl dark:text-white text-black font-bold"
+                className="mb-5 text-5xl label-text font-bold"
               >
                 CERTI-BLOCK
               </motion.h1>
               <motion.p
                 variants={textVariant(0.7)}
-                className="mb-5 text-lg dark:text-white text-black"
+                className="mb-5 text-lg label-text"
               >
                 Certi-Block is a blockchain-based certificate validation system
                 that provides a secure and reliable way to verify the
@@ -81,7 +81,7 @@ const Hero = () => {
                   Validate Certificates
                 </button>
                 <br />
-                <p className="text-gray-900 dark:text-white">
+                <p>
                   &nbsp;&nbsp;OR&nbsp;&nbsp;
                 </p>
                 <br />
@@ -115,7 +115,7 @@ const Hero = () => {
                 <div className="text-left">
                   <p className="text-sm lg:text-base">
                     Recieved Account from Metamask:{" "}
-                    <b className="text-accent">{account}</b>
+                    <b className="text-primary">{account}</b>
                   </p>
                   <p className="text-sm lg:text-base">
                     Please wait while we verify this account

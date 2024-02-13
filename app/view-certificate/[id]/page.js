@@ -108,7 +108,6 @@ const ViewCertificate = () => {
         ];
         addWatermark(doc, watermarkText, watermarkPositions);
 
-        
         // add Italianno Font
         if (doc.getFont("Italianno-Regular").fontName !== "Italianno-Regular") {
           doc.addFileToVFS("Italianno-Regular-normal.ttf", ItaliannoFont);
@@ -307,7 +306,7 @@ const ViewCertificate = () => {
       ) : (
         <div className="h-screen flex items-center justify-center">
           <p className="loading loading-spinner loading-lg"></p>
-          <p className="text-lg ml-3 dark:text-white text-black">
+          <p className="text-lg ml-3 text-black">
             {loadingText}
           </p>
         </div>

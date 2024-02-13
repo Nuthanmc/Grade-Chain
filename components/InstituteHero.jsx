@@ -482,7 +482,7 @@ const InstituteHero = ({ institute, courses }) => {
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 sx={{ textAlign: "center", marginRight: "2% !important" }}
-                className="dark:text-white border-0"
+                className="border-0"
               />
             </tr>
           </tfoot>

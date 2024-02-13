@@ -31,14 +31,14 @@ const Navbar = () => {
         variants={navVariants}
         initial="hidden"
         whileInView="show"
-        className={`${styles.xPaddings} py-8 relative text-black dark:text-white`}
+        className={`${styles.xPaddings} py-8 relative`}
       >
         <div className="inset-0 absolute blur-[70px] bg-gradient-to-r from-blue-500 via-blue-400 to-pink-500 bg-opacity-50 w-1/4 md:w-1/2 -z-10" />
 
         <div
           className={`${styles.innerWidth} mx-auto flex items-center justify-between gap-8`}
         >
-          <h2 className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px] dark:text-white">
+          <h2 className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px]">
             <Image
               src={imageName}
               width={48}
@@ -51,13 +51,13 @@ const Navbar = () => {
           <div className="flex gap-3 items-center justify-center">
             <button
               type="button"
-              className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:text-white dark:hover:text-gray-500 hover:text-gray-600"
+              className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:hover:text-gray-500 hover:text-gray-600"
             >
               <Link href="/aboutus">About Us</Link>
             </button>
             <button
               type="button"
-              className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:text-white dark:hover:text-gray-500 hover:text-gray-600"
+              className="font-bold hidden lg:flex text-[14px] lg:text-[18px] leading-[25px] dark:hover:text-gray-500 hover:text-gray-600"
             >
               <Link href="#contactus">Contact Us</Link>
             </button>
