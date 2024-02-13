@@ -3,15 +3,17 @@ import React from "react";
 
 const ThemeToggle = () => {
   const [theme, setTheme] = React.useState(
-    localStorage.getItem("theme")
+    typeof window !== "undefined" && localStorage.getItem("theme")
       ? localStorage.getItem("theme")
       : "light-theme"
   );
 
   React.useEffect(() => {
-    localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem("theme");
-    document.querySelector("html").setAttribute("data-theme", localTheme);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("theme", theme);
+      const localTheme = localStorage.getItem("theme");
+      document.querySelector("html").setAttribute("data-theme", localTheme);
+    }
   }, [theme]);
 
   const handleToggle = (e) => {
