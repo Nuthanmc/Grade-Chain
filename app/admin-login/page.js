@@ -1,5 +1,5 @@
 "use client";
-import ThemeToggle from "@/components/ThemeToggle";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
@@ -32,7 +32,7 @@ const AdminLogin = () => {
       exit="exit"
       variants={variants}
     >
-      <ThemeToggle />
+      
       <section class="h-screen">
         <div class="flex justify-end">
           <div class="text-center lg:text-left m-2   absolute">

@@ -1,5 +1,5 @@
 "use client";
-import ThemeToggle from "@/components/ThemeToggle";
+
 import { CertificateABI, certificateContractAddress } from "@/constants";
 import { Launch } from "@mui/icons-material";
 import { ethers } from "ethers";
@@ -67,7 +67,7 @@ const ValidateCertificates = () => {
 
   return (
     <div>
-      <ThemeToggle />
+      
       {/* NAVBAR */}
       <nav className="navbar navbar-expand-lg flex items-center justify-between navbar-light bg-light">
         <button className="text-lg navbar-brand btn-ghost btn">

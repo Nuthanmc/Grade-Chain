@@ -181,7 +181,7 @@ body {
 }
 
 /* CSS code */
-html[data-theme="dark-theme"] {
+@media (prefers-color-scheme: dark) {
   .MuiSvgIcon-root,
   .MuiTablePagination-selectLabel,
   .MuiTablePagination-displayedRows {
@@ -189,7 +189,7 @@ html[data-theme="dark-theme"] {
   }
 }
 
-html[data-theme="light-theme"] {
+@media (prefers-color-scheme: light) {
   .MuiSvgIcon-root,
   .MuiTablePagination-selectLabel,
   .MuiTablePagination-displayedRows {

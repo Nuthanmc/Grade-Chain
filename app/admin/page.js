@@ -13,7 +13,6 @@ import {
   setDoc,
 } from "firebase/firestore";
 import db from "@/config/firebase";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const CreateInstitutes = () => {
   const [formData, setFormData] = useState({
@@ -237,7 +236,6 @@ const CreateInstitutes = () => {
       </div>
       {/* MAIN CONTENT */}
       <div className="w-full">
-        <ThemeToggle />
         <div className="flex mt-10 items-center justify-center">
           <div className="overflow-x-auto">
             <h3 className="text-md sm:text-xl dark:text-white text-gray-900 capitalize p-3 flex items-center">

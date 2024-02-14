@@ -5,7 +5,7 @@ import InstituteHero from "@/components/InstituteHero";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "@/config/firebase";
 import toast from "react-hot-toast";
-import ThemeToggle from "@/components/ThemeToggle";
+
 
 const InstitutesPage = () => {
   const [institute, setInstitute] = useState([]);
@@ -119,7 +119,7 @@ const InstitutesPage = () => {
   };
   return (
     <>
-      <ThemeToggle />
+      
       <NavbarInstitutions
         institute={institute}
         editInstitute={editInstitute}

@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles";
 import { navVariants } from "@/utils/motion";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const navLinks = [
   { title: "Home", link: "/" },
@@ -89,155 +88,9 @@ const AboutUs = () => {
           </div>
         </div>
       </motion.nav>
-
-      {/* <div
-        className={`${styles.innerWidth}  ${styles.yPaddings}`}
-        style={{
-          position: "relative",
-          margin: "0 auto",
-          padding: "12px",
-          paddingTop: "60px",
-          textAlign: "center",
-          color: "black",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            opacity: 0.5,
-            position: "absolute",
-            top: 0,
-            left: 0,
-          }}
-        />
-
-        <h1
-          style={{
-            fontSize: "44px",
-            fontWeight: "bold",
-            lineHeight: "64.4px",
-            textTransform: "uppercase",
-            position: "relative",
-            zIndex: 1,
-          }}
-          className=" "
-        >
-          About Us
-        </h1>
-
-        <div
-          style={{
-            padding: "16px",
-            borderRadius: "8px",
-            margin: "16px 0",
-          }}
-          className="bg-[#F3F4F6] dark:bg-[#1F2937]"
-        >
-          <p
-            style={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              fontWeight: "bold",
-              marginBottom: "0",
-            }}
-            className=" "
-          >
-            Welcome to Certi-Block! We are a team of passionate individuals
-            dedicated to providing innovative solutions in the world of
-            certification and blockchain technology.
-          </p>
-
-          <p
-            style={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              fontWeight: "bold",
-              marginBottom: "0",
-            }}
-            className=" "
-          >
-            Our mission is to make certification processes secure, transparent,
-            and efficient. Certi-Block strives to empower individuals and
-            organizations by leveraging the power of blockchain to verify and
-            authenticate certifications.
-          </p>
-        </div>
-        <h2
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-            lineHeight: "2.2",
-            marginTop: "24px",
-            position: "relative",
-            zIndex: 1,
-          }}
-          className=" "
-        >
-          Our Vision
-        </h2>
-        <div
-          style={{
-            padding: "16px",
-            borderRadius: "8px",
-            margin: "16px 0",
-          }}
-          className="bg-[#F3F4F6] dark:bg-[#1F2937]"
-        >
-          <p
-            style={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              fontWeight: "bold",
-              marginBottom: "0",
-            }}
-            className=" "
-          >
-            At Certi-Block, we envision a future where the certification process
-            is simplified, accessible, and tamper-proof. We believe in the
-            potential of blockchain technology to revolutionize the way
-            certifications are managed and verified.
-          </p>
-        </div>
-        <h2
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-            lineHeight: "2.2",
-            marginTop: "24px",
-            position: "relative",
-            zIndex: 1,
-          }}
-          className=" "
-        >
-          Meet Our Team
-        </h2>
-        <div
-          style={{
-            padding: "16px",
-            borderRadius: "8px",
-            margin: "16px 0",
-          }}
-          className="bg-[#F3F4F6] dark:bg-[#1F2937]  "
-        >
-          <ul
-            style={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              fontWeight: "bold",
-              marginBottom: "0",
-            }}
-          >
-            <li>Mrudul Patel</li>
-            <li>Mukund Chamariya</li>
-            <li>Mayur Limbhore</li>
-            <li>Madhura Patil</li>
-          </ul>
-        </div>
-      </div> */}
+      
 
       <section class="flex items-center xl:h-screen font-poppins">
-        <ThemeToggle />
         <div class="justify-center flex-1 max-w-6xl py-4 mx-auto lg:py-6 md:px-6">
           <div class="px-4 mb-10 md:text-center md:mb-20">
             <h2 class="pb-2 text-2xl font-bold md:text-4xl ">
