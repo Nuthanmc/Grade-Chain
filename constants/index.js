@@ -6,8 +6,7 @@
 // DEPLOYED FINAL CONTRACT
 export const contractAddress = "0xe507d2c54ae06e83f3db348f8d2bbcef85445237";
 
-export const certificateContractAddress =
-  "0x9c1a7ce8cac114f4320a67689053fa9e486858af";
+export const certificateContractAddress = "0x84e9aa529db97c3847207a9706edfe0f7ab53475";
 
 // ABI
 export const CertificateABI = [
@@ -50,6 +49,16 @@ export const CertificateABI = [
         internalType: "string",
         name: "_course_name",
         type: "string",
+      },
+      {
+        internalType: "string[]",
+        name: "_subjects",
+        type: "string[]",
+      },
+      {
+        internalType: "uint8[]",
+        name: "_marks",
+        type: "uint8[]",
       },
       {
         internalType: "string",
@@ -215,6 +224,16 @@ export const CertificateABI = [
             type: "string",
           },
           {
+            internalType: "string[]",
+            name: "subjects",
+            type: "string[]",
+          },
+          {
+            internalType: "uint8[]",
+            name: "marks",
+            type: "uint8[]",
+          },
+          {
             internalType: "string",
             name: "creation_date",
             type: "string",
@@ -273,6 +292,16 @@ export const CertificateABI = [
         name: "",
         type: "string",
       },
+      {
+        internalType: "string[]",
+        name: "",
+        type: "string[]",
+      },
+      {
+        internalType: "uint8[]",
+        name: "",
+        type: "uint8[]",
+      },
     ],
     stateMutability: "view",
     type: "function",
@@ -322,6 +351,16 @@ export const CertificateABI = [
         name: "",
         type: "string",
       },
+      {
+        internalType: "string[]",
+        name: "",
+        type: "string[]",
+      },
+      {
+        internalType: "uint8[]",
+        name: "",
+        type: "uint8[]",
+      },
     ],
     stateMutability: "view",
     type: "function",
@@ -367,6 +406,16 @@ export const CertificateABI = [
             internalType: "string",
             name: "course_name",
             type: "string",
+          },
+          {
+            internalType: "string[]",
+            name: "subjects",
+            type: "string[]",
+          },
+          {
+            internalType: "uint8[]",
+            name: "marks",
+            type: "uint8[]",
           },
           {
             internalType: "string",

@@ -214,13 +214,8 @@ const NavbarInstitutions = ({
                   <tbody>
                     {courses.map((course, index) => (
                       <tr className="text-center" key={index + 1}>
-                        <td className=" text-md sm:text-xl">
-                          {index + 1}
-                        </td>
-                        <td
-                          key={index}
-                          className=" text-sm sm:text-xl"
-                        >
+                        <td className=" text-md sm:text-xl">{index + 1}</td>
+                        <td key={index} className=" text-sm sm:text-xl">
                           {course}
                         </td>
                         <td>
@@ -290,6 +285,10 @@ const NavbarInstitutions = ({
                   <tr>
                     <th className="font-bold">Address</th>
                     <td>{institute.address}</td>
+                  </tr>
+                  <tr>
+                    <th className="font-bold">Institute Type</th>
+                    <td>{institute.institute_type}</td>
                   </tr>
                   <tr>
                     <th className="font-bold">Description</th>
@@ -365,23 +364,43 @@ const NavbarInstitutions = ({
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Institute Description</span>
+                <span className="label-text">Institute Address</span>
               </label>
-              <textarea
-                placeholder="Enter Institute Description"
-                name="institute_description"
-                rows={editInstitute?.description?.split(" ").length / 15}
+              <input
+                type="text"
+                placeholder="Enter Institute Address"
+                name="institute_address"
                 required
-                value={editInstitute.description}
                 onChange={(e) =>
                   setEditInstitute({
                     ...editInstitute,
-                    description: e.target.value,
+                    address: e.target.value,
                   })
                 }
-                id="institute_description"
-                className="textarea textarea-bordered textarea-primary w-full max-w-2xl"
-              ></textarea>
+                value={editInstitute.address}
+                id="institute_address"
+                className="input input-bordered input-primary w-full max-w-2xl"
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Institute Type</span>
+              </label>
+              <input
+                placeholder="Enter Institute Type"
+                name="institute_type"
+                required
+                value={editInstitute.institute_type}
+                onChange={(e) =>
+                  setEditInstitute({
+                    ...editInstitute,
+                    institute_type: e.target.value,
+                  })
+                }
+                id="institute_type"
+                readOnly
+                className="input input-bordered input-primary w-full max-w-2xl"
+              />
             </div>
             <div className="form-control">
               <label className="label">

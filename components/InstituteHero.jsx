@@ -1,5 +1,9 @@
 import { CertificateABI, certificateContractAddress } from "@/constants";
-import { ContentCopyOutlined, Launch } from "@mui/icons-material";
+import {
+  CloseOutlined,
+  ContentCopyOutlined,
+  Launch,
+} from "@mui/icons-material";
 import { TablePagination } from "@mui/material";
 import { ethers } from "ethers";
 import Link from "next/link";
@@ -15,9 +19,16 @@ const InstituteHero = ({ institute, courses }) => {
   const [createLoading, setCreateLoading] = React.useState(false);
   const [loadingCertificates, setLoadingCertificates] = React.useState(true); // loading certificates from blockchain
   const [certificates, setCertificates] = React.useState([]);
+  const [marksheets, setMarksheets] = React.useState([]);
+  const [subjects, setSubjects] = React.useState([]); // subjects for the course
+  const [marks, setMarks] = React.useState([]); // marks for the subjects
+  const [subject, setSubject] = React.useState(""); // subject for the course
+  const [mark, setMark] = React.useState(0); // marks for the subjects
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [search, setSearch] = React.useState("");
+  const [pageMark, setPageMark] = React.useState(0);
+  const [rowsPerPageMark, setRowsPerPageMark] = React.useState(5);
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - certificates.length) : 0;
@@ -29,6 +40,18 @@ const InstituteHero = ({ institute, courses }) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
     setPage(0);
+  };
+
+  const emptyRowsMark =
+    pageMark > 0 ? Math.max(0, (1 + page) * rowsPerPageMark - marksheets.length) : 0;
+
+  const handlePageChangeMark = (event, newPage) => {
+    setPageMark(newPage);
+  };
+
+  const handleChangeRowsPerPageMark = (event) => {
+    setRowsPerPageMark(parseInt(event.target.value));
+    setPageMark(0);
   };
 
   function getCurrentDate() {
@@ -66,15 +89,26 @@ const InstituteHero = ({ institute, courses }) => {
         .getCertificatesByIssuer(institute?.address)
         .then((certificates) => {
           let certificatesArr = [];
+          let marksheetsArr = [];
           certificates.forEach((certificate) => {
-            certificatesArr.push({
-              recipientName:
-                certificate.first_name + " " + certificate.last_name,
-              certificateId: certificate.certificateId,
-              course: certificate.course_name,
-            });
+            if(certificate.subjects?.length === 0) {
+              certificatesArr.push({
+                recipientName:
+                  certificate.first_name + " " + certificate.last_name,
+                certificateId: certificate.certificateId,
+                course: certificate.course_name,
+              });
+            } else {
+              marksheetsArr.push({
+                recipientName:
+                  certificate.first_name + " " + certificate.last_name,
+                certificateId: certificate.certificateId,
+                course: certificate.course_name,
+              });
+            }
           });
           setCertificates(certificatesArr);
+          setMarksheets(marksheetsArr);
           setLoadingCertificates(false);
         });
     };
@@ -118,6 +152,8 @@ const InstituteHero = ({ institute, courses }) => {
         institute.name,
         institute.address,
         course,
+        subjects,
+        marks,
         creationDate
       );
       setWaiting(true);
@@ -133,6 +169,10 @@ const InstituteHero = ({ institute, courses }) => {
       setFirstName("");
       setLastName("");
       setCourse("");
+      setSubjects([]);
+      setMarks([]);
+      setSubject("");
+      setMark(0);
       setCreationDate(getCurrentDate());
     } catch (err) {
       console.log(err);
@@ -187,11 +227,33 @@ const InstituteHero = ({ institute, courses }) => {
               <span className="sr-only">Loading...</span>
             </div>
           )}
-          {certificates.length > 0 ? (
+          {certificates.length === 0 ? null : certificates.length > 0 ? (
             <button className="btn btn-outline btn-ghost ml-3">
               Issued Certificates
               <div className="badge-primary p-2 rounded-lg">
                 {certificates.length}
+              </div>
+            </button>
+          ) : (
+            <div
+              role="status"
+              className=" p-1 w-[100px] h-2.5 divide-y divide-gray-200 rounded shadow animate-pulse mb-4 dark:divide-gray-700 dark:border-gray-700"
+            >
+              <div className="flex items-center justify-start">
+                <div>
+                  <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                  <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                </div>
+                <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+              </div>
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
+          {marksheets.length === 0 ? null : marksheets.length > 0 ? (
+            <button className="btn btn-outline btn-ghost ml-3">
+              Issued Marksheets
+              <div className="badge-secondary p-2 rounded-lg">
+                {marksheets.length}
               </div>
             </button>
           ) : (
@@ -246,99 +308,12 @@ const InstituteHero = ({ institute, courses }) => {
             </tr>
           </thead>
           <tbody className="text-center">
-            {/* {loadingCertificates ? (
-              <tr>
-                <td
-                  role="status"
-                  className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
-                  colSpan={5}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                  </div>
-                  <div className="flex items-center justify-between pt-4">
-                    <div>
-                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                  </div>
-                  <div className="flex items-center justify-between pt-4">
-                    <div>
-                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                  </div>
-                  <div className="flex items-center justify-between pt-4">
-                    <div>
-                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                  </div>
-                  <div className="flex items-center justify-between pt-4">
-                    <div>
-                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                  </div>
-                  <span className="sr-only">Loading...</span>
-                </td>
-              </tr>
-            ) : certificates.length > 0 ? (
-              certificates.map((certificate, index) => (
-                <tr key={certificate.certificateId + index}>
-                  <td className="text-lg">{index + 1}</td>
-                  <td className="text-sm lg:text-lg">
-                    {certificate.certificateId}
-                    <button
-                      className="btn btn-ghost ml-2"
-                      onClick={() => {
-                        navigator.clipboard.writeText(
-                          certificate.certificateId
-                        );
-                        toast.success("Copied to clipboard");
-                      }}
-                    >
-                      <ContentCopyOutlined />
-                    </button>
-                  </td>
-                  <td className="text-lg">{certificate.recipientName}</td>
-                  <td className="text-lg">
-                    {certificate.course === "" ? "N/A" : certificate.course}
-                  </td>
-                  <td className="text-lg">
-                    <Link
-                      className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
-                      target="_blank"
-                      referrerPolicy="no-referrer"
-                      href={`/view-certificate/${certificate.certificateId}`}
-                    >
-                      View Certificate&nbsp;&nbsp;
-                      <Launch />
-                    </Link>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5" className="text-lg text-center">
-                  No Certificates Issued
-                </td>
-              </tr>
-            )} */}
             {!loadingCertificates ? (
               search !== "" ? (
                 certificates
                   .filter((item) =>
                     item.recipientName
-                      .toLowerCase()
+                      ?.toLowerCase()
                       .includes(search.toLowerCase())
                   )
                   .map((certificate, index) => (
@@ -385,7 +360,7 @@ const InstituteHero = ({ institute, courses }) => {
                 )
                   .filter((item) =>
                     item.recipientName
-                      .toLowerCase()
+                      ?.toLowerCase()
                       .includes(search.toLowerCase())
                   )
                   .map((certificate, index) => (
@@ -424,7 +399,9 @@ const InstituteHero = ({ institute, courses }) => {
                   ))
               ) : (
                 <tr>
-                  <td colSpan={5}>No certificates found.</td>
+                  <td className="text-md" colSpan={5}>
+                    No certificates found.
+                  </td>
                 </tr>
               )
             ) : (
@@ -489,6 +466,180 @@ const InstituteHero = ({ institute, courses }) => {
         </table>
       </div>
 
+      <div className="overflow-x-auto lg:overflow-hidden mt-3 border rounded border-gray-700">
+        <table className="table m-2">
+          <caption className="text-left text-2xl text-gray-900 dark:text-slate-200">
+            Issued Marksheets
+          </caption>
+          <thead className="text-center">
+            <tr>
+              <th className="text-lg">Sr. No.</th>
+              <th className="text-lg">Marksheet ID</th>
+              <th className="text-lg">Reciever Name</th>
+              <th className="text-lg">Course Name</th>
+              <th className="text-lg">View Marksheet</th>
+            </tr>
+          </thead>
+          <tbody className="text-center">
+            {!loadingCertificates ? (
+              search !== "" ? (
+                marksheets
+                  .filter((item) =>
+                    item.recipientName
+                      ?.toLowerCase()
+                      .includes(search.toLowerCase())
+                  )
+                  .map((marksheet, index) => (
+                    <tr key={marksheet.certificateId + index}>
+                      <td className="text-lg">{index + 1}</td>
+                      <td className="text-sm lg:text-lg">
+                        {marksheet.certificateId}
+                        <button
+                          className="btn btn-ghost ml-2"
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              marksheet.certificateId
+                            );
+                            toast.success("Copied to clipboard");
+                          }}
+                        >
+                          <ContentCopyOutlined />
+                        </button>
+                      </td>
+                      <td className="text-lg">{marksheet.recipientName}</td>
+                      <td className="text-lg">
+                        {marksheet.course === "" ? "N/A" : marksheet.course}
+                      </td>
+                      <td className="text-lg">
+                        <Link
+                          className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
+                          target="_blank"
+                          referrerPolicy="no-referrer"
+                          href={`/view-certificate/${marksheet.certificateId}`}
+                        >
+                          View Marksheet&nbsp;&nbsp;
+                          <Launch />
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+              ) : marksheets.length >= 1 ? (
+                (rowsPerPageMark > 0
+                  ? marksheets.slice(
+                      pageMark * rowsPerPageMark,
+                      pageMark * rowsPerPageMark + rowsPerPageMark
+                    )
+                  : marksheets
+                )
+                  .filter((item) =>
+                    item.recipientName
+                      ?.toLowerCase()
+                      .includes(search.toLowerCase())
+                  )
+                  .map((marksheet, index) => (
+                    <tr key={marksheet.certificateId + index}>
+                      <td className="text-sm lg:text-lg">{index + 1}</td>
+                      <td className="text-sm lg:text-lg">
+                        {marksheet.certificateId}
+                        <button
+                          className="btn btn-ghost ml-2"
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              marksheet.certificateId
+                            );
+                            toast.success("Copied to clipboard");
+                          }}
+                        >
+                          <ContentCopyOutlined />
+                        </button>
+                      </td>
+                      <td className="text-lg">{marksheet.recipientName}</td>
+                      <td className="text-lg">
+                        {marksheet.course === "" ? "N/A" : marksheet.course}
+                      </td>
+                      <td className="text-lg">
+                        <Link
+                          className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
+                          target="_blank"
+                          referrerPolicy="no-referrer"
+                          href={`/view-certificate/${marksheet.certificateId}`}
+                        >
+                          View Marksheet&nbsp;&nbsp;
+                          <Launch />
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                <tr>
+                  <td className="text-md" colSpan={5}>
+                    No Marksheets found.
+                  </td>
+                </tr>
+              )
+            ) : (
+              <tr>
+                <td
+                  role="status"
+                  className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+                  colSpan={5}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                  </div>
+                </td>
+              </tr>
+            )}
+            {emptyRowsMark > 0 && (
+              <tr style={{ height: 53 * emptyRowsMark }}>
+                <td colSpan={5} />
+              </tr>
+            )}
+          </tbody>
+          <tfoot className="border-0">
+            <tr>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 15, { label: "All", value: -1 }]}
+                colSpan={5}
+                count={marksheets.length}
+                page={pageMark}
+                rowsPerPage={rowsPerPageMark}
+                onPageChange={handlePageChangeMark}
+                onRowsPerPageChange={handleChangeRowsPerPageMark}
+                sx={{ textAlign: "center", marginRight: "2% !important" }}
+                className="border-0"
+              />
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      {/* Issue Certificate Modal */}
       <dialog id="issue_certificates_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Issue Certificate</h3>
@@ -571,6 +722,97 @@ const InstituteHero = ({ institute, courses }) => {
               ))}
             </select>
           </div>
+
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Add Subjects & Marks</span>
+              <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Subject Name"
+              name="subject_name"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              required
+              id="subject_name"
+              className="input input-bordered input-primary w-full max-w-2xl"
+            />
+            <input
+              type="text"
+              placeholder="Enter Marks for Subject"
+              id="marks"
+              name="marks"
+              value={mark}
+              onChange={(e) => setMark(e.target.value)}
+              required
+              className="input input-bordered input-primary mt-2 w-full max-w-2xl"
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setSubjects((prevData) => [...prevData, subject]);
+                setMarks((prevData) => [...prevData, mark]);
+                setSubject("");
+                setMark(0);
+              }}
+              className="btn btn-primary m-4 w-52"
+              disabled={subject === "" || mark === 0}
+            >
+              Add Subject & Marks
+            </button>
+            {subjects.length > 0 ? (
+              <>
+                <h3 className="text-lg">Added Subjects</h3>
+                <table className="table border-0">
+                  <thead>
+                    <tr className="text-center text-md md:text-lg">
+                      <th>Sr. No.</th>
+                      <th>Subjects</th>
+                      <th>Marks</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {subjects.map((s, index) => (
+                      <tr className="text-center" key={index + 1}>
+                        <td className="dark:text-white text-white text-md sm:text-xl">
+                          {index + 1}
+                        </td>
+                        <td
+                          key={index}
+                          className="dark:text-white text-black text-sm sm:text-xl"
+                        >
+                          {s}
+                        </td>
+                        <td
+                          key={index}
+                          className="dark:text-white text-black text-sm sm:text-xl"
+                        >
+                          {marks[index]}
+                        </td>
+                        <td>
+                          <CloseOutlined
+                            onClick={() => {
+                              setSubjects((prevData) =>
+                                prevData.filter((item) => item !== s)
+                              );
+                              setMarks((prevData) =>
+                                prevData.filter((item) => item !== marks[index])
+                              );
+                              console.log(subjects, marks);
+                            }}
+                            className="hover:text-white text-gray-400"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            ) : null}
+          </div>
+
           <div className="form-control">
             <label htmlFor="creation_date" className="label">
               <span className="label-text">
@@ -632,6 +874,10 @@ const InstituteHero = ({ institute, courses }) => {
                   document
                     .getElementById("cancel_issue_certificate_modal")
                     .click();
+                  setSubjects([]);
+                  setMarks([]);
+                  setSubject("");
+                  setMark(0);
                 }
               }}
               className="btn btn-outline btn-success"

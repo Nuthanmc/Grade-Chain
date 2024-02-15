@@ -183,6 +183,7 @@ body {
 /* CSS code */
 @media (prefers-color-scheme: dark) {
   .MuiSvgIcon-root,
+  .MuiSelect-select,
   .MuiTablePagination-selectLabel,
   .MuiTablePagination-displayedRows {
     color: white !important;
@@ -191,6 +192,7 @@ body {
 
 @media (prefers-color-scheme: light) {
   .MuiSvgIcon-root,
+  .MuiSelect-select,
   .MuiTablePagination-selectLabel,
   .MuiTablePagination-displayedRows {
     color: black !important;
