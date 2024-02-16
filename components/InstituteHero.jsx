@@ -342,7 +342,7 @@ const InstituteHero = ({ institute, courses }) => {
                           className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
                           target="_blank"
                           referrerPolicy="no-referrer"
-                          href={`/view-certificate/${certificate.certificateId}`}
+                          href={`/view-document/${certificate.certificateId}`}
                         >
                           View Certificate&nbsp;&nbsp;
                           <Launch />
@@ -389,7 +389,7 @@ const InstituteHero = ({ institute, courses }) => {
                           className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
                           target="_blank"
                           referrerPolicy="no-referrer"
-                          href={`/view-certificate/${certificate.certificateId}`}
+                          href={`/view-document/${certificate.certificateId}`}
                         >
                           View Certificate&nbsp;&nbsp;
                           <Launch />
@@ -515,7 +515,7 @@ const InstituteHero = ({ institute, courses }) => {
                           className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
                           target="_blank"
                           referrerPolicy="no-referrer"
-                          href={`/view-certificate/${marksheet.certificateId}`}
+                          href={`/view-document/${marksheet.certificateId}`}
                         >
                           View Marksheet&nbsp;&nbsp;
                           <Launch />
@@ -562,7 +562,7 @@ const InstituteHero = ({ institute, courses }) => {
                           className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
                           target="_blank"
                           referrerPolicy="no-referrer"
-                          href={`/view-certificate/${marksheet.certificateId}`}
+                          href={`/view-document/${marksheet.certificateId}`}
                         >
                           View Marksheet&nbsp;&nbsp;
                           <Launch />
