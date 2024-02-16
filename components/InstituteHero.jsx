@@ -8,7 +8,8 @@ import { TablePagination } from "@mui/material";
 import { ethers } from "ethers";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import toast from "react-hot-toast";
+import {toast} from "react-hot-toast";
+import ActivityDetector from "./ActivityDetector";
 
 const InstituteHero = ({ institute, courses }) => {
   const [firstName, setFirstName] = React.useState("");
@@ -208,6 +209,11 @@ const InstituteHero = ({ institute, courses }) => {
 
   return (
     <div className="h-screen flex flex-col m-4">
+      <ActivityDetector onInactive={() => {
+        toast.error("You have been inactive for 10 minutes. Logging out...");
+        sessionStorage.removeItem("address");
+        window.location.href = "/";
+      }} />
       <div className="flex-col lg:flex lg:flex-row items-center justify-between border rounded-lg border-gray-700 p-2">
         <h3 className="ml-3 h-fit flex flex-row items-center justify-start text-[14px] md:text-sm text-ellipsis lg:text-lg">
           {institute.name !== undefined ? (

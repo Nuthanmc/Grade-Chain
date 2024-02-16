@@ -36,7 +36,12 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body>
-        <Toaster position="bottom-center" toastOptions={{ duration: 3000 }} />
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            duration: 3000,
+          }}
+        />
         {children}
         <Analytics />
         <SpeedInsights />

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import styles from "@/styles";
 import { staggerContainer, textVariant } from "@/utils/motion";
@@ -10,6 +10,7 @@ import db from "@/config/firebase";
 const Hero = () => {
   const [show, setShow] = React.useState(false);
   const [account, setAccount] = React.useState("");
+  const [data, setData] = React.useState({});
   const handleLogin = async () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
@@ -26,15 +27,55 @@ const Hero = () => {
       const docRef = doc(db, "institutes", accounts[0].toLowerCase());
       getDoc(docRef).then((data) => {
         if (data.exists()) {
-          sessionStorage.setItem("address", accounts[0].toLowerCase());
+          setData(data.data());
           document.getElementById("login_modal").close();
-          window.location.href = "/institutes";
+          document.getElementById("otp_modal").showModal();
         } else {
           document.getElementById("login_modal").close();
           toast.error("You are not authorized to issue certificates");
         }
       });
       setShow(true);
+    }
+  };
+
+  const [otp, setOtp] = React.useState(["", "", "", ""]);
+  const refs = [useRef(), useRef(), useRef(), useRef()]; // Refs for each input field
+
+  const handleChange = (index, value) => {
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Move focus to the next input field if a number is entered
+    if (value.length === 1 && index < refs.length - 1) {
+      refs[index + 1].current.focus();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      if (index > 0) {
+        // Move focus to the previous input field
+        refs[index - 1].current.focus();
+      }
+      // Clear the value of the current input field
+      const newOtp = [...otp];
+      newOtp[index] = "";
+      setOtp(newOtp);
+    }
+  };
+
+  const onSubmit = (otp) => {
+    if (otp === data?.pin) {
+      toast.success("PIN Verified");
+      document.getElementById("otp_modal").close();
+      sessionStorage.setItem("address", account.toLowerCase());
+      window.location.href = "/institutes/" + account.toLowerCase();
+    } else {
+      toast.error("Invalid PIN, Please try again!");
+      setOtp(["", "", "", ""]);
+      refs[0].current.focus();
     }
   };
   return (
@@ -81,9 +122,7 @@ const Hero = () => {
                   Validate Certificates
                 </button>
                 <br />
-                <p>
-                  &nbsp;&nbsp;OR&nbsp;&nbsp;
-                </p>
+                <p>&nbsp;&nbsp;OR&nbsp;&nbsp;</p>
                 <br />
                 <button
                   className="btn btn-secondary hover:scale-105 transition"
@@ -99,6 +138,8 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Login Modal */}
       <dialog id="login_modal" className="modal backdrop-blur">
         <div className="modal-box">
           <h3 className="font-bold text-lg">
@@ -130,6 +171,45 @@ const Hero = () => {
                 Cancel
               </button>
             </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* OTP Modal */}
+      <dialog id="otp_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Enter PIN</h3>
+          <div className="flex items-center justify-center flex-col space-y-3">
+            <div className="space-x-4">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  ref={refs[index]} // Assign the ref to the input field
+                  id={`otp-${index}`}
+                  type="text"
+                  maxLength="1"
+                  className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl focus:outline-none focus:border-blue-500"
+                  value={digit}
+                  onChange={(e) => handleChange(index, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                />
+              ))}
+            </div>
+            <div className="flex flex-row items-center justify-end">
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn btn-error" id="close_login_modal">
+                    Cancel
+                  </button>
+                </form>
+                <button
+                  className="btn btn-success"
+                  onClick={() => onSubmit(otp.join(""))}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </dialog>
