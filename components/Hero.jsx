@@ -6,6 +6,8 @@ import { staggerContainer, textVariant } from "@/utils/motion";
 import toast from "react-hot-toast";
 import { doc, getDoc } from "firebase/firestore";
 import db from "@/config/firebase";
+import InstitutesCounter from "./InstitutesCounter";
+import CertificatesCounter from "./CertificatesCounter";
 
 const Hero = () => {
   const [show, setShow] = React.useState(false);
@@ -81,61 +83,85 @@ const Hero = () => {
   return (
     <>
       <div className="hero sm:mb-28 mb-0 md:min-h-[92vh]">
-        <div className="hero-content text-center text-neutral-content">
-          <motion.div
-            className={`${styles.innerWidth} flex items-center justify-center flex-col`}
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: false, amount: 0.25 }}
-          >
+        <div className="hero-content text-center flex-col m-4 text-neutral-content">
+          <div className="flex-col">
             <motion.div
-              variants={textVariant(0.5)}
-              className="absolute overflow-x-hidden  h-[20%] blur-[40px] bg-gradient-to-r dark:from-purple-700 dark:via-teal-400 dark:to-purple-700 from-purple-400 via-teal-300 to-indigo-300 bg-opacity-50 w-1/2   rounded-xl"
-            />
-
-            <div className="flex justify-center items-center flex-col relative z-10">
-              <motion.h1
-                variants={textVariant(0.5)}
-                className="mb-5 text-5xl label-text font-bold"
-              >
-                CERTI-BLOCK
-              </motion.h1>
-              <motion.p
-                variants={textVariant(0.7)}
-                className="mb-5 text-lg label-text"
-              >
-                Certi-Block is a blockchain-based certificate validation system
-                that provides a secure and reliable way to verify the
-                authenticity of certificates.
-              </motion.p>
+              className={`${styles.innerWidth} flex items-center justify-center flex-col`}
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: false, amount: 0.25 }}
+            >
               <motion.div
-                variants={textVariant(0.9)}
-                className="flex flex-col lg:flex-row items-center justify-center mt-5"
-              >
-                <button
-                  className="btn btn-primary hover:scale-105 transition"
-                  onClick={() =>
-                    (window.location.href = "/validate-certificate")
-                  }
+                variants={textVariant(0.5)}
+                className="absolute overflow-x-hidden  h-[20%] blur-[40px] bg-gradient-to-r dark:from-purple-700 dark:via-teal-400 dark:to-purple-700 from-purple-400 via-teal-300 to-indigo-300 bg-opacity-50 w-1/2   rounded-xl"
+              />
+
+              <div className="flex justify-center items-center flex-col relative z-10">
+                <motion.h1
+                  variants={textVariant(0.5)}
+                  className="mb-5 text-5xl label-text font-bold"
                 >
-                  Validate Certificates
-                </button>
-                <br />
-                <p>&nbsp;&nbsp;OR&nbsp;&nbsp;</p>
-                <br />
-                <button
-                  className="btn btn-secondary hover:scale-105 transition"
-                  onClick={() => {
-                    document.getElementById("login_modal").showModal();
-                    handleLogin();
-                  }}
+                  CERTI-BLOCK
+                </motion.h1>
+                <motion.p
+                  variants={textVariant(0.7)}
+                  className="mb-5 text-lg label-text"
                 >
-                  Issue Certificates
-                </button>
-              </motion.div>
-            </div>
-          </motion.div>
+                  Certi-Block is a blockchain-based certificate validation
+                  system that provides a secure and reliable way to verify the
+                  authenticity of certificates.
+                </motion.p>
+                <motion.div
+                  variants={textVariant(0.9)}
+                  className="flex flex-col lg:flex-row items-center justify-center mt-5"
+                >
+                  <button
+                    className="btn btn-primary hover:scale-105 transition"
+                    onClick={() =>
+                      (window.location.href = "/validate-certificate")
+                    }
+                  >
+                    Validate Certificates
+                  </button>
+                  <br />
+                  <p>&nbsp;&nbsp;OR&nbsp;&nbsp;</p>
+                  <br />
+                  <button
+                    className="btn btn-secondary hover:scale-105 transition"
+                    onClick={() => {
+                      document.getElementById("login_modal").showModal();
+                      handleLogin();
+                    }}
+                  >
+                    Issue Certificates
+                  </button>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+        <div className="items-center flex justify-between w-1/2">
+          <div className="mt-[500px] flex-row justify-center">
+            <motion.div
+              variants={textVariant(0.9)}
+              initial="hidden"
+              className=" mt-8 border rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#111] hover:text-black dark:hover:text-white transition-all duration-300 ease-in-out"
+              whileInView="show"
+            >
+              <InstitutesCounter />
+            </motion.div>
+          </div>
+          <div className="mt-[500px] flex-row justify-center">
+            <motion.div
+              variants={textVariant(0.9)}
+              initial="hidden"
+              className=" mt-8 border rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#111] hover:text-black dark:hover:text-white transition-all duration-100 ease-in"
+              whileInView="show"
+            >
+              <CertificatesCounter />
+            </motion.div>
+          </div>
         </div>
       </div>
 
