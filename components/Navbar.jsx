@@ -40,11 +40,7 @@ const Navbar = () => {
         >
           <h2
             style={{
-              color:
-                typeof window !== undefined &&
-                window.matchMedia("(prefers-color-scheme: dark)") === true
-                  ? "black"
-                  : "white",
+              color: prefersDarkMode === true ? "white" : "black",
             }}
             className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px]"
           >

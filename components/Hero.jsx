@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import styles from "@/styles";
 import { staggerContainer, textVariant } from "@/utils/motion";
@@ -13,6 +13,15 @@ const Hero = () => {
   const [show, setShow] = React.useState(false);
   const [account, setAccount] = React.useState("");
   const [data, setData] = React.useState({});
+  const [prefersDarkMode, setPrefersDarkMode] = useState();
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPrefersDarkMode(
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      );
+    }
+  }, []);
+
   const handleLogin = async () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
@@ -111,11 +120,7 @@ const Hero = () => {
                   variants={textVariant(0.5)}
                   className="mb-5 text-5xl label-text font-bold"
                   style={{
-                    color:
-                      typeof window !== undefined &&
-                      window.matchMedia("(prefers-color-scheme: dark)") === true
-                        ? "black"
-                        : "white",
+                    color: prefersDarkMode === true ? "white" : "black",
                   }}
                 >
                   CERTI-BLOCK
@@ -124,11 +129,7 @@ const Hero = () => {
                   variants={textVariant(0.7)}
                   className="mb-5 text-lg label-text"
                   style={{
-                    color:
-                      typeof window !== undefined &&
-                      window.matchMedia("(prefers-color-scheme: dark)") === true
-                        ? "black"
-                        : "white",
+                    color: prefersDarkMode === true ? "white" : "black",
                   }}
                 >
                   Certi-Block is a blockchain-based certificate validation
@@ -150,12 +151,7 @@ const Hero = () => {
                   <br />
                   <p
                     style={{
-                      color:
-                        typeof window !== undefined &&
-                        window.matchMedia("(prefers-color-scheme: dark)") ===
-                          true
-                          ? "black"
-                          : "white",
+                      color: prefersDarkMode === true ? "white" : "black",
                     }}
                   >
                     &nbsp;&nbsp;OR&nbsp;&nbsp;
