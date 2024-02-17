@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import db from "@/config/firebase";
 
 // Custom hook for setInterval with cleanup
 function useInterval(callback, delay) {
@@ -20,15 +18,8 @@ function useInterval(callback, delay) {
     }
   }, [delay]);
 }
-const InstitutesCounter = () => {
-  const [count, setCount] = useState(0);
-  const [docsLength, setDocsLength] = useState(0);
-  useEffect(() => {
-    const colRef = collection(db, "institutes");
-    getDocs(colRef).then((snapshot) => {
-      setDocsLength(snapshot.size);
-    });
-  }, []);
+const InstitutesCounter = ({count, setCount, docsLength}) => {
+  
 
   useInterval(() => {
     if (count < docsLength) {
@@ -38,11 +29,11 @@ const InstitutesCounter = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
-        <span className="text-4xl w-1/2 font-bold text-center">
+      <div className="flex-row lg:flex-col items-center justify-center">
+        <span className="text-lg lg:text-4xl w-full lg:w-1/2 font-bold text-center">
           Institutes Registered
         </span>
-        <h3 style={{ fontSize: "3rem" }}>{count}</h3>
+        <h3 className="text-lg lg:text-3xl">{count}</h3>
       </div>
     </>
   );

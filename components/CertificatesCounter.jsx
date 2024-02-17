@@ -25,20 +25,25 @@ const CertificatesCounter = () => {
   const [certificateCount, setCertificateCount] = useState(0);
   const [certificateLength, setCertificateLength] = useState(0);
 
+  useEffect(() => {}, []);
   useEffect(() => {
-    const provider = new ethers.providers.WebSocketProvider(
-      "wss://sepolia.infura.io/ws/v3/0aa8c89265604a2684abddfb063e3b42"
-    );
-    const contract = new ethers.Contract(
-      certificateContractAddress,
-      CertificateABI,
-      provider
-    );
+    const timer = setTimeout(() => {
+      const provider = new ethers.providers.WebSocketProvider(
+        "wss://sepolia.infura.io/ws/v3/0aa8c89265604a2684abddfb063e3b42"
+      );
+      const contract = new ethers.Contract(
+        certificateContractAddress,
+        CertificateABI,
+        provider
+      );
 
-    contract.getAllCertificates().then((certificates) => {
-      setCertificateLength(certificates.length);
-      console.log(certificates.length);
-    });
+      contract.getAllCertificates().then((certificates) => {
+        setCertificateLength(certificates.length);
+        console.log(certificates.length);
+      });
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   useInterval(() => {
@@ -49,11 +54,11 @@ const CertificatesCounter = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
-        <span className="text-4xl w-3/4 font-bold text-center">
+      <div className="flex-row lg:flex-col items-center justify-center">
+        <span className="text-lg lg:text-4xl w-full lg:w-1/2 font-bold text-center">
           Certificates Issued
         </span>
-        <h3 style={{ fontSize: "3rem" }}>{certificateCount}</h3>
+        <h3 className="text-lg lg:text-3xl">{certificateCount}</h3>
       </div>
     </>
   );

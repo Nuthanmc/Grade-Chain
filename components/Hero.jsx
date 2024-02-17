@@ -1,10 +1,10 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import styles from "@/styles";
 import { staggerContainer, textVariant } from "@/utils/motion";
 import toast from "react-hot-toast";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import db from "@/config/firebase";
 import InstitutesCounter from "./InstitutesCounter";
 import CertificatesCounter from "./CertificatesCounter";
@@ -80,6 +80,15 @@ const Hero = () => {
       refs[0].current.focus();
     }
   };
+
+  const [count, setCount] = useState(0);
+  const [docsLength, setDocsLength] = useState(0);
+  React.useEffect(() => {
+    const colRef = collection(db, "institutes");
+    getDocs(colRef).then((snapshot) => {
+      setDocsLength(snapshot.size);
+    });
+  }, []);
   return (
     <>
       <div className="hero sm:mb-28 mb-0 md:min-h-[92vh]">
@@ -94,19 +103,33 @@ const Hero = () => {
             >
               <motion.div
                 variants={textVariant(0.5)}
-                className="absolute overflow-x-hidden  h-[20%] blur-[40px] bg-gradient-to-r dark:from-purple-700 dark:via-teal-400 dark:to-purple-700 from-purple-400 via-teal-300 to-indigo-300 bg-opacity-50 w-1/2   rounded-xl"
+                className="hidden absolute lg:flex overflow-x-hidden h-[20%] blur-[40px] bg-gradient-to-r dark:from-purple-700 dark:via-teal-400 dark:to-purple-700 from-purple-400 via-teal-300 to-indigo-300 bg-opacity-50 w-1/2 rounded-xl"
               />
 
               <div className="flex justify-center items-center flex-col relative z-10">
                 <motion.h1
                   variants={textVariant(0.5)}
                   className="mb-5 text-5xl label-text font-bold"
+                  style={{
+                    color:
+                      typeof window !== undefined &&
+                      window.matchMedia("(prefers-color-scheme: dark)") === true
+                        ? "black"
+                        : "white",
+                  }}
                 >
                   CERTI-BLOCK
                 </motion.h1>
                 <motion.p
                   variants={textVariant(0.7)}
                   className="mb-5 text-lg label-text"
+                  style={{
+                    color:
+                      typeof window !== undefined &&
+                      window.matchMedia("(prefers-color-scheme: dark)") === true
+                        ? "black"
+                        : "white",
+                  }}
                 >
                   Certi-Block is a blockchain-based certificate validation
                   system that provides a secure and reliable way to verify the
@@ -125,7 +148,18 @@ const Hero = () => {
                     Validate Certificates
                   </button>
                   <br />
-                  <p>&nbsp;&nbsp;OR&nbsp;&nbsp;</p>
+                  <p
+                    style={{
+                      color:
+                        typeof window !== undefined &&
+                        window.matchMedia("(prefers-color-scheme: dark)") ===
+                          true
+                          ? "black"
+                          : "white",
+                    }}
+                  >
+                    &nbsp;&nbsp;OR&nbsp;&nbsp;
+                  </p>
                   <br />
                   <button
                     className="btn btn-secondary hover:scale-105 transition"
@@ -141,22 +175,26 @@ const Hero = () => {
             </motion.div>
           </div>
         </div>
-        <div className="items-center flex justify-between w-1/2">
-          <div className="mt-[500px] flex-row justify-center">
+        <div className="items-center flex justify-evenly w-full">
+          <div className="mt-[600px] lg:mt-[500px] ml-3 flex-row lg:flex-col justify-center cursor-default">
             <motion.div
-              variants={textVariant(0.9)}
+              variants={textVariant(0)}
               initial="hidden"
-              className=" mt-8 border rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#111] hover:text-black dark:hover:text-white transition-all duration-300 ease-in-out"
+              className=" mt-8 border rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#444] hover:text-black text-center dark:hover:text-white transition-all duration-300 ease-in-out"
               whileInView="show"
             >
-              <InstitutesCounter />
+              <InstitutesCounter
+                count={count}
+                setCount={setCount}
+                docsLength={docsLength}
+              />
             </motion.div>
           </div>
-          <div className="mt-[500px] flex-row justify-center">
+          <div className="mt-[600px] lg:mt-[500px] flex-col lg:flex-row justify-center cursor-default">
             <motion.div
-              variants={textVariant(0.9)}
+              variants={textVariant(0.35)}
               initial="hidden"
-              className=" mt-8 border rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#111] hover:text-black dark:hover:text-white transition-all duration-100 ease-in"
+              className=" mt-8 border text-center rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#444] hover:text-black dark:hover:text-white transition-all duration-100 ease-in-out"
               whileInView="show"
             >
               <CertificatesCounter />

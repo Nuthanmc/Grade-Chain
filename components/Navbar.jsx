@@ -38,7 +38,16 @@ const Navbar = () => {
         <div
           className={`${styles.innerWidth} mx-auto flex items-center justify-between gap-8`}
         >
-          <h2 className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px]">
+          <h2
+            style={{
+              color:
+                typeof window !== undefined &&
+                window.matchMedia("(prefers-color-scheme: dark)") === true
+                  ? "black"
+                  : "white",
+            }}
+            className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px]"
+          >
             <Image
               src={imageName}
               width={48}
