@@ -61,6 +61,20 @@ export const navVariants = {
       },
     },
   });
+
+  export const counterVariants = (delay) => ({
+    hidden: {
+      opacity: 0,
+    },
+    show: {
+      opacity: 1,
+      transition: {
+        type: "spring",
+        duration: 1.25,
+        delay,
+      },
+    },
+  });
   
   export const textContainer = {
     hidden: {

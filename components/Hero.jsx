@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import styles from "@/styles";
-import { staggerContainer, textVariant } from "@/utils/motion";
+import { counterVariants, staggerContainer, textVariant } from "@/utils/motion";
 import toast from "react-hot-toast";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import db from "@/config/firebase";
@@ -98,6 +98,7 @@ const Hero = () => {
       setDocsLength(snapshot.size);
     });
   }, []);
+
   return (
     <>
       <div className="hero sm:mb-28 mb-0 md:min-h-[92vh]">
@@ -174,8 +175,9 @@ const Hero = () => {
         <div className="items-center flex justify-evenly w-full">
           <div className="mt-[600px] lg:mt-[500px] ml-3 flex-row lg:flex-col justify-center cursor-default">
             <motion.div
-              variants={textVariant(0)}
+              variants={counterVariants(1.5)}
               initial="hidden"
+              whileHover={{ scale: 1.1, transition: {duration: 0.5, ease: "easeInOut"}}}
               className=" mt-8 border rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#444] hover:text-black text-center dark:hover:text-white transition-all duration-300 ease-in-out"
               whileInView="show"
             >
@@ -188,7 +190,8 @@ const Hero = () => {
           </div>
           <div className="mt-[600px] lg:mt-[500px] flex-col lg:flex-row justify-center cursor-default">
             <motion.div
-              variants={textVariant(0.35)}
+              whileHover={{ scale: 1.1, transition: {duration: 0.5, ease: "easeInOut"}}}
+              variants={counterVariants(1.5)}
               initial="hidden"
               className=" mt-8 border text-center rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#444] hover:text-black dark:hover:text-white transition-all duration-100 ease-in-out"
               whileInView="show"
