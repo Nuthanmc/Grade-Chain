@@ -88,18 +88,18 @@ const ValidateCertificates = () => {
         <div className="hero-body items-center flex justify-center">
           <div className="container">
             <h1 className="text-3xl font-bold text-center text-white">
-              Validate Certificates
+              Validate Documents
             </h1>
             <div className="modal-box w-[100%] lg:w-[125%]">
               <div className="form-control">
                 <label className="label">
                   <span className="text-2xl">
-                    Enter the Certificate ID to validate
+                    Enter the Document ID to validate
                   </span>
                 </label>
                 <input
                   type="text"
-                  placeholder="Certificate ID"
+                  placeholder="Document ID"
                   autoFocus
                   name="id"
                   onChange={(e) => setId(e.target.value)}
@@ -123,13 +123,13 @@ const ValidateCertificates = () => {
                 </button>
               </div>
               <Link
-                href={`/view-certificate/${id}`}
+                href={`/view-document/${id}`}
                 target="_blank"
                 className="form-control hover:text-white flex text-xl mt-8 text-center flex-col hover:scale-110 cursor-pointer transition"
               >
                 {valid ? (
                   <div className="flex hover:scale-[1.01] transition items-center justify-center">
-                    View Certificate&nbsp;
+                    View Document&nbsp;
                     <Launch />
                   </div>
                 ) : null}
