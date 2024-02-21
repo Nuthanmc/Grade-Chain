@@ -144,7 +144,7 @@ const Hero = () => {
                   <button
                     className="btn btn-primary hover:scale-105 transition"
                     onClick={() =>
-                      (window.location.href = "/validate-certificate")
+                      (window.location.href = "/validate-document")
                     }
                   >
                     Validate Certificates
