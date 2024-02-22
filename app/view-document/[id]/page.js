@@ -416,7 +416,7 @@ const ViewDocument = () => {
               align:"center"
             })
           );
-
+          doc.save(`${certificates[1]}-marksheet.pdf`);
           const output = doc.output("dataurlstring");
           // Set the worker source for PDF.js library
           setLoading(false);

@@ -11,7 +11,7 @@ function ActivityDetector({ onInactive }) {
     const checkActivity = () => {
       const currentTime = Date.now();
       const inactiveTime = currentTime - lastActivityTimeRef.current;
-      if (inactiveTime > 1 * 60 * 1000) {
+      if (inactiveTime > 10 * 60 * 1000) {
         onInactive();
       }
     };

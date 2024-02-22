@@ -25,7 +25,6 @@ const CertificatesCounter = () => {
   const [certificateCount, setCertificateCount] = useState(0);
   const [certificateLength, setCertificateLength] = useState(0);
 
-  useEffect(() => {}, []);
   useEffect(() => {
     const timer = setTimeout(() => {
       const provider = new ethers.providers.WebSocketProvider(
