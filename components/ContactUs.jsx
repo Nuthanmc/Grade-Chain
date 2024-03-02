@@ -101,10 +101,10 @@ const ContactUs = () => {
                 </div>
               </div>
               <div className="flex items-center space-x-4 ml-5 text-xl my-6 ">
-                <a href="https://www.instagram.com/certiblockweb3/">
+                <a href="https://www.instagram.com/certiblockweb3/" target = "_blank">
                   <Instagram fontSize="large" />
                 </a>
-                <a href="https://twitter.com/BlockCerti42283">
+                <a href="https://twitter.com/BlockCerti42283" target="_blank">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="36"
