@@ -297,7 +297,7 @@ const ViewDocument = () => {
           const doc = new jsPDF("p", "px", "a4");
 
           doc.addImage(
-            "/marksheet-template/1-final.png",
+            "/marksheet-template/marksheet-1.png",
             "PNG",
             0,
             0,
@@ -337,37 +337,57 @@ const ViewDocument = () => {
 
           const watermarkText = "CertiBlock";
           const watermarkPositions = [
-            { x: 0.2, y: 0.2, angle: 45 },
-            { x: 0.5, y: 0.2, angle: 45 },
-            { x: 0.2, y: 0.5, angle: 45 },
-            { x: 0.9, y: 0.9, angle: 45 },
-            { x: 0.2, y: 0.9, angle: 45 },
-            { x: 0.5, y: 0.9, angle: 45 },
-            { x: 0.9, y: 0.2, angle: 45 },
-            { x: 0.9, y: 0.5, angle: 45 },
+            { x: 0.25, y: 0.25, angle: 45 },
+            { x: 0.5, y: 0.25, angle: 45 },
+            { x: 0.25, y: 0.5, angle: 45 },
+            { x: 0.75, y: 0.75, angle: 45 },
+            { x: 0.25, y: 0.75, angle: 45 },
+            { x: 0.5, y: 0.75, angle: 45 },
+            { x: 0.75, y: 0.25, angle: 45 },
+            { x: 0.75, y: 0.5, angle: 45 },
             { x: 0.5, y: 0.5, angle: 45 },
+            { x: 0.25, y: 0.75, angle: 45 },
+            { x: 0.5, y: 0.75, angle: 45 },
+            { x: 0.75, y: 0.75, angle: 45 },
           ];
           addWatermark(doc, watermarkText, watermarkPositions);
 
           doc.setFontSize(20);
           doc.setFont(undefined, "bold");
           doc.setTextColor(148, 26, 26);
-          doc.text(certificates[3], doc.internal.pageSize.width / 2, 30, {
+          // institution name
+          doc.text(certificates[3], doc.internal.pageSize.width / 2, 45, {
             align: "center",
           });
 
           doc.setFontSize(12);
           doc.setTextColor(0, 0, 0);
 
-          // institution name
-          doc.text(certificates[5], 162, 79);
+          doc.text(
+            "STATEMENT OF MARKS/GRADES FOR: " + certificates[5],
+            45,
+            79
+          );
           // name
-          doc.text(certificates[1] + " " + certificates[2], 122, 105);
+          doc.text("STUDENT'S FULL NAME: "+certificates[1] + " " + certificates[2], 45, 105);
 
           // date
-          doc.text(certificates[6], 115, doc.internal.pageSize.height - 37.5);
+          doc.text("Marksheet Issued On:"+certificates[6], 45, doc.internal.pageSize.height - 47.5);
           // id
-          doc.text(certificates[0], 83, doc.internal.pageSize.height - 25);
+          doc.text("Marksheet ID: "+certificates[0], 45, doc.internal.pageSize.height - 35);
+
+          // please verify
+          doc.text(
+            "To verify the marksheet,",
+            doc.internal.pageSize.width - 134,
+            doc.internal.pageSize.height - 55
+          );
+
+          doc.text(
+            "please scan the QR code",
+            doc.internal.pageSize.width - 134,
+            doc.internal.pageSize.height - 45
+          );
 
           // QR Code
           await QRCode.toDataURL(
@@ -396,27 +416,26 @@ const ViewDocument = () => {
           const marks = certificates[8];
 
           doc.setFontSize(12);
-          doc.text("S.No", 20, 130);
+          doc.text("S.No", 45, 130);
 
-          doc.text("Subject", 55, 130);
+          doc.text("Subject", 70, 130);
 
-          doc.text("Marks", doc.internal.pageSize.width - 30, 130, {
+          doc.text("Marks", doc.internal.pageSize.width - 50, 130, {
             align:"center"
           });
 
           doc.setFont(undefined, "normal");
           subjects?.map((subject, index) =>
-            doc.text((index + 1).toString(), 20, 150 + index * 20)
+            doc.text((index + 1).toString(), 45, 150 + index * 20)
           );
           subjects?.map((subject, index) =>
-            doc.text(subject, 55, 150 + index * 20)
+            doc.text(subject, 70, 150 + index * 20)
           );
           marks?.map((mark, index) =>
-            doc.text(mark.toString(), doc.internal.pageSize.width - 30, 150 + index * 20, {
+            doc.text(mark.toString(), doc.internal.pageSize.width - 50, 150 + index * 20, {
               align:"center"
             })
           );
-          doc.save(`${certificates[1]}-marksheet.pdf`);
           const output = doc.output("dataurlstring");
           // Set the worker source for PDF.js library
           setLoading(false);
