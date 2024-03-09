@@ -8,7 +8,7 @@ import { TablePagination } from "@mui/material";
 import { ethers } from "ethers";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import ActivityDetector from "./ActivityDetector";
 
 const InstituteHero = ({ institute, courses }) => {
@@ -44,7 +44,9 @@ const InstituteHero = ({ institute, courses }) => {
   };
 
   const emptyRowsMark =
-    pageMark > 0 ? Math.max(0, (1 + page) * rowsPerPageMark - marksheets.length) : 0;
+    pageMark > 0
+      ? Math.max(0, (1 + page) * rowsPerPageMark - marksheets.length)
+      : 0;
 
   const handlePageChangeMark = (event, newPage) => {
     setPageMark(newPage);
@@ -92,7 +94,7 @@ const InstituteHero = ({ institute, courses }) => {
           let certificatesArr = [];
           let marksheetsArr = [];
           certificates.forEach((certificate) => {
-            if(certificate.subjects?.length === 0) {
+            if (certificate.subjects?.length === 0) {
               certificatesArr.push({
                 recipientName:
                   certificate.first_name + " " + certificate.last_name,
@@ -209,11 +211,13 @@ const InstituteHero = ({ institute, courses }) => {
 
   return (
     <div className="h-screen flex flex-col m-4">
-      <ActivityDetector onInactive={() => {
-        toast.error("You have been inactive for 10 minutes. Logging out...");
-        sessionStorage.removeItem("address");
-        window.location.href = "/";
-      }} />
+      <ActivityDetector
+        onInactive={() => {
+          toast.error("You have been inactive for 10 minutes. Logging out...");
+          sessionStorage.removeItem("address");
+          window.location.href = "/";
+        }}
+      />
       <div className="flex-col lg:flex lg:flex-row items-center justify-between border rounded-lg border-gray-700 p-2">
         <h3 className="ml-3 h-fit flex flex-row items-center justify-start text-[14px] md:text-sm text-ellipsis lg:text-lg">
           {institute.name !== undefined ? (
@@ -728,96 +732,97 @@ const InstituteHero = ({ institute, courses }) => {
               ))}
             </select>
           </div>
-
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Add Subjects & Marks</span>
-              <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Enter Subject Name"
-              name="subject_name"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-              required
-              id="subject_name"
-              className="input input-bordered input-primary w-full max-w-2xl"
-            />
-            <input
-              type="text"
-              placeholder="Enter Marks for Subject"
-              id="marks"
-              name="marks"
-              value={mark}
-              onChange={(e) => setMark(e.target.value)}
-              required
-              className="input input-bordered input-primary mt-2 w-full max-w-2xl"
-            />
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                setSubjects((prevData) => [...prevData, subject]);
-                setMarks((prevData) => [...prevData, mark]);
-                setSubject("");
-                setMark(0);
-              }}
-              className="btn btn-primary m-4 w-52"
-              disabled={subject === "" || mark === 0}
-            >
-              Add Subject & Marks
-            </button>
-            {subjects.length > 0 ? (
-              <>
-                <h3 className="text-lg">Added Subjects</h3>
-                <table className="table border-0">
-                  <thead>
-                    <tr className="text-center text-md md:text-lg">
-                      <th>Sr. No.</th>
-                      <th>Subjects</th>
-                      <th>Marks</th>
-                      <th>Remove</th>
+          {institute.type === "Educational Institute" && (
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Add Subjects & Marks</span>
+                <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Subject Name"
+                name="subject_name"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                required
+                id="subject_name"
+                className="input input-bordered input-primary w-full max-w-2xl"
+              />
+              <input
+                type="text"
+                placeholder="Enter Marks for Subject"
+                id="marks"
+                name="marks"
+                value={mark}
+                onChange={(e) => setMark(e.target.value)}
+                required
+                className="input input-bordered input-primary mt-2 w-full max-w-2xl"
+              />
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSubjects((prevData) => [...prevData, subject]);
+                  setMarks((prevData) => [...prevData, mark]);
+                  setSubject("");
+                  setMark(0);
+                }}
+                className="btn btn-primary m-4 w-52"
+                disabled={subject === "" || mark === 0}
+              >
+                Add Subject & Marks
+              </button>
+            </div>
+          )}
+          {subjects.length > 0 ? (
+            <>
+              <h3 className="text-lg">Added Subjects</h3>
+              <table className="table border-0">
+                <thead>
+                  <tr className="text-center text-md md:text-lg">
+                    <th>Sr. No.</th>
+                    <th>Subjects</th>
+                    <th>Marks</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {subjects.map((s, index) => (
+                    <tr className="text-center" key={index + 1}>
+                      <td className="dark:text-white text-white text-md sm:text-xl">
+                        {index + 1}
+                      </td>
+                      <td
+                        key={index}
+                        className="dark:text-white text-black text-sm sm:text-xl"
+                      >
+                        {s}
+                      </td>
+                      <td
+                        key={index}
+                        className="dark:text-white text-black text-sm sm:text-xl"
+                      >
+                        {marks[index]}
+                      </td>
+                      <td>
+                        <CloseOutlined
+                          onClick={() => {
+                            setSubjects((prevData) =>
+                              prevData.filter((item) => item !== s)
+                            );
+                            setMarks((prevData) =>
+                              prevData.filter((item) => item !== marks[index])
+                            );
+                            console.log(subjects, marks);
+                          }}
+                          className="hover:text-white text-gray-400"
+                        />
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {subjects.map((s, index) => (
-                      <tr className="text-center" key={index + 1}>
-                        <td className="dark:text-white text-white text-md sm:text-xl">
-                          {index + 1}
-                        </td>
-                        <td
-                          key={index}
-                          className="dark:text-white text-black text-sm sm:text-xl"
-                        >
-                          {s}
-                        </td>
-                        <td
-                          key={index}
-                          className="dark:text-white text-black text-sm sm:text-xl"
-                        >
-                          {marks[index]}
-                        </td>
-                        <td>
-                          <CloseOutlined
-                            onClick={() => {
-                              setSubjects((prevData) =>
-                                prevData.filter((item) => item !== s)
-                              );
-                              setMarks((prevData) =>
-                                prevData.filter((item) => item !== marks[index])
-                              );
-                              console.log(subjects, marks);
-                            }}
-                            className="hover:text-white text-gray-400"
-                          />
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </>
-            ) : null}
-          </div>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          ) : null}
 
           <div className="form-control">
             <label htmlFor="creation_date" className="label">
