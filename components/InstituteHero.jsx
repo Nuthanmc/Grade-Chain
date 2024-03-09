@@ -732,7 +732,7 @@ const InstituteHero = ({ institute, courses }) => {
               ))}
             </select>
           </div>
-          {institute.type === "Educational Institute" && (
+          {institute.institute_type === "Educational Institute" && (
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Add Subjects & Marks</span>
