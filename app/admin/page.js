@@ -151,7 +151,8 @@ const CreateInstitutes = () => {
         description: formData.description,
         website_url: formData.website_url,
         courses: formData.courses,
-        pin: "1234"
+        pin: "1234",
+        institute_type: formData.institute_type
       }).then(() => {
         toast.success("Institute Created Successfully");
         setCreateLoading(false);
