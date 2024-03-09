@@ -475,179 +475,180 @@ const InstituteHero = ({ institute, courses }) => {
           </tfoot>
         </table>
       </div>
-
-      <div className="overflow-x-auto lg:overflow-hidden mt-3 border rounded border-gray-700">
-        <table className="table m-2">
-          <caption className="text-left text-2xl text-gray-900 dark:text-slate-200">
-            Issued Marksheets
-          </caption>
-          <thead className="text-center">
-            <tr>
-              <th className="text-lg">Sr. No.</th>
-              <th className="text-lg">Marksheet ID</th>
-              <th className="text-lg">Reciever Name</th>
-              <th className="text-lg">Course Name</th>
-              <th className="text-lg">View Marksheet</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {!loadingCertificates ? (
-              search !== "" ? (
-                marksheets
-                  .filter((item) =>
-                    item.recipientName
-                      ?.toLowerCase()
-                      .includes(search.toLowerCase())
-                  )
-                  .map((marksheet, index) => (
-                    <tr key={marksheet.certificateId + index}>
-                      <td className="text-lg">{index + 1}</td>
-                      <td className="text-sm lg:text-lg">
-                        {marksheet.certificateId}
-                        <button
-                          className="btn btn-ghost ml-2"
-                          onClick={() => {
-                            navigator.clipboard.writeText(
-                              marksheet.certificateId
-                            );
-                            toast.success("Copied to clipboard");
-                          }}
-                        >
-                          <ContentCopyOutlined />
-                        </button>
-                      </td>
-                      <td className="text-lg">{marksheet.recipientName}</td>
-                      <td className="text-lg">
-                        {marksheet.course === "" ? "N/A" : marksheet.course}
-                      </td>
-                      <td className="text-lg">
-                        <Link
-                          className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
-                          target="_blank"
-                          referrerPolicy="no-referrer"
-                          href={`/view-document/${marksheet.certificateId}`}
-                        >
-                          View Marksheet&nbsp;&nbsp;
-                          <Launch />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))
-              ) : marksheets.length >= 1 ? (
-                (rowsPerPageMark > 0
-                  ? marksheets.slice(
-                      pageMark * rowsPerPageMark,
-                      pageMark * rowsPerPageMark + rowsPerPageMark
+      {institute.institute_type === "Educational Institute" && (
+        <div className="overflow-x-auto lg:overflow-hidden mt-3 border rounded border-gray-700">
+          <table className="table m-2">
+            <caption className="text-left text-2xl text-gray-900 dark:text-slate-200">
+              Issued Marksheets
+            </caption>
+            <thead className="text-center">
+              <tr>
+                <th className="text-lg">Sr. No.</th>
+                <th className="text-lg">Marksheet ID</th>
+                <th className="text-lg">Reciever Name</th>
+                <th className="text-lg">Course Name</th>
+                <th className="text-lg">View Marksheet</th>
+              </tr>
+            </thead>
+            <tbody className="text-center">
+              {!loadingCertificates ? (
+                search !== "" ? (
+                  marksheets
+                    .filter((item) =>
+                      item.recipientName
+                        ?.toLowerCase()
+                        .includes(search.toLowerCase())
                     )
-                  : marksheets
-                )
-                  .filter((item) =>
-                    item.recipientName
-                      ?.toLowerCase()
-                      .includes(search.toLowerCase())
+                    .map((marksheet, index) => (
+                      <tr key={marksheet.certificateId + index}>
+                        <td className="text-lg">{index + 1}</td>
+                        <td className="text-sm lg:text-lg">
+                          {marksheet.certificateId}
+                          <button
+                            className="btn btn-ghost ml-2"
+                            onClick={() => {
+                              navigator.clipboard.writeText(
+                                marksheet.certificateId
+                              );
+                              toast.success("Copied to clipboard");
+                            }}
+                          >
+                            <ContentCopyOutlined />
+                          </button>
+                        </td>
+                        <td className="text-lg">{marksheet.recipientName}</td>
+                        <td className="text-lg">
+                          {marksheet.course === "" ? "N/A" : marksheet.course}
+                        </td>
+                        <td className="text-lg">
+                          <Link
+                            className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
+                            target="_blank"
+                            referrerPolicy="no-referrer"
+                            href={`/view-document/${marksheet.certificateId}`}
+                          >
+                            View Marksheet&nbsp;&nbsp;
+                            <Launch />
+                          </Link>
+                        </td>
+                      </tr>
+                    ))
+                ) : marksheets.length >= 1 ? (
+                  (rowsPerPageMark > 0
+                    ? marksheets.slice(
+                        pageMark * rowsPerPageMark,
+                        pageMark * rowsPerPageMark + rowsPerPageMark
+                      )
+                    : marksheets
                   )
-                  .map((marksheet, index) => (
-                    <tr key={marksheet.certificateId + index}>
-                      <td className="text-sm lg:text-lg">{index + 1}</td>
-                      <td className="text-sm lg:text-lg">
-                        {marksheet.certificateId}
-                        <button
-                          className="btn btn-ghost ml-2"
-                          onClick={() => {
-                            navigator.clipboard.writeText(
-                              marksheet.certificateId
-                            );
-                            toast.success("Copied to clipboard");
-                          }}
-                        >
-                          <ContentCopyOutlined />
-                        </button>
-                      </td>
-                      <td className="text-lg">{marksheet.recipientName}</td>
-                      <td className="text-lg">
-                        {marksheet.course === "" ? "N/A" : marksheet.course}
-                      </td>
-                      <td className="text-lg">
-                        <Link
-                          className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
-                          target="_blank"
-                          referrerPolicy="no-referrer"
-                          href={`/view-document/${marksheet.certificateId}`}
-                        >
-                          View Marksheet&nbsp;&nbsp;
-                          <Launch />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))
+                    .filter((item) =>
+                      item.recipientName
+                        ?.toLowerCase()
+                        .includes(search.toLowerCase())
+                    )
+                    .map((marksheet, index) => (
+                      <tr key={marksheet.certificateId + index}>
+                        <td className="text-sm lg:text-lg">{index + 1}</td>
+                        <td className="text-sm lg:text-lg">
+                          {marksheet.certificateId}
+                          <button
+                            className="btn btn-ghost ml-2"
+                            onClick={() => {
+                              navigator.clipboard.writeText(
+                                marksheet.certificateId
+                              );
+                              toast.success("Copied to clipboard");
+                            }}
+                          >
+                            <ContentCopyOutlined />
+                          </button>
+                        </td>
+                        <td className="text-lg">{marksheet.recipientName}</td>
+                        <td className="text-lg">
+                          {marksheet.course === "" ? "N/A" : marksheet.course}
+                        </td>
+                        <td className="text-lg">
+                          <Link
+                            className="btn btn-ghost hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 transition"
+                            target="_blank"
+                            referrerPolicy="no-referrer"
+                            href={`/view-document/${marksheet.certificateId}`}
+                          >
+                            View Marksheet&nbsp;&nbsp;
+                            <Launch />
+                          </Link>
+                        </td>
+                      </tr>
+                    ))
+                ) : (
+                  <tr>
+                    <td className="text-md" colSpan={5}>
+                      No Marksheets found.
+                    </td>
+                  </tr>
+                )
               ) : (
                 <tr>
-                  <td className="text-md" colSpan={5}>
-                    No Marksheets found.
+                  <td
+                    role="status"
+                    className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+                    colSpan={5}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                        <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                      </div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                    </div>
+                    <div className="flex items-center justify-between pt-4">
+                      <div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                        <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                      </div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                    </div>
+                    <div className="flex items-center justify-between pt-4">
+                      <div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                        <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                      </div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                    </div>
+                    <div className="flex items-center justify-between pt-4">
+                      <div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
+                        <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                      </div>
+                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
+                    </div>
                   </td>
                 </tr>
-              )
-            ) : (
+              )}
+              {emptyRowsMark > 0 && (
+                <tr style={{ height: 53 * emptyRowsMark }}>
+                  <td colSpan={5} />
+                </tr>
+              )}
+            </tbody>
+            <tfoot className="border-0">
               <tr>
-                <td
-                  role="status"
-                  className=" p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 15, { label: "All", value: -1 }]}
                   colSpan={5}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                  </div>
-                  <div className="flex items-center justify-between pt-4">
-                    <div>
-                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                  </div>
-                  <div className="flex items-center justify-between pt-4">
-                    <div>
-                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                  </div>
-                  <div className="flex items-center justify-between pt-4">
-                    <div>
-                      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full mb-2.5"></div>
-                      <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </div>
-                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-full"></div>
-                  </div>
-                </td>
+                  count={marksheets.length}
+                  page={pageMark}
+                  rowsPerPage={rowsPerPageMark}
+                  onPageChange={handlePageChangeMark}
+                  onRowsPerPageChange={handleChangeRowsPerPageMark}
+                  sx={{ textAlign: "center", marginRight: "2% !important" }}
+                  className="border-0"
+                />
               </tr>
-            )}
-            {emptyRowsMark > 0 && (
-              <tr style={{ height: 53 * emptyRowsMark }}>
-                <td colSpan={5} />
-              </tr>
-            )}
-          </tbody>
-          <tfoot className="border-0">
-            <tr>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 15, { label: "All", value: -1 }]}
-                colSpan={5}
-                count={marksheets.length}
-                page={pageMark}
-                rowsPerPage={rowsPerPageMark}
-                onPageChange={handlePageChangeMark}
-                onRowsPerPageChange={handleChangeRowsPerPageMark}
-                sx={{ textAlign: "center", marginRight: "2% !important" }}
-                className="border-0"
-              />
-            </tr>
-          </tfoot>
-        </table>
-      </div>
+            </tfoot>
+          </table>
+        </div>
+      )}
 
       {/* Issue Certificate Modal */}
       <dialog id="issue_certificates_modal" className="modal">
