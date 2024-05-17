@@ -242,7 +242,7 @@ const CreateInstitutes = () => {
           <div className="overflow-x-auto">
             <h3 className="text-md sm:text-xl dark:text-white text-gray-900 capitalize p-3 flex items-center">
               All Institutes{" "}
-              <div className="badge-primary p-2 ml-3 rounded-lg w-fit">
+              <div className="badge-primary p-1 ml-3 rounded-md cursor-default hover:ring-2 w-fit">
                 {institutes.length}
               </div>
             </h3>
@@ -422,8 +422,8 @@ const CreateInstitutes = () => {
               <option disabled selected>
                 Select a type
               </option>
-              <option>Educational Institute</option>
-              <option>Corporate Institute</option>
+              <option value={"Educational Institute"}>Educational Institute</option>
+              <option value={"Corporate Institute"}>Corporate Institute</option>
             </select>
           </div>
           <div className="form-control">
