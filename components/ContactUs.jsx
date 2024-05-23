@@ -68,7 +68,10 @@ const ContactUs = () => {
       id="contactus"
       variants={textVariant(0.5)}
     >
-      <div className="flex sm:w-screen lg:w-screen items-center justify-center rounded-md p-4 m-5">
+      <div
+        data-testid="contact-us"
+        className="flex sm:w-screen lg:w-screen items-center justify-center rounded-md p-4 m-5"
+      >
         <div className="flex w-max bg-gray-400 dark:bg-gray-900/80 p-4 rounded-md justify-center items-center">
           <div className="flex flex-col space-y-6 w—full max-w-screen p—8 rounded—xl shadow—lg text-white md:flex-row md:space-x-6 md:space-y">
             <div className="flex flex-col justify-center w-full">
@@ -101,7 +104,10 @@ const ContactUs = () => {
                 </div>
               </div>
               <div className="flex items-center space-x-4 ml-5 text-xl my-6 ">
-                <a href="https://www.instagram.com/certiblockweb3/" target = "_blank">
+                <a
+                  href="https://www.instagram.com/certiblockweb3/"
+                  target="_blank"
+                >
                   <Instagram fontSize="large" />
                 </a>
                 <a href="https://twitter.com/BlockCerti42283" target="_blank">

@@ -101,7 +101,7 @@ const Hero = () => {
 
   return (
     <>
-      <div className="hero sm:mb-28 mb-0 md:min-h-[92vh]">
+      <div className="hero sm:mb-28 mb-0 md:min-h-[92vh]" data-testid="hero">
         <div className="hero-content text-center flex-col m-4 text-neutral-content">
           <div className="flex-col">
             <motion.div
@@ -177,7 +177,10 @@ const Hero = () => {
             <motion.div
               variants={counterVariants(1.5)}
               initial="hidden"
-              whileHover={{ scale: 1.1, transition: {duration: 0.5, ease: "easeInOut"}}}
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.5, ease: "easeInOut" },
+              }}
               className=" mt-8 border rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#444] hover:text-black text-center dark:hover:text-white transition-all duration-300 ease-in-out"
               whileInView="show"
             >
@@ -190,7 +193,10 @@ const Hero = () => {
           </div>
           <div className="mt-[600px] lg:mt-[500px] flex-col lg:flex-row justify-center cursor-default">
             <motion.div
-              whileHover={{ scale: 1.1, transition: {duration: 0.5, ease: "easeInOut"}}}
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.5, ease: "easeInOut" },
+              }}
               variants={counterVariants(1.5)}
               initial="hidden"
               className=" mt-8 border text-center rounded-lg p-3 hover:bg-[#dbdbdb] dark:hover:bg-[#444] hover:text-black dark:hover:text-white transition-all duration-100 ease-in-out"
@@ -203,7 +209,11 @@ const Hero = () => {
       </div>
 
       {/* Login Modal */}
-      <dialog id="login_modal" className="modal backdrop-blur">
+      <dialog
+        id="login_modal"
+        className="modal backdrop-blur"
+        data-testid="login_modal"
+      >
         <div className="modal-box">
           <h3 className="font-bold text-lg">
             Login to your Metamask Wallet Account
@@ -239,7 +249,7 @@ const Hero = () => {
       </dialog>
 
       {/* OTP Modal */}
-      <dialog id="otp_modal" className="modal">
+      <dialog id="otp_modal" className="modal" data-testid="otp_modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Enter PIN</h3>
           <div className="flex items-center justify-center flex-col space-y-3">
