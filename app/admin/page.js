@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import {toast} from "sonner";
 import { CloseOutlined } from "@mui/icons-material";
 import { FaGear } from "react-icons/fa6";
 import {

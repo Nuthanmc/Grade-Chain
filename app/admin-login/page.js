@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
-import toast from "react-hot-toast";
+import {toast} from "sonner";;
 
 const variants = {
   initial: { opacity: 0, x: -50 },

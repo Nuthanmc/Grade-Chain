@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import React from "react";
 import { motion } from "framer-motion";
 import Institutes from "@/artifacts/contracts/Institutes.sol/Institutes.json";
-import toast from "react-hot-toast";
+import {toast} from "sonner";;
 import { contractAddress } from "@/constants";
 
 const Login = () => {

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import InstituteHero from "@/components/InstituteHero";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "@/config/firebase";
-import toast from "react-hot-toast";
+import {toast} from "sonner";;
 
 
 const InstitutesPage = () => {

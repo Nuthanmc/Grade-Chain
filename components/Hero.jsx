@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import styles from "@/styles";
 import { counterVariants, staggerContainer, textVariant } from "@/utils/motion";
-import toast from "react-hot-toast";
+import {toast} from "sonner";;
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import db from "@/config/firebase";
 import InstitutesCounter from "./InstitutesCounter";

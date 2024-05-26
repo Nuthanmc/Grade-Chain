@@ -8,7 +8,7 @@ import { TablePagination } from "@mui/material";
 import { ethers } from "ethers";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 import ActivityDetector from "./ActivityDetector";
 
 const InstituteHero = ({ institute, courses }) => {

@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import db from "@/config/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { textVariant } from "@/utils/motion";
 
 const ContactUs = () => {
@@ -19,7 +19,6 @@ const ContactUs = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

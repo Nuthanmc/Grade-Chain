@@ -6,7 +6,7 @@ import { ethers } from "ethers";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import {toast} from "sonner";;
 
 const ValidateCertificates = () => {
   const [id, setId] = useState("");
