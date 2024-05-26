@@ -46,3 +46,8 @@ cache
 
 # VSCODE
 .vscode
+
+/jest.config.js
+/.babelrc
+
+/tests
