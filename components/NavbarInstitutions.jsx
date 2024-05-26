@@ -1,4 +1,4 @@
-import { CloseOutlined, RadioButtonChecked } from "@mui/icons-material";
+import { CloseOutlined } from "@mui/icons-material";
 import React from "react";
 import { FaGear } from "react-icons/fa6";
 
@@ -364,20 +364,20 @@ const NavbarInstitutions = ({
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Institute Address</span>
+                <span className="label-text">Institute Description</span>
               </label>
               <input
                 type="text"
-                placeholder="Enter Institute Address"
-                name="institute_address"
+                placeholder="Enter Institute Description"
+                name="institute_description"
                 required
                 onChange={(e) =>
                   setEditInstitute({
                     ...editInstitute,
-                    address: e.target.value,
+                    description: e.target.value,
                   })
                 }
-                value={editInstitute.address}
+                value={editInstitute.description}
                 id="institute_address"
                 className="input input-bordered input-primary w-full max-w-2xl"
               />
