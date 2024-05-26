@@ -31,6 +31,7 @@
     "react-icons": "^4.12.0",
     "react-magic-motion": "^1.0.9",
     "resend": "^2.1.0",
+    "sonner": "^1.4.41",
     "utf-8-validate": "^5.0.10",
     "web3.storage": "^4.5.5"
   },

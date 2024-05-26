@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
@@ -18,7 +18,11 @@ export default function RootLayout({ children }) {
       <head>
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Italianno&display=swap"
           rel="stylesheet"
@@ -37,10 +41,11 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Toaster
+          closeButton
           position="bottom-center"
-          toastOptions={{
-            duration: 3000,
-          }}
+          richColors
+          theme="system"
+          toastOptions={{ closeButton: true, duration: 3000 }}
         />
         {children}
         <Analytics />

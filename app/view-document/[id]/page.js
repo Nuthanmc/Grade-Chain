@@ -363,18 +363,26 @@ const ViewDocument = () => {
           doc.setFontSize(12);
           doc.setTextColor(0, 0, 0);
 
-          doc.text(
-            "STATEMENT OF MARKS/GRADES FOR: " + certificates[5],
-            45,
-            79
-          );
+          doc.text("STATEMENT OF MARKS/GRADES FOR: " + certificates[5], 45, 79);
           // name
-          doc.text("STUDENT'S FULL NAME: "+certificates[1] + " " + certificates[2], 45, 105);
+          doc.text(
+            "STUDENT'S FULL NAME: " + certificates[1] + " " + certificates[2],
+            45,
+            105
+          );
 
           // date
-          doc.text("Marksheet Issued On:"+certificates[6], 45, doc.internal.pageSize.height - 47.5);
+          doc.text(
+            "Marksheet Issued On:" + certificates[6],
+            45,
+            doc.internal.pageSize.height - 47.5
+          );
           // id
-          doc.text("Marksheet ID: "+certificates[0], 45, doc.internal.pageSize.height - 35);
+          doc.text(
+            "Marksheet ID: " + certificates[0],
+            45,
+            doc.internal.pageSize.height - 35
+          );
 
           // please verify
           doc.text(
@@ -421,7 +429,7 @@ const ViewDocument = () => {
           doc.text("Subject", 70, 130);
 
           doc.text("Marks", doc.internal.pageSize.width - 50, 130, {
-            align:"center"
+            align: "center",
           });
 
           doc.setFont(undefined, "normal");
@@ -432,9 +440,14 @@ const ViewDocument = () => {
             doc.text(subject, 70, 150 + index * 20)
           );
           marks?.map((mark, index) =>
-            doc.text(mark.toString(), doc.internal.pageSize.width - 50, 150 + index * 20, {
-              align:"center"
-            })
+            doc.text(
+              mark.toString(),
+              doc.internal.pageSize.width - 50,
+              150 + index * 20,
+              {
+                align: "center",
+              }
+            )
           );
           const output = doc.output("dataurlstring");
           // Set the worker source for PDF.js library
@@ -472,6 +485,23 @@ const ViewDocument = () => {
     fetchData();
   }, [id]);
 
+  const downloadPDF = () => {
+    const canvas = document.getElementById("certificate");
+    const image = canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    const doc = new jsPDF("l", "px", "a4");
+    doc.addImage(
+      image,
+      "PNG",
+      0,
+      0,
+      doc.internal.pageSize.width,
+      doc.internal.pageSize.height
+    );
+    doc.save("certificate.pdf");
+  };
+
   return (
     <div
       onContextMenu={(e) => {
@@ -482,7 +512,15 @@ const ViewDocument = () => {
     >
       {!loading ? (
         <>
-          <canvas id="certificate"></canvas>
+          <div className="h-screen flex items-center gap-3 flex-col justify-center">
+            <canvas id="certificate"></canvas>
+            <button
+              className="btn btn-outline w-1/2"
+              onClick={() => downloadPDF()}
+            >
+              Download
+            </button>
+          </div>
         </>
       ) : (
         <div className="h-screen flex items-center justify-center">
@@ -492,18 +530,6 @@ const ViewDocument = () => {
           </p>
         </div>
       )}
-      {/* <Link
-        href="//www.dmca.com/Protection/Status.aspx?ID=14657be4-398f-4914-93be-279de6886c84"
-        title="DMCA.com Protection Status"
-        target="_blank"
-        className="dmca-badge absolute bottom-0 right-0"
-      >
-        <img
-          src="https://images.dmca.com/Badges/dmca-badge-w150-2x1-04.png?ID=14657be4-398f-4914-93be-279de6886c84"
-          alt="DMCA.com Protection Status"
-        />
-      </Link>
-      <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script> */}
     </div>
   );
 };
