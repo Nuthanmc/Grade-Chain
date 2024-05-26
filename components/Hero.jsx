@@ -259,7 +259,7 @@ const Hero = () => {
                   key={index}
                   ref={refs[index]} // Assign the ref to the input field
                   id={`otp-${index}`}
-                  type="text"
+                  type="password"
                   maxLength="1"
                   className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl focus:outline-none focus:border-blue-500"
                   value={digit}

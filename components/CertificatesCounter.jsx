@@ -55,7 +55,7 @@ const CertificatesCounter = () => {
     <>
       <div className="flex-row lg:flex-col items-center justify-center">
         <span className="text-lg lg:text-4xl w-full lg:w-1/2 font-bold text-center">
-          Certificates Issued
+          Documents Issued
         </span>
         <h3 className="text-lg lg:text-3xl">{certificateCount}</h3>
       </div>
