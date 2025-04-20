@@ -82,7 +82,7 @@ const ContactUs = () => {
               <div className="flex flex-col ml-5 space-y-6 mt-6 ">
                 <div className="inline-flex space-x-4 items-center">
                   <LocalPhoneOutlined />
-                  <Link href="tel:+918698793479">+918698793479</Link>
+                  <Link href="tel:+919353671680">+919353671680</Link>
                 </div>
                 <div className="inline-flex space-x-4 items-center">
                   <MailOutlineOutlined />
@@ -92,24 +92,24 @@ const ContactUs = () => {
                       "mailto:info.certi-block@gmail.com?subject=Inquiry%20About%20Certi-Block&body=Hello, I would like to inquire about Certi-Block."
                     }
                   >
-                    info.certi-block@gmail.com
+                    nuthanmc4@gmail.com
                   </Link>
                 </div>
                 <div className="inline-flex space-x-4 items-center">
                   <LocationOnOutlined />
-                  <Link href={"https://maps.app.goo.gl/c4sL2xau9PYCUzd67"}>
-                    Pune
+                  <Link href={"https://www.google.com/maps/place/Karnataka/@15.0208409,73.6793006,7z/data=!4m15!1m8!3m7!1s0x3ba35a4c37bf488f:0x41f1d28cd1757cd5!2sKarnataka!3b1!8m2!3d15.3172775!4d75.7138884!16zL20vMDQ5bHI!3m5!1s0x3ba35a4c37bf488f:0x41f1d28cd1757cd5!8m2!3d15.3172775!4d75.7138884!16zL20vMDQ5bHI?entry=ttu&g_ep=EgoyMDI1MDQxNC4xIKXMDSoASAFQAw%3D%3D"}>
+                    Karnataka
                   </Link>
                 </div>
               </div>
               <div className="flex items-center space-x-4 ml-5 text-xl my-6 ">
                 <a
-                  href="https://www.instagram.com/certiblockweb3/"
+                  href="https://www.instagram.com/nuthan_m_c._?igsh=Nm5jdzNwZXFnc3Nx"
                   target="_blank"
                 >
                   <Instagram fontSize="large" />
                 </a>
-                <a href="https://twitter.com/BlockCerti42283" target="_blank">
+                <a href="https://x.com/NuthanMC294271?t=-QfCkbsSACuo3br7mIqASg&s=09" target="_blank">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="36"

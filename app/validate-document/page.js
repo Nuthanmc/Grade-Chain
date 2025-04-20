@@ -22,7 +22,7 @@ const ValidateCertificates = () => {
         "wss://sepolia.infura.io/ws/v3/0aa8c89265604a2684abddfb063e3b42"
       );
       console.log(provider);
-      // const predefinedPrivateKey = "03b5d010cf2b3497720807f99ae858448812e83e61099845b52217648380fcef";
+      // const predefinedPrivateKey = "eefc28a882ad980f6a69d204c9b0ccbd9467342722b94a9cdd282d6811584df9";
 
       // Create a signer using the predefined private key
       const signer = provider.getSigner();
@@ -71,7 +71,7 @@ const ValidateCertificates = () => {
       {/* NAVBAR */}
       <nav className="navbar navbar-expand-lg flex items-center justify-between navbar-light bg-light">
         <button className="text-lg navbar-brand btn-ghost btn">
-          CERTI-BLOCK
+         GRADE-CHAIN
         </button>
         <div className="flex gap-2">
           <Link href={"/"} className="btn btn-outline btn-primary">

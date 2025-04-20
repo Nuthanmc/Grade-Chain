@@ -47,12 +47,12 @@ const AboutUs = () => {
           <h2 className="font-extrabold text-[18px] lg:text-[24px] flex items-center justify-center lg:leading-[30px] ">
             <Image
               src={imageName}
-              width={48}
-              height={48}
+              width={88}
+              height={78}
               alt="Certi-Block Logo"
-              className="w-[48px] h-[48px] object-contain hidden lg:flex"
+              className="w-[88px] h-[78px] object-contain hidden lg:flex"
             />
-            &nbsp;CERTI-BLOCK
+            &nbsp;GRADE-CHAIN
           </h2>
           <div className="flex gap-3 items-center justify-center">
             <button
@@ -105,12 +105,12 @@ const AboutUs = () => {
           <div class="flex flex-wrap">
             <div class="w-full flex items-center px-4 mb-10 lg:w-1/2 lg:mb-0">
               <Image
-                // src="https://i.postimg.cc/j5L5bX2d/pexels-andrea-piacquadio-3757946.jpg"
-                src="/certi-block-hi-res.jpg"
+               
+                src="/certi-block-black.png"
                 width={0}
                 height={0}
                 sizes="40vw"
-                alt="Certi-Block Logo"
+                alt="certi-block-black.png"
                 style={{ width: "60%", height: "auto" }} // optional
                 class="relative z-40 object-cover w-full h-96"
               />
@@ -155,9 +155,9 @@ const AboutUs = () => {
                   </span>
                   <Link
                     className="dark:hover:text-white hover:"
-                    href={"https://www.linkedin.com/in/mukundpatel753/"}
+                    href={"https://www.linkedin.com/in/nuthan-m-c-700169257/"}
                   >
-                    Mukund Chamriya
+                    Nuthan M
                   </Link>
                 </li>
                 <li class="flex items-center mb-4 text-base">
@@ -176,10 +176,10 @@ const AboutUs = () => {
                   <Link
                     className="dark:hover:text-white hover:"
                     href={
-                      "https://www.linkedin.com/in/mayur-limbhore-9448b121a/"
+                      "https://www.linkedin.com/in/nuthan-m-c-700169257/"
                     }
                   >
-                    Mayur Limbhore
+                    Nuthan M C
                   </Link>
                 </li>
                 <li class="flex items-center mb-4 text-base">
@@ -199,7 +199,7 @@ const AboutUs = () => {
                     className="dark:hover:text-white hover:"
                     href={"https://www.linkedin.com/in/mrudul-patel-57039b21a/"}
                   >
-                    Mrudul Patel
+                    --------------
                   </Link>
                 </li>
                 <li class="flex items-center mb-4 text-base">
@@ -221,7 +221,7 @@ const AboutUs = () => {
                       "https://www.linkedin.com/in/madhura-patil-7a903a1a5/"
                     }
                   >
-                    Madhura Patil
+                  ---------------
                   </Link>
                 </li>
               </ul>

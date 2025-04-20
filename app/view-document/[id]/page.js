@@ -91,7 +91,7 @@ const ViewDocument = () => {
             }
           }
 
-          const watermarkText = "CertiBlock";
+          const watermarkText = "Grade-Chain";
           const watermarkPositions = [
             { x: 0.2, y: 0.2, angle: 45 },
             { x: 0.5, y: 0.2, angle: 45 },
@@ -103,7 +103,7 @@ const ViewDocument = () => {
             { x: 0.9, y: 0.5, angle: 45 },
             { x: 0.5, y: 0.5, angle: 45 },
           ];
-          addWatermark(doc, watermarkText, watermarkPositions);
+           addWatermark(doc, watermarkText, watermarkPositions);
 
           // add Italianno Font
           if (
@@ -335,7 +335,7 @@ const ViewDocument = () => {
             }
           }
 
-          const watermarkText = "CertiBlock";
+          const watermarkText = "Grade-Chain";
           const watermarkPositions = [
             { x: 0.25, y: 0.25, angle: 45 },
             { x: 0.5, y: 0.25, angle: 45 },
@@ -350,7 +350,7 @@ const ViewDocument = () => {
             { x: 0.5, y: 0.75, angle: 45 },
             { x: 0.75, y: 0.75, angle: 45 },
           ];
-          addWatermark(doc, watermarkText, watermarkPositions);
+          // addWatermark(doc, watermarkText, watermarkPositions);
 
           doc.setFontSize(20);
           doc.setFont(undefined, "bold");

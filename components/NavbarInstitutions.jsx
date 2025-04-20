@@ -18,7 +18,7 @@ const NavbarInstitutions = ({
     <>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">Certi-Block</a>
+          <a className="btn btn-ghost normal-case text-xl">Grade-Chain</a>
         </div>
         <div className="flex-none gap-3 hidden lg:flex">
           <button

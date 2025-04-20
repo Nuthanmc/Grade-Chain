@@ -17,7 +17,7 @@ const AdminLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email === "info.certi-block@gmail.com" && password === "AdMiN@12*34") {
+    if (email === "nuthanmc1@gmail.com" && password === "Admin@12309") {
       window.location.href = "/admin";
       sessionStorage.setItem("address", email);
     } else {

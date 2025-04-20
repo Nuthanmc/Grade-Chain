@@ -43,7 +43,7 @@ const CreateInstitutes = () => {
     if (!window.ethereum) {
       toast.error("Please install metamask to continue");
     }
-    if (sessionStorage.getItem("address") !== "info.certi-block@gmail.com") {
+    if (sessionStorage.getItem("address") !== "nuthanmc1@gmail.com") {
       window.location.href = "/";
     }
   }, []);

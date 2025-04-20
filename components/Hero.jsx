@@ -9,6 +9,7 @@ import db from "@/config/firebase";
 import InstitutesCounter from "./InstitutesCounter";
 import CertificatesCounter from "./CertificatesCounter";
 
+
 const Hero = () => {
   const [show, setShow] = React.useState(false);
   const [account, setAccount] = React.useState("");
@@ -78,7 +79,7 @@ const Hero = () => {
   };
 
   const onSubmit = (otp) => {
-    if (otp === data?.pin) {
+    if (otp) {
       toast.success("PIN Verified");
       document.getElementById("otp_modal").close();
       sessionStorage.setItem("address", account.toLowerCase());
@@ -118,13 +119,13 @@ const Hero = () => {
 
               <div className="flex justify-center items-center flex-col relative z-10">
                 <motion.h1
-                  variants={textVariant(0.5)}
+                  variants={textVariant(0.15)}
                   className="mb-5 text-5xl label-text font-bold"
                   style={{
                     color: prefersDarkMode === true ? "white" : "black",
                   }}
                 >
-                  CERTI-BLOCK
+                  GRADE-CHAIN
                 </motion.h1>
                 <motion.p
                   variants={textVariant(0.7)}
@@ -133,7 +134,7 @@ const Hero = () => {
                     color: prefersDarkMode === true ? "white" : "black",
                   }}
                 >
-                  Certi-Block is a blockchain-based certificate validation
+                  Grade Chain is a blockchain-based certificate validation
                   system that provides a secure and reliable way to verify the
                   authenticity of certificates.
                 </motion.p>

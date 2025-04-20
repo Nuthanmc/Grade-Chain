@@ -2,9 +2,12 @@
 
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
+import Features from "@/components/Features";
+import HowitWorks from "@/components/HowitWorks";
+import CertificatesCounter from "@/components/CertificatesCounter";
+import InstitutesCounter from "@/components/InstitutesCounter";
 import ContactUs from "@/components/ContactUs";
-import InstitutesAndCertificates from "@/components/InstitutesCounter";
+import Footer from "@/components/Footer";
 
 
 export default function Home() {
@@ -12,6 +15,8 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
+      <Features />
+      <HowitWorks />
       <ContactUs />
       <Footer />
     </>

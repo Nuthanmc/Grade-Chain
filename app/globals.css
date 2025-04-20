@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .logoContainer {
   position: relative;
   overflow: hidden;
@@ -197,4 +198,13 @@ body {
   .MuiTablePagination-displayedRows {
     color: black !important;
   }
+}
+/* In globals.css */
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("/fonts/MyCustomFont.woff2") format("woff2");
+}
+
+.font-grade {
+  font-family: "MyCustomFont", sans-serif;
 }

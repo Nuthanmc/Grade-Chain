@@ -22,19 +22,20 @@ const Footer = () => {
         <div className="flex flex-col">
           <div className={`my-14 h-[2px] bg-white opacity-10`} />
           <div className="flex items-center justify-between flex-col mb-4 text-center md:flex-row gap-4">
+            
             {/* <h4 className="font-extrabold text-[24px] text-gray-900 dark:text-white"> */}
             <h4 className="font-extrabold text-[24px] label-text">
-              CERTI-BLOCK
+              GRADE-CHAIN
             </h4>
             <Link href={"/admin-login"}>Admin Login</Link>
             <p className="font-normal text-[12px] text-center md:text-[14px] label-text opacity-50">
               Copyright © {new Date().getFullYear()} -{" "}
-              {new Date().getFullYear() + 1} Certi-Block. All rights reserved.
+              {new Date().getFullYear() + 1} Garde-Chain. All rights reserved.
             </p>
 
             <div className="flex gap-1">
-              Made with <span className="text-[#FF0000]">&nbsp;❤&nbsp;</span>by
-              TEAM LEO
+              Made with <span className="text-[#FF0000]">&nbsp;❤&nbsp;</span>
+               
             </div>
           </div>
         </div>
