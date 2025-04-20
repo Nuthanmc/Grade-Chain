@@ -8,21 +8,18 @@ import CertificatesCounter from "@/components/CertificatesCounter";
 import InstitutesCounter from "@/components/InstitutesCounter";
 import ContactUs from "@/components/ContactUs";
 import Footer from "@/components/Footer";
-import { Suspense } from 'react';
 
 
 
 export default function Home() {
   return (
     <>
-    <Suspense>
       <Navbar />
       <Hero />
       <Features />
       <HowitWorks />
       <ContactUs />
       <Footer />
-      </Suspense>
     </>
   );
 }

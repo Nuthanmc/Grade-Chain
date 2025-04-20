@@ -4,6 +4,8 @@ import { Toaster } from "sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
+import { Suspense } from 'react';
+
 
 export const metadata = {
   title: "Certi-Block",
@@ -40,6 +42,7 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body>
+ <Suspense>
         <Toaster
           closeButton
           position="bottom-center"
@@ -50,6 +53,7 @@ export default function RootLayout({ children }) {
         {children}
         <Analytics />
         <SpeedInsights />
+        </Suspense>
       </body>
       {/* Google Tag Manager */}
       <GoogleTagManager gtmId="GTM-KF9C5VCT" />
