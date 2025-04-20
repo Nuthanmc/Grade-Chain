@@ -117,10 +117,10 @@ const AboutUs = () => {
             </div>
             <div class="w-full px-4 mb-10 lg:w-1/2 lg:mb-0">
               <h2 class="py-3 pl-2 mb-4 text-2xl font-bold border-l-4 border-blue-500 dark:border-blue-400 ">
-                Welcome to Certi-Block!
+                Welcome to Grade-Chain!
               </h2>
               <p class="mb-4 text-base leading-7">
-                At Certi-Block, we envision a future where the certification
+                At Grade-Chain, we envision a future where the certification
                 process is simplified, accessible, and tamper-proof. We believe
                 in the potential of blockchain technology to revolutionize the
                 way certifications are managed and verified.
@@ -131,7 +131,7 @@ const AboutUs = () => {
               </h2>
               <p class="mb-4 text-base leading-7">
                 Our mission is to make certification processes secure,
-                transparent, and efficient. Certi-Block strives to empower
+                transparent, and efficient. Grade-Chain strives to empower
                 individuals and organizations by leveraging the power of
                 blockchain to verify and authenticate certifications.
               </p>
@@ -197,7 +197,7 @@ const AboutUs = () => {
                   </span>
                   <Link
                     className="dark:hover:text-white hover:"
-                    href={"https://www.linkedin.com/in/mrudul-patel-57039b21a/"}
+                    href={""}
                   >
                     --------------
                   </Link>
@@ -218,7 +218,7 @@ const AboutUs = () => {
                   <Link
                     className="dark:hover:text-white hover:"
                     href={
-                      "https://www.linkedin.com/in/madhura-patil-7a903a1a5/"
+                      ""
                     }
                   >
                   ---------------
