@@ -8,7 +8,7 @@ import { Suspense } from 'react';
 
 
 export const metadata = {
-  title: "Certi-Block",
+  title: "Grade-Chain",
   description: "A blockchain based certificate verification system",
   viewport:
     "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",

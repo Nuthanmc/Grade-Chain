@@ -194,7 +194,7 @@ const ViewDocument = () => {
           );
           // QR Code
           await QRCode.toDataURL(
-            "https://certi-block-web3.vercel.app/validate-document?id=" + id,
+            "https://grade-chain.vercel.app/validate-document?id=" + id,
             {
               width: 200,
               height: 200,
