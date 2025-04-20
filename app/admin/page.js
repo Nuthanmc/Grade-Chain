@@ -179,7 +179,7 @@ const CreateInstitutes = () => {
       {/* Navbar */}
       <div className="navbar flex bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">Certi-Block</a>
+          <a className="btn btn-ghost normal-case text-xl">Grade-Chain</a>
         </div>
         <div className="hidden lg:flex">
           <div className="space-x-4">
