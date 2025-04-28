@@ -148,7 +148,7 @@ const Hero = () => {
                       (window.location.href = "/validate-document")
                     }
                   >
-                    Validate Certificates
+                    Verify Credentials 
                   </button>
                   <br />
                   <p
